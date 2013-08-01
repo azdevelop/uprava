@@ -18,10 +18,14 @@ class PostType extends AbstractType
             ->add('name')
             ->add('title')
             ->add('userId')
+            
+             ->add('content','ckeditor', 
+                    array(
+                        'config_name' => 'cms_config',
+                        'config' => array('filebrowserBrowseUrl'=>'/app_dev.php/elfinder')))
             ->add('createdDate')
             ->add('modifiedDate')
-            ->add('content')
-            ->add('status')
+             ->add('status')
             ->add('postType');
     }
 

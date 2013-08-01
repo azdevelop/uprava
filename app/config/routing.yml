@@ -1,18 +1,18 @@
 article:
     resource: "@ArticleBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /admin/
 
 page:
     resource: "@PageBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /admin/
 
 yoda_nav_menu:
     resource: "@NavMenuBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /admin/
 
 event:
     resource: "@EventBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /admin/
 
 user_routes:
     resource: "@UserBundle/Controller"

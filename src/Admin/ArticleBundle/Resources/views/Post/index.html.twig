@@ -1,6 +1,6 @@
-{% extends '::base.html.twig' %}
+{% extends '::admin.html.twig' %}
 
-{% block body -%}
+{% block content -%}
     <h1>Post list</h1>
 
     <table class="records_list">
@@ -12,7 +12,6 @@
                 <th>Userid</th>
                 <th>Createddate</th>
                 <th>Modifieddate</th>
-                <th>Content</th>
                 <th>Status</th>
                 <th>Posttype</th>
                 <th>Actions</th>
@@ -27,7 +26,6 @@
                 <td>{{ entity.userId }}</td>
                 <td>{% if entity.createdDate %}{{ entity.createdDate|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>{% if entity.modifiedDate %}{{ entity.modifiedDate|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{{ entity.content }}</td>
                 <td>{{ entity.status }}</td>
                 <td>{{ entity.postType }}</td>
                 <td>
