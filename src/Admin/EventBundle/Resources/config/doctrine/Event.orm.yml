@@ -1,0 +1,24 @@
+Admin\EventBundle\Entity\Event:
+    type: entity
+    table: null
+    repositoryClass: Admin\EventBundle\Entity\EventRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        name:
+            type: string
+            length: 255
+        imageName:
+            type: string
+            length: 255
+        time:
+            type: datetime
+        location:
+            type: string
+            length: 255
+        details:
+            type: text
+    lifecycleCallbacks: {  }

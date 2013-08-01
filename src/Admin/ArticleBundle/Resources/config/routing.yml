@@ -1,0 +1,3 @@
+ArticleBundle_post:
+        resource: "@ArticleBundle/Resources/config/routing/post.yml"
+        prefix:   /post

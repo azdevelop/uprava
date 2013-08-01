@@ -1,0 +1,30 @@
+navmenu:
+    pattern:  /
+    defaults: { _controller: "NavMenuBundle:NavMenu:index" }
+
+navmenu_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "NavMenuBundle:NavMenu:show" }
+
+navmenu_new:
+    pattern:  /new
+    defaults: { _controller: "NavMenuBundle:NavMenu:new" }
+
+navmenu_create:
+    pattern:  /create
+    defaults: { _controller: "NavMenuBundle:NavMenu:create" }
+    requirements: { _method: post }
+
+navmenu_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "NavMenuBundle:NavMenu:edit" }
+
+navmenu_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "NavMenuBundle:NavMenu:update" }
+    requirements: { _method: post|put }
+
+navmenu_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "NavMenuBundle:NavMenu:delete" }
+    requirements: { _method: post|delete }

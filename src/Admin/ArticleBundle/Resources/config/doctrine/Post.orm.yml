@@ -1,0 +1,35 @@
+Admin\ArticleBundle\Entity\Post:
+    type: entity
+    table: null
+    repositoryClass: Admin\ArticleBundle\Entity\PostRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        name:
+            type: string
+            length: 255
+        title:
+            type: string
+            length: 255
+        userId:
+            type: integer
+            column: user_id
+        createdDate:
+            type: datetime
+            column: created_date
+        modifiedDate:
+            type: datetime
+            column: modified_date
+        content:
+            type: text
+        status:
+            type: string
+            length: '25'
+        postType:
+            type: string
+            length: '25'
+            column: post_type
+    lifecycleCallbacks: {  }

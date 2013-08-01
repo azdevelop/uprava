@@ -1,0 +1,3 @@
+NavMenuBundle_navmenu:
+    resource: "@NavMenuBundle/Resources/config/routing/navmenu.yml"
+    prefix:   /navmenu

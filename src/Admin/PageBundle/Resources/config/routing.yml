@@ -1,0 +1,3 @@
+PageBundle_page:
+  resource: "@PageBundle/Resources/config/routing/page.yml"
+  prefix:   /page

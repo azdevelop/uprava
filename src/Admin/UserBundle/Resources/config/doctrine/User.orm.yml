@@ -1,0 +1,30 @@
+Admin\UserBundle\Entity\User:
+    type: entity
+    table: null
+    repositoryClass: Admin\UserBundle\Entity\UserRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        username:
+            type: string
+            length: 255
+        password:
+            type: string
+            length: 255
+        salt:
+            type: string
+            length: 255
+        roles:
+            type: array
+            length: 255   
+        isActive:
+            type: string
+            length: 255   
+        email:
+            type: string
+            length: 255     
+            
+    lifecycleCallbacks: {  }
