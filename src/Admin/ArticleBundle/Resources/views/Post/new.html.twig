@@ -6,15 +6,12 @@
     <form action="{{ path('post_create') }}" method="post" {{ form_enctype(form) }}>
         {{ form_widget(form) }}
         <p>
-            <button type="submit">{% trans %}save{% endtrans %}</button>
+            <button type="submit" class="btn btn-info pull-right">{% trans %}save{% endtrans %}</button>
         </p>
     </form>
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('post') }}">
+    
+        <a href="{{ path('post') }}" class="btn btn-inverse pull-left">
            {% trans %}Back to the list{% endtrans %}
         </a>
-    </li>
-</ul>
 {% endblock %}

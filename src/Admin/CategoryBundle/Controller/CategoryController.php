@@ -4,7 +4,6 @@ namespace Admin\CategoryBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
 use Admin\CategoryBundle\Entity\Category;
 use Admin\CategoryBundle\Form\CategoryType;
 
@@ -22,7 +21,7 @@ class CategoryController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-
+        
         $entities = $em->getRepository('CategoryBundle:Category')->findAll();
 
         return $this->render('CategoryBundle:Category:index.html.twig', array(

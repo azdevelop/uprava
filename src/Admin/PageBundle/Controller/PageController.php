@@ -71,7 +71,7 @@ class PageController extends Controller
         foreach($pages as $p) {
             $pagesForm[$p->getId()] = $p->getTitle();
         }
-//var_dump($pagesForm); die();
+
         $form   = $this->createForm(new PageType(), $entity);
 
 
@@ -111,7 +111,7 @@ class PageController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('PageBundle:Page')->find($id);
-
+        
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Page entity.');
         }

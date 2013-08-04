@@ -7,13 +7,13 @@
         <input type="hidden" name="_method" value="PUT" />
         {{ form_widget(edit_form) }}
         <p>
-            <button type="submit">{% trans %}save{% endtrans %}</button>
+            <button type="submit" class="btn btn-info pull-right">{% trans %}save{% endtrans %}</button>
         </p>
     </form>
 
-        <ul class="record_actions">
+   <ul class="record_actions inline unstyled">
     <li>
-        <a href="{{ path('post') }}">
+        <a href="{{ path('post') }}" class="btn btn-inverse">
             {% trans %}Back to the list{% endtrans %}
         </a>
     </li>
@@ -21,7 +21,7 @@
         <form action="{{ path('post_delete', { 'id': entity.id }) }}" method="post">
             <input type="hidden" name="_method" value="DELETE" />
             {{ form_widget(delete_form) }}
-            <button type="submit">{% trans %}delete{% endtrans %}</button>
+            <button type="submit" class="btn btn-danger">{% trans %}delete{% endtrans %}</button>
         </form>
     </li>
 </ul>

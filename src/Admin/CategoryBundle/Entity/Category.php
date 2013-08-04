@@ -29,10 +29,7 @@ class Category
      */
     private $description;
 
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $children;
+    
 
     /**
      * @var \Admin\CategoryBundle\Entity\Category
@@ -44,7 +41,7 @@ class Category
      */
     public function __construct()
     {
-        $this->children = new \Doctrine\Common\Collections\ArrayCollection();
+        
     }
     
     public function __toString(){
@@ -131,39 +128,9 @@ class Category
         return $this->description;
     }
 
-    /**
-     * Add children
-     *
-     * @param \Admin\CategoryBundle\Entity\Category $children
-     * @return Category
-     */
-    public function addChildren(\Admin\CategoryBundle\Entity\Category $children)
-    {
-        $this->children[] = $children;
     
-        return $this;
-    }
 
-    /**
-     * Remove children
-     *
-     * @param \Admin\CategoryBundle\Entity\Category $children
-     */
-    public function removeChildren(\Admin\CategoryBundle\Entity\Category $children)
-    {
-        $this->children->removeElement($children);
-    }
-
-    /**
-     * Get children
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getChildren()
-    {
-        return $this->children;
-    }
-
+    
     /**
      * Set parentId
      *

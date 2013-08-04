@@ -20,10 +20,6 @@ Admin\CategoryBundle\Entity\Category:
     manyToOne:
       parentId:
         targetEntity: Category
-    oneToMany:
-      children:
-        targetEntity: Category
-        mappedBy: parent
-            
+  
         
     lifecycleCallbacks: {  }

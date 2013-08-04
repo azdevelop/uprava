@@ -23,8 +23,12 @@ class PostController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
+      
         $entities = $em->getRepository('ArticleBundle:Post')->findAll();
-
+        
+        //echo '<pre>';
+        //\Doctrine\Common\Util\Debug::dump($entities);
+        //echo '</pre>';
         return $this->render('ArticleBundle:Post:index.html.twig', array(
             'entities' => $entities,
         ));
@@ -38,7 +42,7 @@ class PostController extends Controller
         $entity  = new Post();
         $form = $this->createForm(new PostType(), $entity);
         $form->submit($request);
-
+       
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
