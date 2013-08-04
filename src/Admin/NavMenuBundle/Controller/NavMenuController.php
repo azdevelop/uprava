@@ -7,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Admin\NavMenuBundle\Entity\NavMenu;
 use Admin\NavMenuBundle\Form\NavMenuType;
-use Admin\NavMenuBundle\Helpers\Tree;
+use Admin\NavMenuBundle\Helpers\Tree\Navigation\AdminNavigationTree;
 
 /**
  * NavMenu controller.
@@ -15,6 +15,8 @@ use Admin\NavMenuBundle\Helpers\Tree;
  */
 class NavMenuController extends Controller
 {
+
+
 
     /**
      * Lists all NavMenu entities.
@@ -24,10 +26,10 @@ class NavMenuController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         
-        $entities = $em->getRepository('NavMenuBundle:NavMenu')->findAll();
+        $entities = $em->getRepository('NavMenuBundle:NavMenu')->findAllNMenu();
         
-        $tree = new Tree();
-        $navTree = $tree->createMenu($entities);
+        $tree = new AdminNavigationTree();
+        $navTree = $tree->createTree($entities);
 
         return $this->render('NavMenuBundle:NavMenu:index.html.twig', array(
             'entities' => $entities, 'navTree' => $navTree
@@ -187,4 +189,36 @@ class NavMenuController extends Controller
             ->getForm()
         ;
     }
+
+
+    public function arangeAction(Request $request)
+    {
+
+        $navTree = $request->request->get('nav_tree');
+
+        $tree = new AdminNavigationTree();
+
+        $nav = $tree->treeToArray( $navTree );
+
+        $em = $this->getDoctrine()->getManager();
+
+        $i = 0;
+
+        foreach( $nav as $n ){
+
+            $entity = $em->getRepository('NavMenuBundle:NavMenu')->find($n['id']);
+            $entity->setParentId( $n['parentId'] );
+            $entity->setSort( $i );
+            $em->persist($entity);
+            $em->flush();
+
+            $i++;
+
+        }
+
+        return true;
+    }
+
+
+
 }

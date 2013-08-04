@@ -22,14 +22,27 @@ class NavMenuRepository extends EntityRepository
         ;
     }
     
-    
+
+    public function updateParent(){
+
+        $qb = $this->createQueryBuilder('u');
+        $q = $qb->update()
+            ->set(u.sort, 0)
+            ->where('u.id = 2')
+            ->getQuery();
+        $p = $q->execute();
+        return true;
+    }
+
+
+
     public function getTree( array $elements ) {
       
         return $this->_buildTree($elements);
         
     }
-    
-    
+
+
     private function _buildTree( array $elements, $parentId = 0 ){
         
         $branch = array();

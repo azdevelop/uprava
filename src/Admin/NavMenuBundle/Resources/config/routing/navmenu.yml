@@ -28,3 +28,7 @@ navmenu_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "NavMenuBundle:NavMenu:delete" }
     requirements: { _method: post|delete }
+
+navmenu_arange:
+    pattern:  /arange
+    defaults: { _controller: "NavMenuBundle:NavMenu:arange" }

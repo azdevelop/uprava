@@ -18,7 +18,7 @@ class NavMenuType extends AbstractType
             ->add('url')
             ->add('pageId', 'text', array('required' => false))
             ->add('name')
-            ->add('parentId', 'text', array('required' => false))         
+            ->add('parentId', 'hidden', array('required' => false))
             ->add('sort');
     }
 
