@@ -20,3 +20,7 @@ user_routes:
     
 elfinder:
      resource: "@FMElfinderBundle/Resources/config/routing.yml"
+
+category:
+        resource: "@CategoryBundle/Resources/config/routing.yml"
+        prefix:   /admin/

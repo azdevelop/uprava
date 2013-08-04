@@ -1,0 +1,29 @@
+Admin\CategoryBundle\Entity\Category:
+    type: entity
+    table: category
+    repositoryClass: Admin\CategoryBundle\Entity\CategoryRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        name:
+            type: string
+            length: 255
+        title:
+            type: string
+            length: 255
+        description:
+            type: text
+            nullable: TRUE
+    manyToOne:
+      parentId:
+        targetEntity: Category
+    oneToMany:
+      children:
+        targetEntity: Category
+        mappedBy: parent
+            
+        
+    lifecycleCallbacks: {  }

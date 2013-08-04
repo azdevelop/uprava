@@ -15,7 +15,8 @@ framework:
     templating:
         engines: ['twig']
         #assets_version: SomeVersionScheme
-    default_locale:  "%locale%"
+    translator:    { fallback: en }
+    default_locale:  "sr"
     trusted_proxies: ~
     session:         ~
     fragments:       ~
@@ -30,7 +31,7 @@ twig:
 assetic:
     debug:          %kernel.debug%
     use_controller: false
-    bundles:        [EventBundle, FMElfinderBundle]
+    bundles:        [EventBundle, FMElfinderBundle, NavMenuBundle]
     java: /usr/bin/java
     filters:
         cssrewrite: ~
@@ -156,3 +157,12 @@ ivory_ck_editor:
             toolbar:                [ ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat'],['Styles','Format','Font','FontSize' ], ['TextColor','BGColor' ],'/',['Link', 'Image', 'Table','Templates','Anchor','Smiley','Preview'], [ 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo' ] ,[ 'Find','Replace','-','SelectAll','-','SpellChecker', 'Scayt' ],'/',['NumberedList','BulletedList','-','Outdent','Indent','-','Blockquote','CreateDiv','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','-','BidiLtr','BidiRtl'],['Source']]
             filebrowserUploadRoute: "elfinder"
             filebrowserUploadUrl:  "elfinder"
+
+stof_doctrine_extensions:
+    default_locale: en_US
+    orm:
+      default: 
+        sluggable: true
+        timestampable: true
+
+

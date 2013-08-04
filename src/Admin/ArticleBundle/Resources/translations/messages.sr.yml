@@ -1,0 +1,20 @@
+## YAML Template.
+---
+
+Content: Sadržaj
+new post: novi članak
+edit post: uredi članak
+Post: Članak
+Edit: Uredi
+New: Novi
+Name: Naziv
+Title: Naslov
+Post type: Tip Članka
+Category: Kategorija
+Categories: Kategorije
+save: sačuvaj
+Back to the list: Povratak na listu
+delete: obriši
+Draft: Nacrt
+Published: Objavljeno
+News: Vest

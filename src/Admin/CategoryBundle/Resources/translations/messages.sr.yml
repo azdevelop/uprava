@@ -1,0 +1,21 @@
+## YAML Template.
+---
+
+Edit: Uredi
+Create: Dodaj
+New: Novi
+Name: Naziv
+Description: Opis
+Title: Naslov
+Category: Kategorija
+New Category: Nova Kategorija
+Category edit: Uredi kategoriju
+Category list: Lista kategorija
+Actions: Akcije
+Categories: Kategorije
+Parent: Roditelj 
+save: sačuvaj
+Back to the list: Povratak na listu
+delete: obriši
+show: prikaži
+edit: uredi

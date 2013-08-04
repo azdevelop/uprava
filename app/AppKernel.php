@@ -23,7 +23,10 @@ class AppKernel extends Kernel
             new Admin\ArticleBundle\ArticleBundle(),
             new Stfalcon\Bundle\TinymceBundle\StfalconTinymceBundle(),
             new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
-            new FM\ElfinderBundle\FMElfinderBundle()
+            new FM\ElfinderBundle\FMElfinderBundle(),
+            new Admin\CategoryBundle\CategoryBundle(),
+            new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle()
+
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

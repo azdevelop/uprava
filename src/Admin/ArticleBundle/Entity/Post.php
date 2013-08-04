@@ -1,60 +1,108 @@
 <?php
 
 namespace Admin\ArticleBundle\Entity;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+
 
 /**
- * Post
+ * @ORM\Table(name="post")
+ * @ORM\Entity(repositoryClass="Admin\ArticleBundle\Entity\PostRepository")
  */
 class Post
 {
     /**
-     * @var integer
+     * @var integer $id
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
-    /**
-     * @var string
+   /**
+     * @var string $name
+     * @Gedmo\Slug(fields={"title"}, separator="-", unique=true)
+     * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
 
     /**
-     * @var string
+     * @var string $title
+     *
+     * @ORM\Column(name="title", type="string", length=255)
      */
     private $title;
 
     /**
      * @var integer
+     * 
+     * @ORM\Column(name="user_id", type="string", length=255)
      */
     private $userId;
 
     /**
      * @var \DateTime
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime")
      */
     private $createdDate;
 
     /**
      * @var \DateTime
+     * @Gedmo\Timestampable
+     * @ORM\Column(type="datetime")
      */
     private $modifiedDate;
 
     /**
-     * @var string
+     * @var string $content
+     *
+     * @ORM\Column(name="content", type="text", nullable=true)
      */
     private $content;
 
     /**
-     * @var string
+     * @var string $status
+     *
+     * @ORM\Column(name="status", type="string", length=255)
      */
     private $status;
 
     /**
-     * @var string
+     * @var string $postType
+     *
+     * @ORM\Column(name="post_type", type="string", length=255)
      */
     private $postType;
 
+    /**
+     * @var \Doctrine\Common\Collections\ArrayCollection $categories
+     * @ORM\ManyToMany(targetEntity="\Admin\CategoryBundle\Entity\Category", cascade={"persist", "detach"})
+     * @ORM\JoinTable(
+     *       joinColumns={@ORM\JoinColumn(name="post_id", referencedColumnName="id")},
+     *       inverseJoinColumns={@ORM\JoinColumn(name="category_id", referencedColumnName="id")}
+     * )
+     */
+    protected $categories;
+    
+    public function __construct(){
+        $this->categories = new ArrayCollection();
+    }
 
+    
+    public function getCategories() {
+        return $this->categories;
+    }
+
+    public function setCategories(\Doctrine\Common\Collections\ArrayCollection $categories) {
+        $this->categories = $categories;
+        return $this;
+    }
+
+    
     /**
      * Get id
      *
@@ -247,5 +295,51 @@ class Post
     public function getPostType()
     {
         return $this->postType;
+    }
+
+    /**
+     * Add category
+     *
+     * @param \Admin\CategoryBundle\Entity\Category $category
+     * @return Post
+     */
+    public function addCategory(\Admin\CategoryBundle\Entity\Category $category)
+    {
+        $this->categories[] = $category;
+    
+        return $this;
+    }
+
+    /**
+     * Remove category
+     *
+     * @param \Admin\CategoryBundle\Entity\Category $category
+     */
+    public function removeCategory(\Admin\CategoryBundle\Entity\Category $category)
+    {
+        $this->categories->removeElement($category);
+    }
+
+    /**
+     * Add categories
+     *
+     * @param \Admin\CategoryBundle\Entity\Category $categories
+     * @return Post
+     */
+    public function addCategorie(\Admin\CategoryBundle\Entity\Category $categories)
+    {
+        $this->categories[] = $categories;
+    
+        return $this;
+    }
+
+    /**
+     * Remove categories
+     *
+     * @param \Admin\CategoryBundle\Entity\Category $categories
+     */
+    public function removeCategorie(\Admin\CategoryBundle\Entity\Category $categories)
+    {
+        $this->categories->removeElement($categories);
     }
 }

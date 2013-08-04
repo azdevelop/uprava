@@ -1,17 +1,22 @@
 {% extends '::base.html.twig' %}
  
 {% block title 'Admin' %}
+
 {% block stylesheets %}
-  {% stylesheets '@bootstrap_less' combine=true %}
+    {% stylesheets '@bootstrap_less' combine=true %}
     <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
- {% endstylesheets %}
+    {% endstylesheets %}
 {% endblock %}
+
+{% block javascripts %}
+
+  {% javascripts '@jquery_js' '@bootstrap_js' 'bundles/navmenu/js/*' filter='?yui_js' combine=true %}
+     <script src="{{ asset_url }}"></script>
+  {% endjavascripts %}
+
+{% endblock %}
+
 {% block body %}
     {% block navigation %}navigation menu admin{% endblock %}
     <div class="container">{% block content %}{% endblock %}</div>
-{% endblock %}
-{% block javascripts %}
-  {% javascripts '@jquery_js' '@bootstrap_js' filter='?yui_js' combine=true %}
-     <script src="{{ asset_url }}"></script>
-  {% endjavascripts %}
 {% endblock %}

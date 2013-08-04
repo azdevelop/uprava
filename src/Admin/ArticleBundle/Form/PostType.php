@@ -15,18 +15,16 @@ class PostType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
             ->add('title')
+            //->add('name', null, array('required'=>false))
             ->add('userId')
-            
-             ->add('content','ckeditor', 
+            ->add('content','ckeditor', 
                     array(
                         'config_name' => 'cms_config',
                         'config' => array('filebrowserBrowseUrl'=>'/app_dev.php/elfinder')))
-            ->add('createdDate')
-            ->add('modifiedDate')
-             ->add('status')
-            ->add('postType');
+            ->add('status','choice', array('choices'=>array('publish'=>'Published', 'draft'=>'Draft')))
+            ->add('postType','choice', array('choices'=>array('news'=>'News', 'blog'=>'Blog')))
+            ->add('categories', null, array('required'=>false));
     }
 
     /**
