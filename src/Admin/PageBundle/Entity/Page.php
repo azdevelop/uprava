@@ -2,65 +2,93 @@
 
 namespace Admin\PageBundle\Entity;
 
+use Gedmo\Mapping\Annotation as Gedmo;
+
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Page
+ * @ORM\Table(name="Page")
+ * @ORM\Entity(repositoryClass="Admin\PageBundle\Entity\PageRepository")
  */
 class Page
 {
     /**
-     * @var integer
+     * @var integer $id
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
     /**
-     * @var string
+     * @var string $name
+     * @Gedmo\Slug(fields={"title"}, separator="-", unique=true)
+     * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
 
     /**
-     * @var string
+     * @var string $title
+     *
+     * @ORM\Column(name="title", type="string", length=255)
      */
     private $title;
 
     /**
      * @var integer
+     *
+     * @ORM\Column(name="user_id", type="string", length=255)
      */
     private $userId;
 
     /**
      * @var \DateTime
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime")
      */
     private $createdDate;
 
     /**
      * @var \DateTime
+     * @Gedmo\Timestampable
+     * @ORM\Column(type="datetime")
      */
     private $modifiedDate;
 
+
     /**
-     * @var string
+     * @var string $content
+     *
+     * @ORM\Column(name="content", type="text", nullable=true)
      */
     private $content;
 
     /**
-     * @var integer
+     * @var string $status
+     *
+     * @ORM\Column(name="status", type="string", length=255)
      */
     private $status;
 
     /**
      * @var integer
+     *
+     * @ORM\Column(name="parent_id", type="string", length=255)
      */
     private $parentId;
 
     /**
-     * @var string
+     * @var string $guid
+     *
+     * @ORM\Column(name="guid", type="string", length=255)
      */
     private $guid;
 
     /**
-     * @var string
+     * @var string $pageType
+     *
+     * @ORM\Column(name="page_type", type="string", length=255)
      */
     private $pageType;
 

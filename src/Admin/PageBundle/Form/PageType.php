@@ -15,7 +15,6 @@ class PageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
             ->add('title')
             ->add('userId', 'text')
            // ->add('content',null, array('required'=>false,'attr'=>array('class'=>'tinymce', 'data-theme'=>'advanced')))
@@ -24,13 +23,11 @@ class PageType extends AbstractType
                         'config_name' => 'cms_config',
                         'config' => array('filebrowserBrowseUrl'=>'/app_dev.php/elfinder')))
             ->add('status')
-            ->add('createdDate')
-            ->add('modifiedDate')
             ->add('parentId', 'choice', array(
                 'choices'   => array('1' => 'vest', '2' => 'ekonomija')
             ))
             ->add('guid')
-            ->add('pageType');
+            ->add('pageType','choice', array('choices'=>array('news'=>'News', 'blog'=>'Blog')));
     }
 
     /**
