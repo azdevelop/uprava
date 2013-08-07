@@ -1,10 +1,31 @@
-{% extends '::base.html.twig' %}
-
-{% block body -%}
+{% extends 'NavMenuBundle::layout.html.twig' %}
+{% block content -%}
     <h1>NavMenu edit</h1>
 
     <form action="{{ path('navmenu_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
         <input type="hidden" name="_method" value="PUT" />
+
+        <dl>
+
+            <dt>Name:</dt>
+            <dd>{{ form_widget(edit_form.name) }}</dd>
+            <dt>Chose type:</dt>
+            <dd>
+                {{ form_widget(edit_form.type) }}
+            </dd>
+            <div class="url_container">
+                <dt>Custom url:</dt>
+                <dd>{{ form_widget(edit_form.url) }}</dd>
+            </div>
+            <div class="page_container">
+                <dt>Chose page:</dt>
+                <dd>
+                    {{ form_widget(edit_form.pageId) }}
+                </dd>
+            </div>
+
+        </dl>
+
         {{ form_widget(edit_form) }}
         <p>
             <button type="submit">Edit</button>

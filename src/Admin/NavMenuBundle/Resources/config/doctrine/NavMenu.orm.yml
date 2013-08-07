@@ -11,6 +11,7 @@ Admin\NavMenuBundle\Entity\NavMenu:
         url:
             type: string
             length: 255
+            nullable: TRUE
         pageId:
             type: integer
             column: page_id
@@ -20,6 +21,11 @@ Admin\NavMenuBundle\Entity\NavMenu:
         parentId:
             type: integer
             column: parent_id
+            nullable: TRUE
         sort:
             type: integer
+            nullable: TRUE
+        type:
+            type: string
+            nullable: TRUE
     lifecycleCallbacks: {  }

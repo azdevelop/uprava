@@ -8,18 +8,47 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class NavMenuType extends AbstractType
 {
+
+    private $_pages;
+
+    public function __construct( $pages = array() ) {
+        $this->_pages = $pages;
+    }
+
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
+        $fPages = array(null => '');
+
+        foreach ( $this->_pages as $p) {
+            $id = $p->getId();
+            $fPages[$id] = $p->getName();
+        }
+
+        $a = array(
+            1 => 'prvi',
+            2 => 'drugi',
+            'parent 1' => array(
+                3 => 'treci',
+                'parent 2' => array(
+                    4 => 'cetvrti'
+                )
+             ),
+            6 => 'zzzzzz'
+
+        );
+
         $builder
-            ->add('url')
-            ->add('pageId', 'text', array('required' => false))
             ->add('name')
             ->add('parentId', 'hidden', array('required' => false))
-            ->add('sort');
+            ->add('type', 'choice', array('choices' => array('page' => 'page', 'custom_page' => 'custom page') ))
+            ->add('url', 'text', array('required' => false))
+            ->add('pageId', 'choice', array(
+                'choices' => $a));
     }
 
     /**

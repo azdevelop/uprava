@@ -17,6 +17,29 @@
 {% endblock %}
 
 {% block body %}
-    {% block navigation %}navigation menu admin{% endblock %}
+    {% block navigation %}
+        <div class="header">
+            <div class=" container">
+                <div class="navbar">
+
+                        <ul class="nav navbar-nav">
+                            <li {% if app.request.attributes.get('_route') == "navmenu" %} class="active" {% endif %}>
+                                <a href="{{ path('navmenu') }}">Navigation</a>
+                            </li>
+                            <li  {% if app.request.attributes.get('_route') == "category" %} class="active" {% endif %}>
+                                <a href="{{ path('category') }}">Category</a>
+                            </li>
+                            <li  {% if app.request.attributes.get('_route') == "page" %} class="active" {% endif %} >
+                                <a href="{{ path('page') }}">Pages</a>
+                            </li>
+                            <li  {% if app.request.attributes.get('_route') == "post" %} class="active" {% endif %}>
+                                <a href="{{ path('post') }}">Posts</a>
+                            </li>
+                        </ul>
+
+                </div>
+            </div>
+        </div>
+    {% endblock %}
     <div class="container">{% block content %}{% endblock %}</div>
 {% endblock %}

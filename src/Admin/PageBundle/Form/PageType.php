@@ -23,11 +23,9 @@ class PageType extends AbstractType
                         'config_name' => 'cms_config',
                         'config' => array('filebrowserBrowseUrl'=>'/app_dev.php/elfinder')))
             ->add('status')
-            ->add('parentId', 'choice', array(
-                'choices'   => array('1' => 'vest', '2' => 'ekonomija')
-            ))
             ->add('guid')
-            ->add('pageType','choice', array('choices'=>array('news'=>'News', 'blog'=>'Blog')));
+            ->add('pageType','choice', array('choices'=>array('news'=>'News', 'blog'=>'Blog')))
+            ;
     }
 
     /**

@@ -43,11 +43,13 @@ class NavMenuController extends Controller
     public function createAction(Request $request)
     {
         $entity  = new NavMenu();
-        $form = $this->createForm(new NavMenuType(), $entity);
+        $em = $this->getDoctrine()->getManager();
+        $pages = $em->getRepository('PageBundle:Page')->findAll();
+        $form = $this->createForm(new NavMenuType( $pages ), $entity);
         $form->submit($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+
             $em->persist($entity);
             $em->flush();
 
@@ -67,7 +69,11 @@ class NavMenuController extends Controller
     public function newAction()
     {
         $entity = new NavMenu();
-        $form   = $this->createForm(new NavMenuType(), $entity);
+
+        $em = $this->getDoctrine()->getManager();
+        $pages = $em->getRepository('PageBundle:Page')->findAll();
+
+        $form   = $this->createForm(new NavMenuType( $pages ), $entity);
 
         return $this->render('NavMenuBundle:NavMenu:new.html.twig', array(
             'entity' => $entity,
@@ -106,11 +112,13 @@ class NavMenuController extends Controller
 
         $entity = $em->getRepository('NavMenuBundle:NavMenu')->find($id);
 
+        $pages = $em->getRepository('PageBundle:Page')->findAll();
+
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find NavMenu entity.');
         }
 
-        $editForm = $this->createForm(new NavMenuType(), $entity);
+        $editForm = $this->createForm( new NavMenuType( $pages ), $entity );
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('NavMenuBundle:NavMenu:edit.html.twig', array(
@@ -134,8 +142,10 @@ class NavMenuController extends Controller
             throw $this->createNotFoundException('Unable to find NavMenu entity.');
         }
 
+        $pages = $em->getRepository('PageBundle:Page')->findAll();
+
         $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createForm(new NavMenuType(), $entity);
+        $editForm = $this->createForm(new NavMenuType( $pages ), $entity);
         $editForm->submit($request);
 
         if ($editForm->isValid()) {

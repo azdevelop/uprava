@@ -44,23 +44,23 @@
         </tbody>
     </table>
 
-        <ul class="unstyled inline">
-    <li>
-        <a href="{{ path('post') }}" class="btn btn-inverse">
-            {% trans %}Back to the list{% endtrans %}
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('post_edit', { 'id': entity.id }) }}" class="btn btn-info">
-            {% trans %}Edit{% endtrans %}
-        </a>
-    </li>
-    <li>
-        <form action="{{ path('post_delete', { 'id': entity.id }) }}" method="post">
-            <input type="hidden" name="_method" value="DELETE" />
-            {{ form_widget(delete_form) }}
-            <button type="submit" class="btn btn-danger">Delete</button>
-        </form>
-    </li>
-</ul>
+    <ul class="unstyled inline">
+        <li>
+            <a href="{{ path('post') }}" class="btn btn-inverse">
+                {% trans %}Back to the list{% endtrans %}
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('post_edit', { 'id': entity.id }) }}" class="btn btn-info">
+                {% trans %}Edit{% endtrans %}
+            </a>
+        </li>
+        <li>
+            <form action="{{ path('post_delete', { 'id': entity.id }) }}" method="post">
+                <input type="hidden" name="_method" value="DELETE" />
+                {{ form_widget(delete_form) }}
+                <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+        </li>
+    </ul>
 {% endblock %}

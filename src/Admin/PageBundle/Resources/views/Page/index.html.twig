@@ -3,7 +3,7 @@
 {% block content -%}
     <h1>Page list</h1>
 
-    <table class="records_list">
+    <table class="table table-bordered table-hover">
         <thead>
             <tr>
                 <th>Id</th>
@@ -35,12 +35,12 @@
                 <td>{{ entity.guid }}</td>
                 <td>{{ entity.pageType }}</td>
                 <td>
-                <ul>
+                <ul class="unstyled">
                     <li>
-                        <a href="{{ path('page_show', { 'id': entity.id }) }}">show</a>
+                        <a href="{{ path('page_show', { 'id': entity.id }) }}" class="label label-default">show</a>
                     </li>
                     <li>
-                        <a href="{{ path('page_edit', { 'id': entity.id }) }}">edit</a>
+                        <a href="{{ path('page_edit', { 'id': entity.id }) }}" class="label label-info">edit</a>
                     </li>
                 </ul>
                 </td>
@@ -49,10 +49,10 @@
         </tbody>
     </table>
 
-        <ul>
+    <ul class="inline unstyled">
         <li>
-            <a href="{{ path('page_new') }}">
-                Create a new entry
+            <a href="{{ path('page_new') }}" class="btn btn-info">
+                {% trans %}new page{% endtrans %}
             </a>
         </li>
     </ul>

@@ -2,7 +2,6 @@
 
 namespace Admin\NavMenuBundle\Entity;
 
-
 use Doctrine\ORM\Mapping as ORM;
 
 
@@ -50,7 +49,18 @@ class NavMenu
      */
     private $sort = null;
 
-    
+    /**
+     * @var integer
+     */
+    private $status = null;
+
+
+    private $page;
+
+
+    private $type;
+
+
     /**
      * Get id
      *
@@ -185,6 +195,62 @@ class NavMenu
         $this->children[] = $children;
     
         return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param int $status
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPage()
+    {
+        return $this->page;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @param mixed $pages
+     */
+    public function setPage($page)
+    {
+        $this->page = $page;
+    }
+
+    /**
+     * @param mixed $type
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getType()
+    {
+        return $this->type;
     }
 
 

@@ -1,10 +1,10 @@
 <?php
 
 namespace Admin\PageBundle\Entity;
-
 use Gedmo\Mapping\Annotation as Gedmo;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Table(name="Page")
@@ -74,7 +74,7 @@ class Page
     /**
      * @var integer
      *
-     * @ORM\Column(name="parent_id", type="string", length=255)
+     * @ORM\Column(name="parent_id", type="integer", nullable=true)
      */
     private $parentId;
 
@@ -91,6 +91,23 @@ class Page
      * @ORM\Column(name="page_type", type="string", length=255)
      */
     private $pageType;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Page", mappedBy="parent")
+     **/
+    private $children;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Page", inversedBy="children")
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
+     **/
+    private $parent;
+
+
+    public function __construct() {
+        $this->children = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
 
 
     /**
@@ -332,4 +349,7 @@ class Page
     {
         return $this->pageType;
     }
+
+
+
 }

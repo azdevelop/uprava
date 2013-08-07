@@ -3,7 +3,7 @@
 {% block content -%}
     <h1>Page</h1>
 
-    <table class="record_properties">
+    <table  class="table table-bordered table-condensed">
         <tbody>
             <tr>
                 <th>Id</th>
@@ -52,14 +52,14 @@
         </tbody>
     </table>
 
-        <ul class="record_actions">
+        <ul class="unstyled inline" >
     <li>
-        <a href="{{ path('page') }}">
+        <a href="{{ path('page') }}" class="btn btn-inverse">
             Back to the list
         </a>
     </li>
     <li>
-        <a href="{{ path('page_edit', { 'id': entity.id }) }}">
+        <a href="{{ path('page_edit', { 'id': entity.id }) }}" class="btn btn-info">
             Edit
         </a>
     </li>
@@ -67,7 +67,7 @@
         <form action="{{ path('page_delete', { 'id': entity.id }) }}" method="post">
             <input type="hidden" name="_method" value="DELETE" />
             {{ form_widget(delete_form) }}
-            <button type="submit">Delete</button>
+            <button type="submit" class="btn btn-danger">Delete</button>
         </form>
     </li>
 </ul>

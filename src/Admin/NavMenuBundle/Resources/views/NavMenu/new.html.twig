@@ -1,20 +1,43 @@
-{% extends '::base.html.twig' %}
+{% extends 'NavMenuBundle::layout.html.twig' %}
+{% block content -%}
 
-{% block body -%}
     <h1>NavMenu creation</h1>
 
     <form action="{{ path('navmenu_create') }}" method="post" {{ form_enctype(form) }}>
+        <dl>
+
+            <dt>Name:</dt>
+            <dd>{{ form_widget(form.name) }}</dd>
+            <dt>Chose type:</dt>
+            <dd>
+                {{ form_widget(form.type) }}
+            </dd>
+            <div class="url_container">
+                <dt>Custom url:</dt>
+                <dd>{{ form_widget(form.url) }}</dd>
+            </div>
+             <div class="page_container">
+                <dt>Chose page:</dt>
+                <dd>
+                    {{ form_widget(form.pageId) }}
+                </dd>
+             </div>
+
+        </dl>
+
         {{ form_widget(form) }}
-        <p>
-            <button type="submit">Create</button>
-        </p>
+
+        <ul  class="unstyled inline">
+            <li>
+                <a href="{{ path('navmenu') }}" class="btn btn-inverse">
+                    Back to the list
+                </a>
+            </li>
+            <li>
+                <button type="submit">{% trans %}Create{% endtrans %}</button>
+            </li>
+        </ul>
+
     </form>
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('navmenu') }}">
-            Back to the list
-        </a>
-    </li>
-</ul>
 {% endblock %}

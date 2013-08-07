@@ -1,18 +1,21 @@
 {% extends 'NavMenuBundle::layout.html.twig' %}
 {% block content -%}
 
-<div>
-    <a class="button" href="{{ path('navmenu_new') }}">Create new</a>
-</div>
 <form id="navArange" action="{{path('navmenu_arange')}}" method="POST" >
 <div class="cf nestable-lists">
     <div class="dd" id="nestable">
            {{ navTree |raw }}
     </div>
-    <div>
-        <input type="button" value="Save" id="saveNMTree" />
-    </div>
 </div>
+    <ul class="unstyled inline">
+        <li>
+            <input type="button" value="Save" id="saveNMTree"  class="btn btn-info pull-left"/>
+        </li>
+
+        <li>
+            <a href="{{ path('navmenu_new') }}" class="btn  pull-left">Create new</a>
+        </li>
+    </ul>
  </form>
 
 {% endblock %}
