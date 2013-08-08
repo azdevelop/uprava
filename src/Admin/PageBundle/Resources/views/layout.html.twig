@@ -1,0 +1,12 @@
+{% extends '::admin.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+  
+        <link rel="stylesheet" href="{{ asset('bundles/aplication/css/admin-nestable.css') }}" />
+
+{% endblock %}
+{% block body %}
+   {{ parent() }}
+         <script src="{{ asset('bundles/aplication/js/listTree.js') }}"></script>
+{% endblock %}
+       
