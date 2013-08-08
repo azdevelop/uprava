@@ -21,10 +21,31 @@
                 <dd>
                     {{ form_widget(form.pageId) }}
                 </dd>
+                 <dd>
+                     <div class="treeList">
+                        {{ pageTree |raw }}
+                     </div>
+                 </dd>
              </div>
+
 
         </dl>
 
+        <style>
+            .treeList ul{
+                list-style: none;
+            }
+
+            .treeList li{
+
+                cursor:pointer;
+            }
+
+            .treeList .active{
+                color: #325aff;
+            }
+
+        </style>
         {{ form_widget(form) }}
 
         <ul  class="unstyled inline">

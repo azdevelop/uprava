@@ -16,14 +16,14 @@ class PageType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('userId', 'text')
-           // ->add('content',null, array('required'=>false,'attr'=>array('class'=>'tinymce', 'data-theme'=>'advanced')))
+            ->add('userId', 'hidden')
             ->add('content','ckeditor', 
                     array(
                         'config_name' => 'cms_config',
                         'config' => array('filebrowserBrowseUrl'=>'/app_dev.php/elfinder')))
             ->add('status')
             ->add('guid')
+            ->add('parentId', 'hidden')
             ->add('pageType','choice', array('choices'=>array('news'=>'News', 'blog'=>'Blog')))
             ;
     }

@@ -2,7 +2,7 @@
 
 namespace Admin\NavMenuBundle\Helpers\Tree\Navigation;
 
-use Admin\NavMenuBundle\Helpers\Tree\TreeAbstract;
+use Admin\AplicationBundle\Helpers\Tree\TreeAbstract;
 
 class AdminNavigationTree extends TreeAbstract {
 
@@ -18,12 +18,18 @@ class AdminNavigationTree extends TreeAbstract {
     }
 
 
+    protected function _openChildTag( $child){
+
+        return "<li class=\"dd-item dd3-item\"  data-id=\"".$child->getId()."\">";
+
+    }
+
     protected function _childHTML( $child ) {
 
-            return    "<li class=\"dd-item dd3-item\"  data-id=\"".$child->getId()."\">
+            return    "
 
                             <div class=\"dd-handle dd3-handle\">Drag</div><div class=\"dd3-content\">
-                                ".$child->getName()." id: " .$child->getId(). "
+                                ".$child->getName()."  <a href=\"{{ path('navmenu_edit', { 'id': 1 }) }}\" class=\"label label-info\">edit</a>
 
                             </div>
 

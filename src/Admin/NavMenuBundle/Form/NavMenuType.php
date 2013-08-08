@@ -47,8 +47,7 @@ class NavMenuType extends AbstractType
             ->add('parentId', 'hidden', array('required' => false))
             ->add('type', 'choice', array('choices' => array('page' => 'page', 'custom_page' => 'custom page') ))
             ->add('url', 'text', array('required' => false))
-            ->add('pageId', 'choice', array(
-                'choices' => $a));
+            ->add('pageId', 'hidden', array('required' => false));
     }
 
     /**

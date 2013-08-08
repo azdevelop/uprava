@@ -3,10 +3,55 @@
 {% block content -%}
 
     <h1>Page edit</h1>
-
+    {{ form_errors(edit_form) }}
     <form action="{{ path('page_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
         <input type="hidden" name="_method" value="PUT" />
-        {{ form_widget(edit_form) }}
+
+        <dl>
+            <dt>Name:</dt>
+            <dd>{{ form_widget(edit_form.title) }}</dd>
+
+            {{ form_widget(edit_form.userId) }}
+
+            <dt>Content:</dt>
+            <dd>{{ form_widget(edit_form.content) }}</dd>
+
+            <dt>Choose parent page:</dt>
+            <dd>
+                {{ form_widget(edit_form.parentId) }}
+                <div class="treeList">
+                    {{ pageTree |raw }}
+                </div>
+            </dd>
+
+            <dt>Status:</dt>
+            <dd>{{ form_widget(edit_form.status) }}</dd>
+
+            <dt>Guid:</dt>
+            <dd>{{ form_widget(edit_form.guid) }}</dd>
+
+            <dt>Page Type:</dt>
+            <dd>{{ form_widget(edit_form.pageType) }}</dd>
+            {{ form_widget(edit_form) }}
+        </dl>
+        <script>
+            listTree.treeSelect( $("#admin_pagebundle_pagetype_parentId"));
+        </script>
+        <style>
+            .treeList ul{
+                list-style: none;
+            }
+
+            .treeList li{
+
+                cursor:pointer;
+            }
+
+            .treeList .active{
+                color: #325aff;
+            }
+
+        </style>
         <p>
             <button type="submit" class="btn btn-info pull-right">{% trans %}save{% endtrans %}</button>
         </p>

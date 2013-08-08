@@ -22,6 +22,11 @@
                 <dd>
                     {{ form_widget(edit_form.pageId) }}
                 </dd>
+                <dd>
+                    <div class="treeList">
+                        {{ pageTree |raw }}
+                    </div>
+                </dd>
             </div>
 
         </dl>
@@ -30,6 +35,22 @@
         <p>
             <button type="submit">Edit</button>
         </p>
+
+        <style>
+            .treeList ul{
+                list-style: none;
+            }
+
+            .treeList li{
+
+                cursor:pointer;
+            }
+
+            .treeList .active{
+                color: #325aff;
+            }
+
+        </style>
     </form>
 
         <ul class="record_actions">

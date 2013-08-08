@@ -2,9 +2,55 @@
 
 {% block content -%}
     <h1>{% trans %}New page{% endtrans %}</h1>
-
+    {{ form_errors(form) }}
     <form action="{{ path('page_create') }}" method="post" {{ form_enctype(form) }}>
+
+        <dl>
+            <dt>Name:</dt>
+            <dd>{{ form_widget(form.title) }}</dd>
+
+            {{ form_widget(form.userId) }}
+
+            <dt>Content:</dt>
+            <dd>{{ form_widget(form.content) }}</dd>
+
+            <dt>Choose parent page:</dt>
+            <dd>
+                {{ form_widget(form.parentId) }}
+                <div class="treeList">
+                    {{ pageTree |raw }}
+                </div>
+            </dd>
+
+            <dt>Status:</dt>
+            <dd>{{ form_widget(form.status) }}</dd>
+
+            <dt>Guid:</dt>
+            <dd>{{ form_widget(form.guid) }}</dd>
+
+            <dt>Page Type:</dt>
+            <dd>{{ form_widget(form.pageType) }}</dd>
+        </dl>
         {{ form_widget(form) }}
+        <script>
+            listTree.treeSelect( $("#admin_pagebundle_pagetype_parentId"));
+        </script>
+        <style>
+            .treeList ul{
+                list-style: none;
+            }
+
+            .treeList li{
+
+                cursor:pointer;
+            }
+
+            .treeList .active{
+                color: #325aff;
+            }
+
+        </style>
+
         <p>
             <button type="submit" class="btn btn-info pull-right">{% trans %}save{% endtrans %}</button>
         </p>

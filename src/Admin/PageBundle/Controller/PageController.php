@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Admin\PageBundle\Entity\Page;
 use Admin\PageBundle\Form\PageType;
+use Admin\PageBundle\Helpers\Tree\Page\AdminPageTree;
 
 /**
  * Page controller.
@@ -39,17 +40,24 @@ class PageController extends Controller
         $form = $this->createForm(new PageType(), $entity);
         $form->submit($request);
 
+        $em = $this->getDoctrine()->getManager();
+        $pages = $em->getRepository('PageBundle:Page')->findAll();
+
+        $tree = new AdminPageTree();
+        $pageTree = $tree->createTree( $pages );
+
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('page_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('page', array('id' => $entity->getId())));
         }
 
         return $this->render('PageBundle:Page:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
+            'pageTree' => $pageTree
         ));
     }
 
@@ -66,6 +74,9 @@ class PageController extends Controller
 
         $pages = $em->getRepository('PageBundle:Page')->findAll();
 
+        $tree = new AdminPageTree();
+        $pageTree = $tree->createTree( $pages );
+
         $pagesForm = array();
 
         foreach($pages as $p) {
@@ -76,13 +87,14 @@ class PageController extends Controller
 
 
         return $this->render('PageBundle:Page:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
+            'entity'    => $entity,
+            'form'      => $form->createView(),
+            'pageTree' => $pageTree
         ));
     }
 
     /**
-     * Finds and displays a Page entity.
+     * Finds and displays a Page  entity.
      *
      */
     public function showAction($id)
@@ -116,6 +128,10 @@ class PageController extends Controller
             throw $this->createNotFoundException('Unable to find Page entity.');
         }
 
+        $pages = $em->getRepository('PageBundle:Page')->findAll();
+        $tree = new AdminPageTree();
+        $pageTree = $tree->createTree( $pages );
+
         $editForm = $this->createForm(new PageType(), $entity);
         $deleteForm = $this->createDeleteForm($id);
 
@@ -123,6 +139,7 @@ class PageController extends Controller
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'pageTree' => $pageTree
         ));
     }
 
@@ -140,6 +157,10 @@ class PageController extends Controller
             throw $this->createNotFoundException('Unable to find Page entity.');
         }
 
+        $pages = $em->getRepository('PageBundle:Page')->findAll();
+        $tree = new AdminPageTree();
+        $pageTree = $tree->createTree( $pages );
+
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createForm(new PageType(), $entity);
         $editForm->submit($request);
@@ -155,6 +176,7 @@ class PageController extends Controller
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'pageTree' => $pageTree
         ));
     }
     /**
