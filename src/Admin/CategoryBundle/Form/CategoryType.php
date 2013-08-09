@@ -18,22 +18,21 @@ class CategoryType extends AbstractType
         $builder
             ->add('name')
             ->add('title')
-            ->add('description');
-//            ->add('parentId','entity', 
-//                array(
-//                    'required' => false,
-//                    'label'=>'Parent',
-//                    'empty_value' => 'Parent',
-//                    'class' => 'CategoryBundle:Category',
-//                    'query_builder' => 
-//                        function(\Admin\CategoryBundle\Entity\CategoryRepository $er) use ($cid){
-//                            $cid = empty($cid) ? 0 : $cid;
-//                            var_dump($cid);
-//                            return $er->createQueryBuilder('c')
-//                            ->where('c.parentId IS NULL')
-//                            ->orWhere('c.id != ' . $cid );
-//                })
-//            );
+            ->add('description')
+            ->add('parentId','entity',
+               array(
+                    'required' => false,
+                    'label'=>'Parent',
+                    'empty_value' => 'Parent',
+                    'class' => 'CategoryBundle:Category',
+                    'query_builder' =>
+                        function(\Admin\CategoryBundle\Entity\CategoryRepository $er) use ($cid){
+                            $cid = empty($cid) ? 0 : $cid;
+                            return $er->createQueryBuilder('c')
+                            ->where('c.parentId IS NULL')
+                            ->orWhere('c.id != ' . $cid );
+                })
+            );
     }
 
     /**

@@ -92,23 +92,6 @@ class Page
      */
     private $pageType;
 
-    /**
-     * @ORM\OneToMany(targetEntity="Page", mappedBy="parent")
-     **/
-    private $children;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Page", inversedBy="children")
-     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
-     **/
-    private $parent;
-
-
-    public function __construct() {
-        $this->children = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-
 
     /**
      * Get id
@@ -349,6 +332,8 @@ class Page
     {
         return $this->pageType;
     }
+
+
 
 
 

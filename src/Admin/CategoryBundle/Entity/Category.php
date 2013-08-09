@@ -29,7 +29,13 @@ class Category
      */
     private $description;
 
-    
+    /**
+     * Set name
+     *
+     * @param integer $parentCategoryId
+     * @return integer
+     */
+    private $parentCategoryId;
 
     /**
      * @var \Admin\CategoryBundle\Entity\Category
@@ -153,4 +159,23 @@ class Category
     {
         return $this->parentId;
     }
+
+    /**
+     * @param string $parentCategoryId
+     */
+    public function setParentCategoryId($parentCategoryId)
+    {
+        $this->parentCategoryId = $parentCategoryId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getParentCategoryId()
+    {
+        return $this->parentCategoryId;
+    }
+
+
+
 }

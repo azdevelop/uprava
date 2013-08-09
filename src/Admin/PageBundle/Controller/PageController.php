@@ -37,7 +37,7 @@ class PageController extends Controller
     public function createAction(Request $request)
     {
         $entity  = new Page();
-        $form = $this->createForm(new PageType(), $entity);
+        $form = $this->createForm( new PageType(), $entity );
         $form->submit($request);
 
         $em = $this->getDoctrine()->getManager();
