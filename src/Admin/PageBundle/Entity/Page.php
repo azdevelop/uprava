@@ -2,7 +2,7 @@
 
 namespace Admin\PageBundle\Entity;
 use Gedmo\Mapping\Annotation as Gedmo;
-
+use Gedmo\Translatable\Translatable;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -10,7 +10,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Table(name="Page")
  * @ORM\Entity(repositoryClass="Admin\PageBundle\Entity\PageRepository")
  */
-class Page
+class Page implements Translatable
 {
     /**
      * @var integer $id
@@ -23,14 +23,14 @@ class Page
 
     /**
      * @var string $name
-     * @Gedmo\Slug(fields={"title"}, separator="-", unique=true)
+     * @Gedmo\Slug(fields={"title"}, separator="-", unique=true, updatable=false)
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
 
     /**
      * @var string $title
-     *
+     * @Gedmo\Translatable
      * @ORM\Column(name="title", type="string", length=255)
      */
     private $title;
@@ -59,7 +59,7 @@ class Page
 
     /**
      * @var string $content
-     *
+     * @Gedmo\Translatable
      * @ORM\Column(name="content", type="text", nullable=true)
      */
     private $content;
@@ -91,7 +91,13 @@ class Page
      * @ORM\Column(name="page_type", type="string", length=255)
      */
     private $pageType;
-
+    
+    /**
+     * @Gedmo\Locale
+     * Used locale to override Translation listener`s locale
+     * this is not a mapped field of entity metadata, just a simple property
+     */
+    private $locale;
 
     /**
      * Get id
@@ -333,7 +339,16 @@ class Page
         return $this->pageType;
     }
 
-
+     /**
+     * Set locale for translation
+     *  @param string
+     *  @return Post
+     */
+    public function setTranslatableLocale($locale)
+    {
+        $this->locale = $locale;
+        return $this;
+    }
 
 
 
