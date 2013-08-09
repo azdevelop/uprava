@@ -27,8 +27,6 @@ class AppKernel extends Kernel
             new FM\ElfinderBundle\FMElfinderBundle(),
             new Admin\CategoryBundle\CategoryBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle()
-,
-            new Admin\AplicationBundle\AplicationBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
