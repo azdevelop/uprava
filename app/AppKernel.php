@@ -21,6 +21,7 @@ class AppKernel extends Kernel
             new Admin\NavMenuBundle\NavMenuBundle(),
             new Admin\PageBundle\PageBundle(),
             new Admin\ArticleBundle\ArticleBundle(),
+            new Admin\AplicationBundle\AplicationBundle(),
             new Stfalcon\Bundle\TinymceBundle\StfalconTinymceBundle(),
             new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
             new FM\ElfinderBundle\FMElfinderBundle(),

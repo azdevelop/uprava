@@ -16,11 +16,11 @@ page_create:
     requirements: { _method: post }
 
 page_edit:
-    pattern:  /{id}/edit
-    defaults: { _controller: "PageBundle:Page:edit" }
+    pattern:  /edit/{id}/{locale}
+    defaults: { _controller: PageBundle:Page:edit, locale: en }
 
 page_update:
-    pattern:  /{id}/update
+    pattern:  /update/{id}/{locale}
     defaults: { _controller: "PageBundle:Page:update" }
     requirements: { _method: post|put }
 
