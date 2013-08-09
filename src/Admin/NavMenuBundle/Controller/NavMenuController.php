@@ -45,7 +45,7 @@ class NavMenuController extends Controller
     {
         $entity  = new NavMenu();
         $em = $this->getDoctrine()->getManager();
-        $pages = $em->getRepository('PageBundle:Category')->findAll();
+        $pages = $em->getRepository('PageBundle:Page')->findAll();
         $form = $this->createForm(new NavMenuType( $pages ), $entity);
         $form->submit($request);
 
@@ -72,7 +72,7 @@ class NavMenuController extends Controller
         $entity = new NavMenu();
 
         $em = $this->getDoctrine()->getManager();
-        $pages = $em->getRepository('PageBundle:Category')->findAll();
+        $pages = $em->getRepository('PageBundle:Page')->findAll();
 
         $form   = $this->createForm(new NavMenuType( $pages ), $entity);
 
@@ -117,7 +117,7 @@ class NavMenuController extends Controller
 
         $entity = $em->getRepository('NavMenuBundle:NavMenu')->find($id);
 
-        $pages = $em->getRepository('PageBundle:Category')->findAll();
+        $pages = $em->getRepository('PageBundle:Page')->findAll();
 
         $tree = new AdminPageTree();
         $pageTree = $tree->createTree( $pages );
@@ -151,7 +151,7 @@ class NavMenuController extends Controller
             throw $this->createNotFoundException('Unable to find NavMenu entity.');
         }
 
-        $pages = $em->getRepository('PageBundle:Category')->findAll();
+        $pages = $em->getRepository('PageBundle:Page')->findAll();
 
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createForm(new NavMenuType( $pages ), $entity);

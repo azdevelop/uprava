@@ -5,6 +5,27 @@
 
     <form action="{{ path('category_create') }}" method="post" {{ form_enctype(form) }}>
         {{ form_widget(form) }}
+        <div class="treeList">
+            {{ categoryTree |raw }}
+        </div>
+        <script>
+            listTree.treeSelect( $("#admin_categorybundle_categorytype_parentId"));
+        </script>
+        <style>
+            .treeList ul{
+                list-style: none;
+            }
+
+            .treeList li{
+
+                cursor:pointer;
+            }
+
+            .treeList .active{
+                color: #325aff;
+            }
+
+        </style>
         <p>
             <button type="submit">{% trans %}Create{% endtrans %}</button>
         </p>

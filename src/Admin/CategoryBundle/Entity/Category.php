@@ -29,16 +29,12 @@ class Category
      */
     private $description;
 
+
     /**
      * Set name
      *
-     * @param integer $parentCategoryId
+     * @param integer $parentId
      * @return integer
-     */
-    private $parentCategoryId;
-
-    /**
-     * @var \Admin\CategoryBundle\Entity\Category
      */
     private $parentId;
 
@@ -140,10 +136,10 @@ class Category
     /**
      * Set parentId
      *
-     * @param \Admin\CategoryBundle\Entity\Category $parentId
-     * @return Category
+     * @param  $parentId
+     * @return integer
      */
-    public function setParentId(\Admin\CategoryBundle\Entity\Category $parentId = null)
+    public function setParentId( $parentId = null)
     {
         $this->parentId = $parentId;
     
@@ -153,27 +149,11 @@ class Category
     /**
      * Get parentId
      *
-     * @return \Admin\CategoryBundle\Entity\Category 
+     * @return integer
      */
     public function getParentId()
     {
         return $this->parentId;
-    }
-
-    /**
-     * @param string $parentCategoryId
-     */
-    public function setParentCategoryId($parentCategoryId)
-    {
-        $this->parentCategoryId = $parentCategoryId;
-    }
-
-    /**
-     * @return string
-     */
-    public function getParentCategoryId()
-    {
-        return $this->parentCategoryId;
     }
 
 

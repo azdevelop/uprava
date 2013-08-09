@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Admin\CategoryBundle\Entity\Category;
 use Admin\CategoryBundle\Form\CategoryType;
+use Admin\CategoryBundle\Helpers\Tree\Category\AdminCategoryTree;
 
 /**
  * Category controller.
@@ -61,9 +62,16 @@ class CategoryController extends Controller
         $entity = new Category();
         $form   = $this->createForm(new CategoryType(), $entity);
 
+        $em = $this->getDoctrine()->getManager();
+        $categories = $em->getRepository('CategoryBundle:Category')->findAll();
+
+        $tree = new AdminCategoryTree();
+        $categoriesTree = $tree->createTree( $categories );
+
         return $this->render('CategoryBundle:Category:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
+            'categoryTree' => $categoriesTree
         ));
     }
 
@@ -105,10 +113,16 @@ class CategoryController extends Controller
         $editForm = $this->createForm(new CategoryType(), $entity);
         $deleteForm = $this->createDeleteForm($id);
 
+        $categories = $em->getRepository('CategoryBundle:Category')->findAll();
+
+        $tree = new AdminCategoryTree();
+        $categoriesTree = $tree->createTree( $categories );
+
         return $this->render('CategoryBundle:Category:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'categoryTree'=> $categoriesTree
         ));
     }
 

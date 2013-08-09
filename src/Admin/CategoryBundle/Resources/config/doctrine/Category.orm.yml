@@ -17,9 +17,9 @@ Admin\CategoryBundle\Entity\Category:
         description:
             type: text
             nullable: TRUE
-    manyToOne:
-      parentId:
-        targetEntity: Category
+        parentId:
+            type: integer
+            nullable: TRUE
   
         
     lifecycleCallbacks: {  }

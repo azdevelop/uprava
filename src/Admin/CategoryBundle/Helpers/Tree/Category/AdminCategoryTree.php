@@ -1,6 +1,6 @@
 <?php
 
-namespace Admin\PageBundle\Helpers\Tree\Category;
+namespace Admin\CategoryBundle\Helpers\Tree\Category;
 
 use Admin\AplicationBundle\Helpers\Tree\TreeAbstract;
 

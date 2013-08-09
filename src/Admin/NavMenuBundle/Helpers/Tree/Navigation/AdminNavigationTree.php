@@ -29,7 +29,7 @@ class AdminNavigationTree extends TreeAbstract {
             return    "
 
                             <div class=\"dd-handle dd3-handle\">Drag</div><div class=\"dd3-content\">
-                                ".$child->getName()."  <a href=\"{{ path('navmenu_edit', { 'id': 1 }) }}\" class=\"label label-info\">edit</a>
+                                ".$child->getName()."  <a href=\"".$child->getId()."/edit\" class=\"label label-info\">edit</a>
 
                             </div>
 

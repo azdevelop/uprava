@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * @ORM\Table(name="Page")
+ * @ORM\Table(name="page")
  * @ORM\Entity(repositoryClass="Admin\PageBundle\Entity\PageRepository")
  */
 class Page
