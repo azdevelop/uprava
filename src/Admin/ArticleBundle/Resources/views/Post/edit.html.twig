@@ -3,9 +3,30 @@
 {% block content -%}
     <h1>{% trans %}edit post{% endtrans %}</h1>
 
-    <form action="{{ path('post_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+    <form class="post-edit {% if app.request.attributes.get('locale') != locale %}translation{% endif %}" action="{{ path('post_update', { 'id': entity.id, 'locale':app.request.attributes.get('locale') }) }}" method="post" {{ form_enctype(edit_form) }}>
         <input type="hidden" name="_method" value="PUT" />
-        {{ form_widget(edit_form) }}
+        
+        <dl>
+            <dt class="translation-persist">Title:</dt>
+            <dd class="translation-persist">{{ form_widget(edit_form.title) }}</dd>
+
+            {{ form_widget(edit_form.userId) }}
+
+            <dt class="translation-persist">Content:</dt>
+            <dd class="translation-persist">{{ form_widget(edit_form.content) }}</dd>
+
+            
+
+            <dt>Status:</dt>
+            <dd>{{ form_widget(edit_form.status) }}</dd>
+
+            <dt>Post Type:</dt>
+            <dd>{{ form_widget(edit_form.postType) }}</dd>
+            
+            <dt>Categories:</dt>
+            <dd>{{ form_widget(edit_form.categories) }}</dd>
+            {{ form_widget(edit_form) }}
+        </dl>
         <p>
             <button type="submit" class="btn btn-info pull-right">{% trans %}save{% endtrans %}</button>
         </p>
@@ -18,11 +39,21 @@
         </a>
     </li>
     <li>
-        <form action="{{ path('post_delete', { 'id': entity.id }) }}" method="post">
+        <form action="{{ path('post_delete', { 'id': entity.id }) }}" method="post" class="page-delete">
             <input type="hidden" name="_method" value="DELETE" />
             {{ form_widget(delete_form) }}
             <button type="submit" class="btn btn-danger">{% trans %}delete{% endtrans %}</button>
         </form>
     </li>
 </ul>
+    <style>
+            form.translation dl dt, 
+            form.page-delete, 
+            form.translation dl dd
+            { display: none;}
+            form.translation dl dt.translation-persist,
+            form.translation dl dd.translation-persist
+            { display: block;}
+            
+     </style>
 {% endblock %}

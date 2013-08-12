@@ -12,8 +12,7 @@ use Doctrine\ORM\EntityRepository;
  */
 class PageRepository extends EntityRepository
 {
-    public function findAllByLocale($locale = 'en')
-    {
+    public function findAllByLocale($locale = 'en'){
         //Make a Select query
         $qb = $this->createQueryBuilder('a');
         $qb->select('a');

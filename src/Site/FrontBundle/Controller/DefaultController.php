@@ -8,9 +8,16 @@ use Admin\NavMenuBundle\Helpers\Tree\Navigation\TopNavTree;
 
 class DefaultController extends Controller
 {
-    public function indexAction($name)
+    public function indexAction()
     {
-        return $this->render('FrontBundle:Default:index.html.twig', array('name' => $name));
+        $em = $this->getDoctrine()->getManager();
+        $posts = $em->getRepository('ArticleBundle:Post')->findAll();
+        return $this->render(
+             'FrontBundle:Default:index.html.twig',
+             array(
+                 'posts' => $posts
+                )
+                );
     }
 
 
@@ -30,6 +37,34 @@ class DefaultController extends Controller
                                     'page' => $page,
                                     'entity' => $entity,
                                     'topNavigationTree' => $topNavigationTree
+                                )
+        );
+    }
+    
+    public function postAction( $post ){
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('ArticleBundle:Post')->find( $post );
+        return $this->render('FrontBundle:Default:post.html.twig',
+                                array(
+                                    'post' => $entity
+                                  
+                                )
+        );
+    }
+    
+    public function navigationAction( $name ){
+        
+        $em = $this->getDoctrine()->getManager();
+        
+        $nav = $em->getRepository('NavMenuBundle:NavMenu')->findAll();
+
+        $tree = new TopNavTree();
+        $navTree =  $tree->createTree( $nav );
+
+        return $this->render('FrontBundle:Default:navigation.html.twig',
+                                array(
+                                    'navTree' => $navTree                               
                                 )
         );
     }

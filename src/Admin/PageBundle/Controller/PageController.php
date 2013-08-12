@@ -38,6 +38,15 @@ class PageController extends Controller
     {
         $entity  = new Page();
         $form = $this->createForm( new PageType(), $entity );
+        $par = $request->request->get('page-widget');
+        if (is_array($par)){
+            $par = serialize($par);
+       
+        }
+        $pagetype = $request->request->get('admin_pagebundle_pagetype');
+        $pagetype['widget'] = $par;
+        $request->request->set('admin_pagebundle_pagetype',$pagetype);
+   
         $form->submit($request);
 
         $em = $this->getDoctrine()->getManager();
@@ -67,10 +76,11 @@ class PageController extends Controller
      */
     public function newAction()
     {
+        $em = $this->getDoctrine()->getManager();
         $entity = new Page();
         $entity->setUserId('1');
-
-        $em = $this->getDoctrine()->getManager();
+        $categories = $em->getRepository('CategoryBundle:Category')->findAll();
+       
 
         $pages = $em->getRepository('PageBundle:Page')->findAll();
 
@@ -88,6 +98,7 @@ class PageController extends Controller
 
         return $this->render('PageBundle:Page:new.html.twig', array(
             'entity'    => $entity,
+            'categories' => $categories,
             'form'      => $form->createView(),
             'pageTree' => $pageTree
         ));
@@ -123,8 +134,17 @@ class PageController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('PageBundle:Page')->find($id);
+        $categories = $em->getRepository('CategoryBundle:Category')->findAll();
         $entity->setTranslatableLocale($locale);
         $em->refresh($entity);
+        $page_widget = array('cat'=>0,'posts'=>5,'orderby'=>'asc');
+        $setwidget = $entity->getWidget();
+        if ($setwidget){
+            $setwidget = @unserialize($setwidget);
+            
+        }
+        is_array($setwidget)? $entity->setWidget($setwidget) : $entity->setWidget($page_widget) ;
+       
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Page entity.');
         }
@@ -138,6 +158,7 @@ class PageController extends Controller
 
         return $this->render('PageBundle:Page:edit.html.twig', array(
             'entity'      => $entity,
+            'categories' => $categories,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
             'pageTree' => $pageTree
@@ -150,7 +171,7 @@ class PageController extends Controller
      */
     public function updateAction(Request $request, $id, $locale)
     {
-        
+       
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('PageBundle:Page')->find($id);
@@ -166,6 +187,19 @@ class PageController extends Controller
 
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createForm(new PageType(), $entity);
+        $page_type = $request->request->get('admin_pagebundle_pagetype');
+        if($page_type['pageType'] != 'combo'){
+            $page_type['widget'] = null;
+        }
+        else{
+            $par = $request->request->get('page-widget');
+            if (is_array($par)){
+                $par = serialize($par);
+
+            }
+            $page_type['widget'] = $par;
+        }
+        $request->request->set('admin_pagebundle_pagetype',$page_type);
         $editForm->submit($request);
 
         if ($editForm->isValid()) {

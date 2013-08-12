@@ -16,10 +16,10 @@ class PostType extends AbstractType
     {
         $builder
             ->add('title')
-            //->add('name', null, array('required'=>false))
-            ->add('userId')
+            ->add('userId', 'hidden')
             ->add('content','ckeditor', 
                     array(
+                        
                         'config_name' => 'cms_config',
                         'config' => array('filebrowserBrowseUrl'=>'/app_dev.php/elfinder')))
             ->add('status','choice', array('choices'=>array('publish'=>'Published', 'draft'=>'Draft')))

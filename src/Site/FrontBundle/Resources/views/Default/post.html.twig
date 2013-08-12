@@ -1,0 +1,12 @@
+{% extends 'FrontBundle::layout.html.twig' %}
+
+
+{% block content -%}
+     {% if post %}   
+        <h1 class="page-title">{{ post.title}}</h1>
+
+        {{ post.content|raw }}
+    {%else%}
+        <p>Post not found</p>
+    {%endif%}
+{% endblock %}
