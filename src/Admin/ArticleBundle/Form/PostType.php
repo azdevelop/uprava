@@ -8,12 +8,18 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class PostType extends AbstractType
 {
+    private $browser_path;
+    
+    public function __construct ($file_browser = ''){
+        $this->browser_path = $file_browser;
+    }
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $file_browser = $this->browser_path;
         $builder
             ->add('title')
             ->add('userId', 'hidden')
@@ -21,7 +27,9 @@ class PostType extends AbstractType
                     array(
                         
                         'config_name' => 'cms_config',
-                        'config' => array('filebrowserBrowseUrl'=>'/app_dev.php/elfinder')))
+                        'config' => array('filebrowserBrowseUrl'=>$file_browser)
+                        )
+                    )
             ->add('status','choice', array('choices'=>array('publish'=>'Published', 'draft'=>'Draft')))
             ->add('postType','choice', array('choices'=>array('news'=>'News', 'blog'=>'Blog')))
             ->add('categories', null, array('required'=>false));
