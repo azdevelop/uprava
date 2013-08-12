@@ -24,8 +24,12 @@ security:
             #    realm: "Secured Demo Area"
 
     access_control:
-        - { path: ^/demo/secured/hello/admin/, roles: ROLE_ADMIN }
-        - { path: ^/event/new, roles: ROLE_USER }
-        - { path: ^/event/create , roles: ROLE_USER }
+
+        - { path: ^/admin/navmenu/, roles: ROLE_USER }
+        - { path: ^/admin/category/, roles: ROLE_USER }
+        - { path: ^/admin/user/, roles: ROLE_USER }
+        - { path: ^/admin/page/, roles: ROLE_USER }
+        - { path: ^/admin/post/, roles: ROLE_USER }
+#        - { path: ^/admin/event/create , roles: ROLE_SUPER_ADMIN }
 #        - { path: ^/efconnect, role: ROLE_USER }
 #        - { path: ^/elfinder, role: ROLE_USER }

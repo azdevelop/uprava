@@ -1,0 +1,10 @@
+{% extends 'FrontBundle::layout.html.twig' %}
+{% block navMenu %}
+    {{ topNavigationTree|raw }}
+{% endblock %}
+
+{% block content -%}
+
+        {{ entity.content|raw }}
+
+{% endblock %}
