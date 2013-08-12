@@ -35,7 +35,7 @@
             {{ form_widget(edit_form) }}
         </dl>
         <script>
-            listTree.treeSelect( $("#admin_pagebundle_pagetype_parentId"));
+            listTree.treeSelect( $("#admin_pagebundle_pagetype_parentId")).removeMe({{entity.id}});
         </script>
         <style>
             .treeList ul{
