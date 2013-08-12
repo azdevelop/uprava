@@ -26,16 +26,16 @@
             }
 
         </style>
-        <p>
-            <button type="submit">{% trans %}Create{% endtrans %}</button>
-        </p>
+        <ul class="record_actions inline unstyled">
+            <li>
+                <button type="submit" class="btn btn-info">{% trans %}Create{% endtrans %}</button>
+            </li>
+            <li>
+                <a href="{{ path('category') }}" class="btn btn-inverse">
+                    {% trans %}Back to the list{% endtrans %}
+                </a>
+            </li>
+        </ul>
     </form>
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('category') }}">
-            {% trans %}Back to the list{% endtrans %}
-        </a>
-    </li>
-</ul>
 {% endblock %}

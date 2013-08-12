@@ -24,7 +24,7 @@ class RegisterController extends Controller
             ->getForm()
         ;
          
-         
+
         if ($request->isMethod('POST')) {
             $form->bind($request);
 
@@ -45,7 +45,7 @@ class RegisterController extends Controller
             }
         }
          
-        return array('form' => $form->createView()); 
+        return array('form' => $form->createView());
     }
     
     

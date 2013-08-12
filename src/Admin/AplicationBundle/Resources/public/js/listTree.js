@@ -39,9 +39,10 @@ var listTree = {
         return this;
     },
 
-    removeMe: function() {
-        // TODO
-        alert(1111);
+    removeMe: function(id) {
+
+        $(".treeList").find("[data-lid='" + id + "']").remove();
+
     }
 
 }

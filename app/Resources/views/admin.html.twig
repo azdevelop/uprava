@@ -35,6 +35,9 @@
                             <li  {% if app.request.attributes.get('_route') == "post" %} class="active" {% endif %}>
                                 <a href="{{ path('post') }}">Posts</a>
                             </li>
+                            <li  {% if app.request.attributes.get('_route') == "user" %} class="active" {% endif %}>
+                                <a href="{{ path('user') }}">Users</a>
+                            </li>
                         </ul>
 
                 </div>

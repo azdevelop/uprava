@@ -10,7 +10,7 @@
             {{ categoryTree |raw }}
         </div>
         <script>
-            listTree.treeSelect( $("#admin_categorybundle_categorytype_parentId"));
+            listTree.treeSelect( $("#admin_categorybundle_categorytype_parentId")).removeMe({{ entity.id }});
         </script>
         <style>
             .treeList ul{
@@ -27,12 +27,12 @@
             }
 
         </style>
-        <p>
-            <button type="submit" class="btn btn-info">{% trans %}save{% endtrans %}</button>
-        </p>
-    </form>
 
-        <ul class="record_actions inline unstyled">
+ <ul class="record_actions inline unstyled">
+     <li>
+         <button type="submit" class="btn btn-info">{% trans %}save{% endtrans %}</button>
+     </li>
+    </form>
     <li>
         <a href="{{ path('category') }}"  class="btn btn-inverse">
             {% trans %}Back to the list{% endtrans %}

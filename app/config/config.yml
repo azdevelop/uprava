@@ -32,7 +32,7 @@ twig:
 assetic:
     debug:          %kernel.debug%
     use_controller: false
-    bundles:        [EventBundle, FMElfinderBundle, NavMenuBundle]
+    bundles:        [EventBundle, FMElfinderBundle, NavMenuBundle, FrontBundle]
     java: /usr/bin/java
     filters:
         cssrewrite: ~

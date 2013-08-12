@@ -26,7 +26,8 @@ class AppKernel extends Kernel
             new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
             new FM\ElfinderBundle\FMElfinderBundle(),
             new Admin\CategoryBundle\CategoryBundle(),
-            new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle()
+            new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
+            new Site\FrontBundle\FrontBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

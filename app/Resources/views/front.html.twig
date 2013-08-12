@@ -1,19 +1,48 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>
-            {%- if block('title') -%}
-                {{ block('title') }} | Starwars Events
-            {%- else -%}
-                Events from a Galaxy, far far away
-            {%- endif -%}
-        </title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
-</html>
+{% extends '::base.html.twig' %}
+
+{% block title 'Admin' %}
+
+    {% block stylesheets %}{% endblock %}
+
+    {% block javascripts %}
+
+        {% javascripts '@jquery_js'  'bundles/front/js/*' filter='?yui_js' combine=true %}
+        <script src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+
+    {% endblock %}
+
+
+{% block body %}
+<div id="templatemo_body_wrapper">
+    <div id="templatemo_wrapper">
+
+        <div id="templatemo_header">
+            <div id="site_title"><h1><a href="http://www.templatemo.com">Online Shoes Store</a></h1></div>
+            <div class="cleaner"></div>
+        </div> <!-- END of templatemo_header -->
+
+        {% block navigation %} {% endblock %}
+
+        <div id="templatemo_main">
+
+            {% block sidemenu %} {% endblock %}
+
+            <div id="content" class="float_r">
+                {% block content %}{% endblock %}
+            </div>
+            <div class="cleaner"></div>
+        </div> <!-- END of templatemo_main -->
+
+        <div id="templatemo_footer">
+            <p><a href="#">Home</a> | <a href="#">Products</a> | <a href="#">About</a> | <a href="#">FAQs</a> | <a href="#">Checkout</a> | <a href="#">Contact Us</a>
+            </p>
+
+            Copyright © 2072 <a href="#">Your Company Name</a> | <a href="http://www.templatemo.com/preview/templatemo_367_shoes">Shoes Theme</a> by <a href="http://www.templatemo.com" target="_parent" title="free css templates">templatemo</a>
+        </div> <!-- END of templatemo_footer -->
+
+    </div> <!-- END of templatemo_wrapper -->
+</div> <!-- END of templatemo_body_wrapper -->
+
+
+{% endblock %}
