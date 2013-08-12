@@ -16,11 +16,11 @@ post_create:
     requirements: { _method: post }
 
 post_edit:
-    pattern:  /{id}/edit
-    defaults: { _controller: "ArticleBundle:Post:edit" }
+    pattern:  /{id}/edit/{locale}
+    defaults: { _controller: ArticleBundle:Post:edit, locale: %locale% }
 
 post_update:
-    pattern:  /{id}/update
+    pattern:  /{id}/update/{locale}
     defaults: { _controller: "ArticleBundle:Post:update" }
     requirements: { _method: post|put }
 

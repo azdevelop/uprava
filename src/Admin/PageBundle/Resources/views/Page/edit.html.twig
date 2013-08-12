@@ -2,19 +2,19 @@
 
 {% block content -%}
 
-    <h1>Page edit {{ app.request.attributes.get('locale') }}</h1>
+    <h1>Page edit</h1>
     {{ form_errors(edit_form) }}
-    <form action="{{ path('page_update', { 'id': entity.id, 'locale':app.request.attributes.get('locale') }) }}" method="post" {{ form_enctype(edit_form) }}>
+    <form class="page-edit {% if app.request.attributes.get('locale') != locale %}translation{% endif %}" action="{{ path('page_update', { 'id': entity.id, 'locale':app.request.attributes.get('locale') }) }}" method="post" {{ form_enctype(edit_form) }}>
         <input type="hidden" name="_method" value="PUT" />
 
         <dl>
-            <dt>Title:</dt>
-            <dd>{{ form_widget(edit_form.title) }}</dd>
+            <dt class="translation-persist">Title:</dt>
+            <dd class="translation-persist">{{ form_widget(edit_form.title) }}</dd>
 
             {{ form_widget(edit_form.userId) }}
 
-            <dt>Content:</dt>
-            <dd>{{ form_widget(edit_form.content) }}</dd>
+            <dt class="translation-persist">Content:</dt>
+            <dd class="translation-persist">{{ form_widget(edit_form.content) }}</dd>
 
             <dt>Choose parent page:</dt>
             <dd>
@@ -50,8 +50,44 @@
             .treeList .active{
                 color: #325aff;
             }
-
+            
+            form.translation dl dt, 
+            form.page-delete, 
+            form.translation dl dd,
+            form.translation #page-widget
+            { display: none;}
+            form.translation .translation-persist
+           
+            { display: block;}
+            
         </style>
+       
+        <div id="page-widget" {% if entity.pageType != 'combo' %}style="display:none;"{% endif %}>
+        
+            <label>chose cat</label>
+           
+            <select name="page-widget[cat]">
+                <option value="0" {{ entity.widget.cat ==0 ? 'selected' : '' }}>all</option>
+                {% for category in categories %}
+                    <option value="{{category.id}}" {{ entity.widget.cat == category.id ? 'selected' : '' }}>{{category.title}}</option>
+                {% endfor %}
+             
+            </select>
+            <label>number of posts</label>
+             <select name="page-widget[posts]" {% if entity.pageType != 'combo' %}disabled{% endif %}>
+                {% for i in range(low=5, high=25, step=5) %}
+                   <option value="{{i}}"  {{ entity.widget.posts == i ? 'selected' : '' }}>{{i}}</option>
+                {% endfor %}
+              
+            </select>
+            <label>order</label>
+             <select name="page-widget[orderby]" {% if entity.pageType != 'combo' %}disabled{% endif %}>
+                <option value="asc" {{ entity.widget.orderby =='asc' ? 'selected' : '' }}>asc</option>
+                <option value="desc" {{ entity.widget.orderby =='desc' ? 'selected' : '' }}>desc</option>
+                <option value="rand" {{ entity.widget.orderby =='rand' ? 'selected' : '' }}>random</option>
+            </select>
+        </div>
+       
         <p>
             <button type="submit" class="btn btn-info pull-right">{% trans %}save{% endtrans %}</button>
         </p>
@@ -64,12 +100,26 @@
          </a>
         </li>
         <li>
-            <form action="{{ path('page_delete', { 'id': entity.id }) }}" method="post">
+            <form action="{{ path('page_delete', { 'id': entity.id }) }}" method="post" class="page-delete">
                 <input type="hidden" name="_method" value="DELETE" />
                 {{ form_widget(delete_form) }}
                 <button type="submit" class="btn btn-danger">{% trans %}delete{% endtrans %}</button>
             </form>
         </li>
     </ul>
+    <script>
+        $(document).ready(function(){
+           $('#admin_pagebundle_pagetype_pageType').change(function(){
+              if($(this).val() === 'combo'){
+                  $('#page-widget').show();
+                  $('#page-widget select').prop('disabled', '');
+              }
+              else{
+                   $('#page-widget').hide();
+                  $('#page-widget select').prop('disabled', 'disabled');
+              }
+           });
+        });
+    </script>
     {{ tinymce_init() }}
 {% endblock %}

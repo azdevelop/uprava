@@ -50,7 +50,30 @@
             }
 
         </style>
-
+        <div id="page-widget" style="display:none;">
+            <label>chose cat</label>
+            <select name="page-widget[cat]">
+                <option value="0">all</option>
+                {% for category in categories %}
+                    <option value="{{category.id}}">{{category.title}}</option>
+                {% endfor %}
+             
+            </select>
+            <label>number of posts</label>
+            
+             <select name="page-widget[posts]" disabled>
+                 {% for i in range(low=5, high=25, step=5) %}
+                   <option value="{{i}}">{{i}}</option>
+                {% endfor %}
+               
+            </select>
+            <label>order</label>
+             <select name="page-widget[orderby]" disabled>
+                <option value="asc">asc</option>
+                <option value="desc">desc</option>
+                <option value="rand">random</option>
+            </select>
+        </div>
         <p>
             <button type="submit" class="btn btn-info pull-right">{% trans %}save{% endtrans %}</button>
         </p>
@@ -59,6 +82,19 @@
         <a href="{{ path('page') }}" class="btn btn-inverse pull-left">
             {% trans %}Back to the list{% endtrans %}
         </a>
-
+<script>
+        $(document).ready(function(){
+           $('#admin_pagebundle_pagetype_pageType').change(function(){
+              if($(this).val() === 'combo'){
+                  $('#page-widget').show();
+                  $('#page-widget select').prop('disabled', '');
+              }
+              else{
+                   $('#page-widget').hide();
+                  $('#page-widget select').prop('disabled', 'disabled');
+              }
+           });
+        });
+    </script>
     
 {% endblock %}

@@ -34,8 +34,14 @@
                     <li>
                         <a href="{{ path('post_show', { 'id': entity.id }) }}" class="label label-default">show</a>
                     </li>
-                    <li>
-                        <a href="{{ path('post_edit', { 'id': entity.id }) }}" class="label label-info">edit</a>
+                     <li>
+                        <a href="{{ path('post_edit', { 'id': entity.id }) }}" class="label label-info">edit en</a>
+                    </li>
+                     <li>
+                        <a href="{{ path('post_edit', { 'id': entity.id, 'locale':'sr'  }) }}" class="label label-info">edit sr</a>
+                    </li>
+                     <li>
+                        <a href="{{ path('post_edit', { 'id': entity.id, 'locale':'cir'  }) }}" class="label label-info">edit sr</a>
                     </li>
                 </ul>
                 </td>

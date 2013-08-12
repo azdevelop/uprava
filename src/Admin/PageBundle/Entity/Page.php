@@ -98,6 +98,13 @@ class Page implements Translatable
      * this is not a mapped field of entity metadata, just a simple property
      */
     private $locale;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="widget", type="text", nullable=true)
+     */
+    private $widget;
 
     /**
      * Get id
@@ -347,6 +354,15 @@ class Page implements Translatable
     public function setTranslatableLocale($locale)
     {
         $this->locale = $locale;
+        return $this;
+    }
+
+    public function getWidget() {
+        return $this->widget;
+    }
+
+    public function setWidget($widget) {
+        $this->widget = $widget;
         return $this;
     }
 

@@ -2,7 +2,7 @@
 
 namespace Admin\ArticleBundle\Entity;
 use Gedmo\Mapping\Annotation as Gedmo;
-
+use Gedmo\Translatable\Translatable;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -11,7 +11,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Table(name="post")
  * @ORM\Entity(repositoryClass="Admin\ArticleBundle\Entity\PostRepository")
  */
-class Post
+class Post implements Translatable
 {
     /**
      * @var integer $id
@@ -24,14 +24,14 @@ class Post
 
    /**
      * @var string $name
-     * @Gedmo\Slug(fields={"title"}, separator="-", unique=true)
+     * @Gedmo\Slug(fields={"title"}, separator="-", unique=true, updatable=false)
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
 
     /**
      * @var string $title
-     *
+     * @Gedmo\Translatable
      * @ORM\Column(name="title", type="string", length=255)
      */
     private $title;
@@ -59,7 +59,7 @@ class Post
 
     /**
      * @var string $content
-     *
+     * @Gedmo\Translatable
      * @ORM\Column(name="content", type="text", nullable=true)
      */
     private $content;
@@ -87,6 +87,13 @@ class Post
      * )
      */
     protected $categories;
+    
+    /**
+     * @Gedmo\Locale
+     * Used locale to override Translation listener`s locale
+     * this is not a mapped field of entity metadata, just a simple property
+     */
+    private $locale;
     
     public function __construct(){
         $this->categories = new ArrayCollection();
@@ -341,5 +348,16 @@ class Post
     public function removeCategorie(\Admin\CategoryBundle\Entity\Category $categories)
     {
         $this->categories->removeElement($categories);
+    }
+    
+     /**
+     * Set locale for translation
+     *  @param string
+     *  @return Post
+     */
+    public function setTranslatableLocale($locale)
+    {
+        $this->locale = $locale;
+        return $this;
     }
 }

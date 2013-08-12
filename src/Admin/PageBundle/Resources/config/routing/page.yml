@@ -17,7 +17,7 @@ page_create:
 
 page_edit:
     pattern:  /edit/{id}/{locale}
-    defaults: { _controller: PageBundle:Page:edit, locale: en }
+    defaults: { _controller: PageBundle:Page:edit, locale: %locale% }
 
 page_update:
     pattern:  /update/{id}/{locale}

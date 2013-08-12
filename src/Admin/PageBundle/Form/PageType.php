@@ -24,7 +24,9 @@ class PageType extends AbstractType
             ->add('status')
             ->add('guid')
             ->add('parentId', 'hidden')
-            ->add('pageType','choice', array('choices'=>array('news'=>'News', 'blog'=>'Blog')))
+            ->add('pageType','choice', array(
+                'choices'=>array('regular'=>'Regular', 'combo'=>'Combo')))
+            ->add('widget','hidden')
             ;
     }
 

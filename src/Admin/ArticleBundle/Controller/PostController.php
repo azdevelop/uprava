@@ -97,11 +97,14 @@ class PostController extends Controller
      * Displays a form to edit an existing Post entity.
      *
      */
-    public function editAction($id)
+    public function editAction($id,$locale)
     {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('ArticleBundle:Post')->find($id);
+        
+        $entity->setTranslatableLocale($locale);
+        $em->refresh($entity);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Post entity.');
@@ -121,12 +124,12 @@ class PostController extends Controller
      * Edits an existing Post entity.
      *
      */
-    public function updateAction(Request $request, $id)
+    public function updateAction(Request $request, $id, $locale)
     {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('ArticleBundle:Post')->find($id);
-
+        $entity->setTranslatableLocale($locale);
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Post entity.');
         }
@@ -139,7 +142,7 @@ class PostController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('post_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('post_edit', array('id' => $id, 'locale'=>$locale)));
         }
 
         return $this->render('ArticleBundle:Post:edit.html.twig', array(
