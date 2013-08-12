@@ -26,6 +26,8 @@ framework:
 twig:
     debug:            %kernel.debug%
     strict_variables: %kernel.debug%
+    globals:
+       locale: %locale%
   
 
 # Assetic Configuration
@@ -167,7 +169,7 @@ ivory_ck_editor:
             filebrowserUploadUrl:  "elfinder"
 
 stof_doctrine_extensions:
-    default_locale: en
+    default_locale: %locale%
     translation_fallback: true
     orm:
       default: 
