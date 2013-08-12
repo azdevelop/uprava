@@ -1,10 +1,11 @@
 {% extends 'FrontBundle::layout.html.twig' %}
-{% block navMenu %}
-    {{ topNavigationTree|raw }}
-{% endblock %}
+
 
 {% block content -%}
+        
+        <h1 class="page-title">{{ entity.title}}</h1>
 
+        
         {{ entity.content|raw }}
 
 {% endblock %}

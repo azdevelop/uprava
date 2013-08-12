@@ -2,6 +2,18 @@
 
 {% block content -%}
 
-    ovde ide content
+    {% if posts %}
+        {% for post in posts %}
+            <div class="post">
+                <h3><a href="{{ path('front_post', { 'post': post.id }) }}">{{post.title}}</a></h3>
+                <div>{{post.content | raw}}</div>
+            </div>
+        {% endfor %}
+    {%else%}
+        <p class="alert-info">
+        Sorry, no more posts yet! Please publish...
+        </p>
+    {% endif %}
+
 
 {% endblock %}
