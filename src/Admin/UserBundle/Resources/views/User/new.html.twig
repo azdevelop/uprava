@@ -1,0 +1,40 @@
+{% extends '::admin.html.twig' %}
+
+
+{% block content -%}
+    <section class="main-block">
+        <article>
+            <section>
+                <h1>Create new user</h1>
+
+                <form action="{{ path('user_new') }}" method="POST">
+
+                    {{ form_errors(form) }}
+
+                    {{ form_row(form.username) }}
+                    {{ form_row(form.email) }}
+
+                    {{ form_row(form.password.first, {
+                    'label': 'Password'
+                    }) }}
+                    {{ form_row(form.password.second, {
+                    'label': 'Repeat Password'
+                    }) }}
+
+                    {{ form_rest(form) }}
+                    <ul class="record_actions inline unstyled">
+                        <li>
+                            <input type="submit" value="Save" class="btn btn-info pull-left"/>
+                        </li>
+                        <li>
+                            <a href="{{ path('user') }}" class="btn btn-inverse pull-left">
+                                {% trans %}Back to the list{% endtrans %}
+                            </a>
+                        </li>
+                    </ul>
+                </form>
+
+            </section>
+        </article>
+    </section>
+{% endblock %}

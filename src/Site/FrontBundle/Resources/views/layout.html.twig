@@ -1,0 +1,54 @@
+{% extends '::front.html.twig' %}
+
+{% block stylesheets %}
+    {% stylesheets
+    'bundles/front/css/*'
+    filter='cssrewrite'
+    %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}
+
+{% block navigation %}
+    <div id="templatemo_menubar">
+        <div id="top_nav" class="ddsmoothmenu">
+
+            {% block navMenu %} {% endblock %}
+
+            <br style="clear: left" />
+        </div> <!-- end of ddsmoothmenu -->
+        <div id="templatemo_search">
+            <form action="#" method="get">
+                <input type="text" value=" " name="keyword" id="keyword" title="keyword" onfocus="clearText(this)" onblur="clearText(this)" class="txt_field" />
+                <input type="submit" name="Search" value=" " alt="Search" id="searchbutton" title="Search" class="sub_btn"  />
+            </form>
+        </div>
+    </div> <!-- END of templatemo_menubar -->
+{% endblock %}
+
+{% block sidemenu %}
+    <div id="sidebar" class="float_l">
+        <div class="sidebar_box"><span class="bottom"></span>
+            <h3>Categories</h3>
+            <div class="content">
+                <ul class="sidebar_list">
+                    <li class="first"><a href="#">Sed eget purus</a></li>
+                    <li><a href="#">Vestibulum eleifend</a></li>
+                    <li><a href="#">Nulla odio ipsum</a></li>
+                    <li><a href="#">Suspendisse posuere</a></li>
+                    <li><a href="#">Nunc a dui sed</a></li>
+                    <li><a href="#">Curabitur ac mauris</a></li>
+                    <li><a href="#">Mauris nulla tortor</a></li>
+                    <li><a href="#">Nullam ultrices</a></li>
+                    <li><a href="#">Nulla odio ipsum</a></li>
+                    <li><a href="#">Suspendisse posuere</a></li>
+                    <li><a href="#">Nunc a dui sed</a></li>
+                    <li><a href="#">Curabitur ac mauris</a></li>
+                    <li><a href="#">Mauris nulla tortor</a></li>
+                    <li><a href="#">Nullam ultrices</a></li>
+                    <li class="last"><a href="#">Sed eget purus</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}
