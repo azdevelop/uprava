@@ -3,7 +3,7 @@
 {% block title 'Admin' %}
 
 {% block stylesheets %}
-    {% stylesheets '@bootstrap_less' combine=true %}
+    {% stylesheets '@bootstrap_less' combine=true filter='cssrewrite' %}
     <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
     {% endstylesheets %}
 {% endblock %}

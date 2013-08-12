@@ -4,12 +4,12 @@ front_hello:
 
 
 front_page:
-    pattern:  /page/{page}
-    defaults: { _controller: FrontBundle:Default:page }
+    pattern:  /page/{page}/{locale}
+    defaults: { _controller: FrontBundle:Default:page, locale: locale }
     
 front_post:
-    pattern:  /post/{post}
-    defaults: { _controller: FrontBundle:Default:post }
+    pattern:  /post/{post}/{locale}
+    defaults: { _controller: FrontBundle:Default:post, locale: locale }
 front_navigation:
     pattern:  /navigation/{name}
     defaults: { _controller: FrontBundle:Default:navigation, name:top }
