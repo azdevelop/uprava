@@ -1,15 +1,19 @@
+#front_hello:
+#    pattern:  /
+#    defaults: { _controller: FrontBundle:Default:index}
 front_hello:
-    pattern:  /
-    defaults: { _controller: FrontBundle:Default:index }
-
+    pattern:  /{locale}
+    defaults: { _controller: FrontBundle:Default:index, locale: %locale%}
+    requirements:
+        locale:  en|sr|cir
 
 front_page:
     pattern:  /page/{page}/{locale}
-    defaults: { _controller: FrontBundle:Default:page, locale: locale }
+    defaults: { _controller: FrontBundle:Default:page, locale: %locale% }
     
 front_post:
     pattern:  /post/{post}/{locale}
-    defaults: { _controller: FrontBundle:Default:post, locale: locale }
+    defaults: { _controller: FrontBundle:Default:post, locale: %locale% }
 front_navigation:
     pattern:  /navigation/{position}
     defaults: { _controller: FrontBundle:Default:navigation, position:top }

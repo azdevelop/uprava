@@ -1,15 +1,14 @@
 {% extends '::front.html.twig' %}
 
-{% block stylesheets %}
-    {% stylesheets
-    'bundles/front/css/*'
-    filter='cssrewrite'
-    %}
-    <link rel="stylesheet" href="{{ asset_url }}" />
-    {% endstylesheets %}
-{% endblock %}
-
+{%block topHeader%} 
+     <ul id="lang-selection">
+          <li><a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({'locale': 'en'}) )}}">en</a></li>
+          <li><a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({'locale': 'sr'}) )}}">sr</a></li>
+          <li><a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({'locale': 'cir'}) )}}">ср</a></li>
+    </ul>
+{%endblock%}
 {% block navigation %}
+   
     <div id="templatemo_menubar">
         <div id="top_nav" class="ddsmoothmenu">
 
@@ -30,10 +29,12 @@
 
 {% block sidemenu %}
     <div id="sidebar" class="float_l">
+        
         <div class="sidebar_box"><span class="bottom"></span>
-            {% block leftMenu %}
+     {% block leftMenu %}
                 {% render url('front_navigation',{ 'position': 'left' } ) %}
             {% endblock %}
+
         </div>
     </div>
 {% endblock %}

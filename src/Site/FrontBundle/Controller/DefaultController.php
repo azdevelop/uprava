@@ -8,10 +8,12 @@ use Admin\NavMenuBundle\Helpers\Tree\Navigation\TopNavTree;
 
 class DefaultController extends Controller
 {
-    public function indexAction()
+    public function indexAction( $locale )
     {
+        
         $em = $this->getDoctrine()->getManager();
-        $posts = $em->getRepository('ArticleBundle:Post')->findAll();
+        $posts = $em->getRepository('ArticleBundle:Post')->findAllByLocale($locale);
+        
         return $this->render(
              'FrontBundle:Default:index.html.twig',
              array(
@@ -23,6 +25,7 @@ class DefaultController extends Controller
 
     public function pageAction($page, $locale)
     {
+        
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('PageBundle:Page')->find( $page );
