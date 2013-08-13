@@ -14,7 +14,7 @@
         <div id="top_nav" class="ddsmoothmenu">
 
             {% block navMenu %} 
-              {% render url('front_navigation') %}
+              {% render url('front_navigation',{ 'position': 'top' }) %}
             {% endblock %}
 
             <br style="clear: left" />
@@ -31,7 +31,9 @@
 {% block sidemenu %}
     <div id="sidebar" class="float_l">
         <div class="sidebar_box"><span class="bottom"></span>
-          
+            {% block leftMenu %}
+                {% render url('front_navigation',{ 'position': 'left' } ) %}
+            {% endblock %}
         </div>
     </div>
 {% endblock %}

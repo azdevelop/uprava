@@ -1,6 +1,6 @@
 navmenu:
-    pattern:  /
-    defaults: { _controller: "NavMenuBundle:NavMenu:index" }
+    pattern:  /position/{menu}
+    defaults: { _controller: "NavMenuBundle:NavMenu:index", menu: top}
 
 navmenu_show:
     pattern:  /{id}/show

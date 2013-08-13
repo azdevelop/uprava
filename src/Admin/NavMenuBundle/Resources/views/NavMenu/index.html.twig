@@ -1,6 +1,11 @@
 {% extends 'NavMenuBundle::layout.html.twig' %}
 {% block content -%}
-
+    <div class="btn-group">
+        <a href="{{ path('navmenu' ) }}/top" class="btn {% if nav_position == 'top' %} active {% endif %}">Top</a>
+        <a href="{{ path('navmenu' ) }}/left" class="btn {% if nav_position == 'left' %} active {% endif %}">Left</a>
+        <a href="{{ path('navmenu' ) }}/right" class="btn {% if nav_position == 'right' %} active {% endif %}">Right</a>
+    </div>
+<h4 class="title">{{ nav_position }} navigation <h4>
 <form id="navArange" action="{{path('navmenu_arange')}}" method="POST" >
 <div class="cf nestable-lists">
     <div class="dd" id="nestable">

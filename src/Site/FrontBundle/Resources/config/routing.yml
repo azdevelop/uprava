@@ -11,5 +11,5 @@ front_post:
     pattern:  /post/{post}
     defaults: { _controller: FrontBundle:Default:post }
 front_navigation:
-    pattern:  /navigation/{name}
-    defaults: { _controller: FrontBundle:Default:navigation, name:top }
+    pattern:  /navigation/{position}
+    defaults: { _controller: FrontBundle:Default:navigation, position:top }

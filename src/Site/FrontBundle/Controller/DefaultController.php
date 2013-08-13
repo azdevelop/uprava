@@ -53,11 +53,11 @@ class DefaultController extends Controller
         );
     }
     
-    public function navigationAction( $name ){
-        
+    public function navigationAction( $position ){
+  
         $em = $this->getDoctrine()->getManager();
         
-        $nav = $em->getRepository('NavMenuBundle:NavMenu')->findAll();
+        $nav = $em->getRepository('NavMenuBundle:NavMenu')->findBy( array('position' => $position) );
 
         $tree = new TopNavTree();
         $navTree =  $tree->createTree( $nav );
