@@ -1,10 +1,10 @@
 {% extends '::front.html.twig' %}
 
 {%block topHeader%} 
-     <ul id="lang-selection">
-          <li><a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({'locale': 'en'}) )}}">en</a></li>
-          <li><a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({'locale': 'sr'}) )}}">sr</a></li>
-          <li><a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({'locale': 'cir'}) )}}">ср</a></li>
+     <ul id="lang-selection" class="inline">
+          <li><a class="badge badge-inverse" href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({'locale': 'en'}) )}}">en</a></li>
+          <li><a class="badge badge-inverse" href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({'locale': 'sr'}) )}}">sr</a></li>
+          <li><a class="badge badge-inverse" href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({'locale': 'cir'}) )}}">ср</a></li>
     </ul>
 {%endblock%}
 {% block navigation %}
