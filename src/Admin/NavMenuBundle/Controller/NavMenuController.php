@@ -23,17 +23,19 @@ class NavMenuController extends Controller
      * Lists all NavMenu entities.
      *
      */
-    public function indexAction()
+    public function indexAction( $menu  )
     {
+
         $em = $this->getDoctrine()->getManager();
         
-        $entities = $em->getRepository('NavMenuBundle:NavMenu')->findAllNMenu();
+        $entities = $em->getRepository('NavMenuBundle:NavMenu')->findBy( array('position' => $menu) );
         
         $tree = new AdminNavigationTree();
         $navTree = $tree->createTree($entities);
 
         return $this->render('NavMenuBundle:NavMenu:index.html.twig', array(
-            'entities' => $entities, 'navTree' => $navTree
+            'entities' => $entities, 'navTree' => $navTree,
+            'nav_position'  => $menu
         ));
     }
     
@@ -51,10 +53,12 @@ class NavMenuController extends Controller
 
         if ($form->isValid()) {
 
+            $entity->setUserId( $this->get('security.context')->getToken()->getUser()->getId() );
+
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('navmenu_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('navmenu', array('id' => $entity->getId())));
         }
 
         return $this->render('NavMenuBundle:NavMenu:new.html.twig', array(
@@ -158,6 +162,9 @@ class NavMenuController extends Controller
         $editForm->submit($request);
 
         if ($editForm->isValid()) {
+
+            $entity->setUserId( $this->get('security.context')->getToken()->getUser()->getId() );
+
             $em->persist($entity);
             $em->flush();
 

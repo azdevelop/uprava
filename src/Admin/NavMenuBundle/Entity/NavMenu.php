@@ -61,6 +61,14 @@ class NavMenu
     private $type;
 
 
+    private $position;
+
+    /**
+     * @var integer
+     */
+    private $userId;
+
+
     /**
      * Get id
      *
@@ -253,5 +261,36 @@ class NavMenu
         return $this->type;
     }
 
+    /**
+     * @param mixed $position
+     */
+    public function setPosition($position)
+    {
+        $this->position = $position;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPosition()
+    {
+        return $this->position;
+    }
+
+    /**
+     * @param mixed $userId
+     */
+    public function setUserId($userId)
+    {
+        $this->userId = $userId;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUserId()
+    {
+        return $this->userId;
+    }
 
 }

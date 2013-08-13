@@ -29,4 +29,10 @@ Admin\NavMenuBundle\Entity\NavMenu:
         type:
             type: string
             nullable: TRUE
+        position:
+            type: string
+            nullable: TRUE
+        userId:
+            column: user_id
+            type: integer
     lifecycleCallbacks: {  }

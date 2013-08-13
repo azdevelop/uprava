@@ -22,32 +22,13 @@ class NavMenuType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
-        $fPages = array(null => '');
-
-        foreach ( $this->_pages as $p) {
-            $id = $p->getId();
-            $fPages[$id] = $p->getName();
-        }
-
-        $a = array(
-            1 => 'prvi',
-            2 => 'drugi',
-            'parent 1' => array(
-                3 => 'treci',
-                'parent 2' => array(
-                    4 => 'cetvrti'
-                )
-             ),
-            6 => 'zzzzzz'
-
-        );
-
         $builder
             ->add('name')
             ->add('parentId', 'hidden', array('required' => false))
             ->add('type', 'choice', array('choices' => array('page' => 'page', 'custom_page' => 'custom page') ))
             ->add('url', 'text', array('required' => false))
-            ->add('pageId', 'hidden', array('required' => false));
+            ->add('pageId', 'hidden', array('required' => false))
+            ->add('position', 'choice', array('choices' => array('top' => 'Top', 'left' => 'Left', 'right' => 'Right') ));
     }
 
     /**
