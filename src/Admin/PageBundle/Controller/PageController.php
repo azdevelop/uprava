@@ -22,6 +22,7 @@ class PageController extends Controller
      */
     public function indexAction()
     {
+       
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('PageBundle:Page')->findAll();
@@ -80,7 +81,7 @@ class PageController extends Controller
         $entity = new Page();
         $entity->setUserId('1');
         $categories = $em->getRepository('CategoryBundle:Category')->findAll();
-       
+        $browse_path = $this->generateUrl('elfinder');
 
         $pages = $em->getRepository('PageBundle:Page')->findAll();
 
@@ -93,7 +94,7 @@ class PageController extends Controller
             $pagesForm[$p->getId()] = $p->getTitle();
         }
 
-        $form   = $this->createForm(new PageType(), $entity);
+        $form   = $this->createForm(new PageType($browse_path), $entity);
 
 
         return $this->render('PageBundle:Page:new.html.twig', array(
@@ -152,8 +153,8 @@ class PageController extends Controller
         $pages = $em->getRepository('PageBundle:Page')->findAll();
         $tree = new AdminPageTree();
         $pageTree = $tree->createTree( $pages );
-
-        $editForm = $this->createForm(new PageType(), $entity);
+        $browse_path = $this->generateUrl('elfinder');
+        $editForm = $this->createForm(new PageType($browse_path), $entity);
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('PageBundle:Page:edit.html.twig', array(

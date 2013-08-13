@@ -21,12 +21,19 @@ class DefaultController extends Controller
     }
 
 
-    public function pageAction($page)
+    public function pageAction($page, $locale)
     {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('PageBundle:Page')->find( $page );
-
+        $entity->setTranslatableLocale($locale);
+       
+        $em->refresh($entity);
+        if( $widget = $entity->getWidget()){
+            $widget = unserialize($widget);
+        
+        }
+        
         $topNavigation = $em->getRepository('NavMenuBundle:NavMenu')->findAll();
 
         $tree = new TopNavTree();
@@ -41,10 +48,12 @@ class DefaultController extends Controller
         );
     }
     
-    public function postAction( $post ){
+    public function postAction( $post, $locale ){
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('ArticleBundle:Post')->find( $post );
+        $entity->setTranslatableLocale($locale);
+        $em->refresh($entity);
         return $this->render('FrontBundle:Default:post.html.twig',
                                 array(
                                     'post' => $entity

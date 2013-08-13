@@ -64,7 +64,8 @@ class PostController extends Controller
     public function newAction()
     {
         $entity = new Post();
-        $form   = $this->createForm(new PostType(), $entity);
+        $browse_path = $this->generateUrl('elfinder');
+        $form   = $this->createForm(new PostType($browse_path), $entity);
 
         return $this->render('ArticleBundle:Post:new.html.twig', array(
             'entity' => $entity,
@@ -102,7 +103,7 @@ class PostController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('ArticleBundle:Post')->find($id);
-        
+        $browse_path = $this->generateUrl('elfinder');
         $entity->setTranslatableLocale($locale);
         $em->refresh($entity);
 
@@ -110,7 +111,7 @@ class PostController extends Controller
             throw $this->createNotFoundException('Unable to find Post entity.');
         }
 
-        $editForm = $this->createForm(new PostType(), $entity);
+        $editForm = $this->createForm(new PostType($browse_path), $entity);
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('ArticleBundle:Post:edit.html.twig', array(

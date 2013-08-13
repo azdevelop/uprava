@@ -3,6 +3,7 @@
 {% block title 'Admin' %}
 
 {% block stylesheets %}
+<<<<<<< HEAD
     {% stylesheets
     '@bootstrap_less'
     'bundles/aplication/css/*'
@@ -10,6 +11,10 @@
     combine=true
     %}
     <link rel="stylesheet" href="{{ asset_url }}" />
+=======
+    {% stylesheets '@bootstrap_less' combine=true filter='cssrewrite' %}
+    <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
+>>>>>>> 43e91f91ca335549340612f0f9ce689359dcd174
     {% endstylesheets %}
 {% endblock %}
 

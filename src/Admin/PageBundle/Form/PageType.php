@@ -8,19 +8,27 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class PageType extends AbstractType
 {
+    private $browser_path;
+    
+    public function __construct ($file_browser = ''){
+        $this->browser_path = $file_browser;
+    }
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $file_browser = $this->browser_path;
         $builder
             ->add('title')
             ->add('userId', 'hidden')
             ->add('content','ckeditor', 
                     array(
                         'config_name' => 'cms_config',
-                        'config' => array('filebrowserBrowseUrl'=>'/app_dev.php/elfinder')))
+                        'config' => array('filebrowserBrowseUrl'=>$file_browser)
+                        )
+                   )
             ->add('status')
             ->add('guid')
             ->add('parentId', 'hidden')

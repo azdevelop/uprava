@@ -31,4 +31,21 @@ class PostRepository extends EntityRepository
         );
         return $query->getResult();
     }
+    
+    public function findByIdJoinedToCategory($cat){
+//    $query = $this->getEntityManager()
+//        ->createQuery('
+//            SELECT p,pc, c FROM ArticleBundle:Post p
+//            JOIN p.category c
+//            WHERE p.id = :id'
+//        )->setParameter('id', $id);
+//
+//    try {
+//        return $query->getArrayResult();
+//    } catch (\Doctrine\ORM\NoResultException $e) {
+//        return null;
+        
+    }
+
+    
 }

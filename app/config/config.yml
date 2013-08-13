@@ -164,9 +164,8 @@ fm_elfinder:
 ivory_ck_editor:
     configs:
         cms_config:
-            toolbar:                [ ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat'],['Styles','Format','Font','FontSize' ], ['TextColor','BGColor' ],'/',['Link', 'Image', 'Table','Templates','Anchor','Smiley','Preview'], [ 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo' ] ,[ 'Find','Replace','-','SelectAll','-','SpellChecker', 'Scayt' ],'/',['NumberedList','BulletedList','-','Outdent','Indent','-','Blockquote','CreateDiv','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','-','BidiLtr','BidiRtl'],['Source']]
-            filebrowserUploadRoute: "elfinder"
-            filebrowserUploadUrl:  "elfinder"
+           # toolbar: [ ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat'],['Styles','Format','Font','FontSize' ], ['TextColor','BGColor' ],'/',['Link', 'Image', 'Table','Templates','Anchor','Smiley','Preview'], [ 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo' ] ,[ 'Find','Replace','-','SelectAll','-','SpellChecker', 'Scayt' ],'/',['NumberedList','BulletedList','-','Outdent','Indent','-','Blockquote','CreateDiv','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','-','BidiLtr','BidiRtl'],['Source']]
+            
 
 stof_doctrine_extensions:
     default_locale: %locale%
