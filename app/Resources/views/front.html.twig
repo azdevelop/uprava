@@ -1,8 +1,15 @@
 {% extends '::base.html.twig' %}
 
-{% block title 'Admin' %}
-
-    {% block stylesheets %}{% endblock %}
+ {% block stylesheets %}
+   {% stylesheets
+   '@bootstrap_less'
+   'bundles/front/css/*'
+   filter='cssrewrite'
+   combine=false
+   %}
+   <link rel="stylesheet" href="{{ asset_url }}" />
+   {% endstylesheets %}
+{% endblock %}
 
     {% block javascripts %}
 
@@ -16,12 +23,15 @@
 {% block body %}
 <div id="templatemo_body_wrapper">
     <div id="templatemo_wrapper">
-
-        <div id="templatemo_header">
+{% block header %} 
+            {% block topHeader %} {%endblock%}
+ <div id="templatemo_header">
             <div id="site_title"><h1><a href="http://www.templatemo.com">Online Shoes Store</a></h1></div>
             <div class="cleaner"></div>
         </div> <!-- END of templatemo_header -->
-
+{% endblock %}
+       
+        
         {% block navigation %} {% endblock %}
 
         <div id="templatemo_main">
