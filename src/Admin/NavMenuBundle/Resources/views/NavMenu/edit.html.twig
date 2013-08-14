@@ -36,23 +36,10 @@
             <button type="submit">Edit</button>
         </p>
 
-        <style>
-            .treeList ul{
-                list-style: none;
-            }
-
-            .treeList li{
-
-                cursor:pointer;
-            }
-
-            .treeList .active{
-                color: #325aff;
-            }
-
-        </style>
     </form>
-
+    <script>
+        listTree.treeSelect( $("#admin_navmenubundle_navmenutype_pageId")).removeMe({{entity.id}});
+    </script>
         <ul class="record_actions">
     <li>
         <a href="{{ path('navmenu') }}">

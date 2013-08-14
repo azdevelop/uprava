@@ -7,7 +7,6 @@
 
         <h4>{{ nav_position }} menu</h4>
         <dl>
-
             <dt>Name:</dt>
             <dd>{{ form_widget(form.name) }}</dd>
             <dt>Chose type:</dt>
@@ -33,7 +32,9 @@
             </dl>
 
         {{ form_widget(form) }}
-
+        <script>
+            listTree.treeSelect( $("#admin_navmenubundle_navmenutype_pageId"));
+        </script>
         <ul  class="unstyled inline">
             <li>
                 <a href="{{ path('navmenu') }}" class="btn btn-inverse">
