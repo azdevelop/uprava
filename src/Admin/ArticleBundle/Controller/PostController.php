@@ -25,10 +25,7 @@ class PostController extends Controller
 
       
         $entities = $em->getRepository('ArticleBundle:Post')->findAll();
-        
-        //echo '<pre>';
-        //\Doctrine\Common\Util\Debug::dump($entities);
-        //echo '</pre>';
+
         return $this->render('ArticleBundle:Post:index.html.twig', array(
             'entities' => $entities,
         ));
@@ -44,6 +41,7 @@ class PostController extends Controller
         $form->submit($request);
        
         if ($form->isValid()) {
+            $entity->setUserId( $this->get('security.context')->getToken()->getUser()->getId() );
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
@@ -140,6 +138,7 @@ class PostController extends Controller
         $editForm->submit($request);
 
         if ($editForm->isValid()) {
+            $entity->setUserId( $this->get('security.context')->getToken()->getUser()->getId() );
             $em->persist($entity);
             $em->flush();
 

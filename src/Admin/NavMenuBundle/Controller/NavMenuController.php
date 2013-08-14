@@ -43,13 +43,21 @@ class NavMenuController extends Controller
      * Creates a new NavMenu entity.
      *
      */
-    public function createAction(Request $request)
+    public function createAction( Request $request)
     {
         $entity  = new NavMenu();
+
         $em = $this->getDoctrine()->getManager();
         $pages = $em->getRepository('PageBundle:Page')->findAll();
-        $form = $this->createForm(new NavMenuType( $pages ), $entity);
+
+        $position = $request->request->get('position');
+
+        $form = $this->createForm(new NavMenuType( $position ), $entity);
+
         $form->submit($request);
+
+        $tree = new AdminPageTree();
+        $pageTree = $tree->createTree( $pages );
 
         if ($form->isValid()) {
 
@@ -58,12 +66,17 @@ class NavMenuController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('navmenu', array('id' => $entity->getId())));
+            $url = $this->generateUrl('navmenu' );
+            $url .=   '/' . $entity->getPosition();
+
+            return $this->redirect( $url );
         }
 
         return $this->render('NavMenuBundle:NavMenu:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
+            'pageTree' => $pageTree,
+            'nav_position'  => 'top'
         ));
     }
 
@@ -71,14 +84,14 @@ class NavMenuController extends Controller
      * Displays a form to create a new NavMenu entity.
      *
      */
-    public function newAction()
+    public function newAction( $position )
     {
         $entity = new NavMenu();
 
         $em = $this->getDoctrine()->getManager();
         $pages = $em->getRepository('PageBundle:Page')->findAll();
 
-        $form   = $this->createForm(new NavMenuType( $pages ), $entity);
+        $form   = $this->createForm(new NavMenuType( $position ), $entity);
 
         $tree = new AdminPageTree();
         $pageTree = $tree->createTree( $pages );
@@ -86,7 +99,8 @@ class NavMenuController extends Controller
         return $this->render('NavMenuBundle:NavMenu:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
-            'pageTree' => $pageTree
+            'pageTree' => $pageTree,
+            'nav_position'  => $position
         ));
     }
 
@@ -115,7 +129,7 @@ class NavMenuController extends Controller
      * Displays a form to edit an existing NavMenu entity.
      *
      */
-    public function editAction($id)
+    public function editAction($id, $position)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -130,7 +144,7 @@ class NavMenuController extends Controller
             throw $this->createNotFoundException('Unable to find NavMenu entity.');
         }
 
-        $editForm = $this->createForm( new NavMenuType( $pages ), $entity );
+        $editForm = $this->createForm( new NavMenuType( $entity->getPosition() ), $entity );
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('NavMenuBundle:NavMenu:edit.html.twig', array(
@@ -155,10 +169,8 @@ class NavMenuController extends Controller
             throw $this->createNotFoundException('Unable to find NavMenu entity.');
         }
 
-        $pages = $em->getRepository('PageBundle:Page')->findAll();
-
         $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createForm(new NavMenuType( $pages ), $entity);
+        $editForm = $this->createForm(new NavMenuType( $entity->getPosition() ), $entity);
         $editForm->submit($request);
 
         if ($editForm->isValid()) {

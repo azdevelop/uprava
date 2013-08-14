@@ -1,14 +1,16 @@
 navmenu:
     pattern:  /position/{menu}
     defaults: { _controller: "NavMenuBundle:NavMenu:index", menu: top}
+    requirements:
+            name: ".+"
 
 navmenu_show:
     pattern:  /{id}/show
     defaults: { _controller: "NavMenuBundle:NavMenu:show" }
 
 navmenu_new:
-    pattern:  /new
-    defaults: { _controller: "NavMenuBundle:NavMenu:new" }
+    pattern:  /new/{position}
+    defaults: { _controller: "NavMenuBundle:NavMenu:new", position: top }
 
 navmenu_create:
     pattern:  /create
@@ -16,8 +18,8 @@ navmenu_create:
     requirements: { _method: post }
 
 navmenu_edit:
-    pattern:  /{id}/edit
-    defaults: { _controller: "NavMenuBundle:NavMenu:edit" }
+    pattern:  /{id}/edit/{position}
+    defaults: { _controller: "NavMenuBundle:NavMenu:edit", position: top }
 
 navmenu_update:
     pattern:  /{id}/update

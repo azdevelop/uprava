@@ -9,10 +9,10 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 class NavMenuType extends AbstractType
 {
 
-    private $_pages;
+    private $_position;
 
-    public function __construct( $pages = array() ) {
-        $this->_pages = $pages;
+    public function __construct( $position = null ) {
+        $this->_position = $position;
     }
 
     /**
@@ -21,14 +21,15 @@ class NavMenuType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-
         $builder
             ->add('name')
             ->add('parentId', 'hidden', array('required' => false))
             ->add('type', 'choice', array('choices' => array('page' => 'page', 'custom_page' => 'custom page') ))
             ->add('url', 'text', array('required' => false))
             ->add('pageId', 'hidden', array('required' => false))
-            ->add('position', 'choice', array('choices' => array('top' => 'Top', 'left' => 'Left', 'right' => 'Right') ));
+            ->add('position', 'hidden', array(
+                'data' =>  $this->_position
+            ));
     }
 
     /**

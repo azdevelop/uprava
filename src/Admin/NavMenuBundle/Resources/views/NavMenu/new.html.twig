@@ -4,6 +4,8 @@
     <h1>NavMenu creation</h1>
 
     <form action="{{ path('navmenu_create') }}" method="post" {{ form_enctype(form) }}>
+
+        <h4>{{ nav_position }} menu</h4>
         <dl>
 
             <dt>Name:</dt>
@@ -28,24 +30,8 @@
                  </dd>
              </div>
 
+            </dl>
 
-        </dl>
-
-        <style>
-            .treeList ul{
-                list-style: none;
-            }
-
-            .treeList li{
-
-                cursor:pointer;
-            }
-
-            .treeList .active{
-                color: #325aff;
-            }
-
-        </style>
         {{ form_widget(form) }}
 
         <ul  class="unstyled inline">
