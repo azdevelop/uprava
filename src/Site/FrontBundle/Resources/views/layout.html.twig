@@ -13,7 +13,7 @@
         <div id="top_nav" class="ddsmoothmenu">
 
             {% block navMenu %} 
-              {% render url('front_navigation',{ 'position': 'top' }) %}
+              {% render url('front_navigation',{ 'position': 'top', 'locale': app.request.attributes.get('_route_params').locale }) %}
             {% endblock %}
 
             <br style="clear: left" />
@@ -32,7 +32,7 @@
         
         <div class="sidebar_box"><span class="bottom"></span>
      {% block leftMenu %}
-                {% render url('front_navigation',{ 'position': 'left' } ) %}
+                {% render url('front_navigation',{ 'position': 'left', 'locale': app.request.attributes.get('_route_params').locale } ) %}
             {% endblock %}
 
         </div>

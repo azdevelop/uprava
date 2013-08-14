@@ -3,10 +3,16 @@
 namespace Admin\NavMenuBundle\Helpers\Tree\Navigation;
 
 use Admin\AplicationBundle\Helpers\Tree\TreeAbstract;
-use Symfony\Component\Routing\Generator\UrlGenerator;
+
 class TopNavTree extends TreeAbstract {
 
-
+    protected $_controller;
+    protected $_locale;
+    public function __construct( $navcontroller, $locale) {
+        $this->_controller = $navcontroller;
+        $this->_locale = $locale;
+    }
+    
     public function createTree( $rows, $parentId = 0 ) {
 
         return $this->_createTree( $rows );
@@ -21,10 +27,11 @@ class TopNavTree extends TreeAbstract {
 
     protected function _childHTML( $child ) {
        
-            $url = $_SERVER['SERVER_NAME'];
-            $url .= '/app_dev.php/page/' . $child->getId();
+            
+            $url = $this->_controller->generateURL('front_page', array('page' => $child->getId(), 'locale'=>$this->_locale));
+       
             return    "
-                          <a href=\"//".$url."\" class=\"label label-info\">".$child->getName()." </a>
+                          <a href=\"".$url."\" class=\"label label-info\">".$child->getName()." </a>
 
                       ";
 

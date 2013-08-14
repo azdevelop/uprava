@@ -29,8 +29,9 @@ class NavMenuController extends Controller
         $em = $this->getDoctrine()->getManager();
         
         $entities = $em->getRepository('NavMenuBundle:NavMenu')->findBy( array('position' => $menu) );
+        //echo $url = $this->generateUrl('navmenu_edit', array('id' => 1, 'position'=>'left')); die();
         
-        $tree = new AdminNavigationTree();
+        $tree = new AdminNavigationTree( $this );
         $navTree = $tree->createTree($entities);
 
         return $this->render('NavMenuBundle:NavMenu:index.html.twig', array(

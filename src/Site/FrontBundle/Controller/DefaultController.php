@@ -39,7 +39,7 @@ class DefaultController extends Controller
         
         $topNavigation = $em->getRepository('NavMenuBundle:NavMenu')->findAll();
 
-        $tree = new TopNavTree();
+        $tree = new TopNavTree($this, $locale);
         $topNavigationTree =  $tree->createTree( $topNavigation );
 
         return $this->render('FrontBundle:Default:page.html.twig',
@@ -65,13 +65,13 @@ class DefaultController extends Controller
         );
     }
     
-    public function navigationAction( $position ){
+    public function navigationAction( $position, $locale ){
   
         $em = $this->getDoctrine()->getManager();
         
         $nav = $em->getRepository('NavMenuBundle:NavMenu')->findBy( array('position' => $position) );
 
-        $tree = new TopNavTree();
+        $tree = new TopNavTree($this, $locale);
         $navTree =  $tree->createTree( $nav );
 
         return $this->render('FrontBundle:Default:navigation.html.twig',
