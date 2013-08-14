@@ -26,7 +26,7 @@ class PageType extends AbstractType
             ->add('content','ckeditor', 
                     array(
                         'config_name' => 'cms_config',
-                        'config' => array('filebrowserBrowseUrl'=>$file_browser)
+                        'config' => array('filebrowserBrowseUrl'=>$file_browser, 'extraPlugins' => 'slideshow')
                         )
                    )
             ->add('status')

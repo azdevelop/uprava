@@ -27,7 +27,8 @@ class PostType extends AbstractType
                     array(
                         
                         'config_name' => 'cms_config',
-                        'config' => array('filebrowserBrowseUrl'=>$file_browser)
+                        'config' => array('filebrowserBrowseUrl'=>$file_browser, 'extraPlugins' => 'slideshow')
+                        
                         )
                     )
             ->add('status','choice', array('choices'=>array('publish'=>'Published', 'draft'=>'Draft')))
