@@ -1,0 +1,24 @@
+
+.treeList{
+    background: #e4e4e4;
+    max-width: 210px;
+    max-height: 250px;
+    overflow: auto;
+    margin:0px 0px 15px 0px;
+    padding: 5px;
+    border:1px solid #D5D5D5;
+}
+.treeList ul{
+    list-style: none;
+    margin:0px;
+}
+
+.treeList li{
+    background:url('../images/list.png') no-repeat 0px 2px;;
+    cursor:pointer;
+    padding-left: 15px;
+}
+
+.treeList .active{
+    color: #0032FF;
+}
