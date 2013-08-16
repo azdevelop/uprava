@@ -2,7 +2,6 @@
 
 namespace Site\FrontBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Admin\NavMenuBundle\Helpers\Tree\Navigation\TopNavTree;
 
