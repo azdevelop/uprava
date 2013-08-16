@@ -1,11 +1,7 @@
 {% extends 'FrontBundle::layout.html.twig' %}
 
-
 {% block content -%}
-        
-        <h1 class="page-title">{{ entity.title}}</h1>
 
-        
-        {{ entity.content|raw }}
+        {% render url('front_partial_content',{ 'page': page, 'locale': app.request.attributes.get('_route_params').locale }) %}
 
 {% endblock %}

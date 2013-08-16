@@ -14,6 +14,12 @@ front_page:
 front_post:
     pattern:  /post/{post}/{locale}
     defaults: { _controller: FrontBundle:Default:post, locale: %locale% }
+
 front_navigation:
     pattern:  /navigation/{position}/{locale}
     defaults: { _controller: FrontBundle:Default:navigation, position:top | locale:%locale% }
+
+
+front_partial_content:
+    pattern:  /partial/page/{page}/{locale}
+    defaults: { _controller: FrontBundle:Page:page, locale:%locale% }

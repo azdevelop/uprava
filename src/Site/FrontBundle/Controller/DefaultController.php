@@ -25,28 +25,10 @@ class DefaultController extends Controller
 
     public function pageAction($page, $locale)
     {
-        
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('PageBundle:Page')->find( $page );
-        $entity->setTranslatableLocale($locale);
-       
-        $em->refresh($entity);
-        if( $widget = $entity->getWidget()){
-            $widget = unserialize($widget);
-        
-        }
-        
-        $topNavigation = $em->getRepository('NavMenuBundle:NavMenu')->findAll();
-
-        $tree = new TopNavTree($this, $locale);
-        $topNavigationTree =  $tree->createTree( $topNavigation );
 
         return $this->render('FrontBundle:Default:page.html.twig',
                                 array(
-                                    'page' => $page,
-                                    'entity' => $entity,
-                                    'topNavigationTree' => $topNavigationTree
+                                    'page' => $page
                                 )
         );
     }
