@@ -23,5 +23,18 @@ class ArticleController extends Controller
             )
         );
     }
+    
+     public function listAction( $locale )
+    {
+        $em = $this->getDoctrine()->getManager();
+        $posts = $em->getRepository('ArticleBundle:Post')->findAllByLocale($locale);
+        
+        return $this->render(
+             'FrontBundle:Article:list.html.twig',
+             array(
+                 'posts' => $posts
+                )
+        );
+    }
 
 }
