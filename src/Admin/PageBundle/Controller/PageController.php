@@ -26,9 +26,17 @@ class PageController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('PageBundle:Page')->findAll();
+//        $dql   = "SELECT a FROM PageBundle:Page a";
+//        $query = $em->createQuery($dql);
 
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+         $entities,
+        $this->get('request')->query->get('page', 1)/*page number*/,
+        5/*limit per page*/
+        );
         return $this->render('PageBundle:Page:index.html.twig', array(
-            'entities' => $entities,
+            'entities' => $pagination,
         ));
     }
     /**

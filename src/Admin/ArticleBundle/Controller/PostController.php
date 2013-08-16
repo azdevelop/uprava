@@ -25,9 +25,14 @@ class PostController extends Controller
 
       
         $entities = $em->getRepository('ArticleBundle:Post')->findAll();
-
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+        $entities,
+        $this->get('request')->query->get('page', 1)/*page number*/,
+        5/*limit per page*/
+        );
         return $this->render('ArticleBundle:Post:index.html.twig', array(
-            'entities' => $entities,
+            'entities' => $pagination,
         ));
     }
     /**
