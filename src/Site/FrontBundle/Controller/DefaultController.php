@@ -10,13 +10,13 @@ class DefaultController extends Controller
 {
     public function indexAction( $locale )
     {
-        $em = $this->getDoctrine()->getManager();
-        $posts = $em->getRepository('ArticleBundle:Post')->findAllByLocale($locale);
+        $p = $this->get('request')->query->get('page',1);
+       
         
         return $this->render(
              'FrontBundle:Default:index.html.twig',
              array(
-                 'posts' => $posts
+                 'page' => $p
                 )
                 );
     }

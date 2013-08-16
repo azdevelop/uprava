@@ -2,6 +2,6 @@
 
 {% block content -%}
 
-    {% render url('front_partial_post_list',{'locale': app.request.attributes.get('_route_params').locale }) %}
+    {% render url('front_partial_post_list',{'locale': app.request.attributes.get('_route_params').locale, 'page': app.request.query.all['page'] | default(1)}) %}
 
 {% endblock %}
