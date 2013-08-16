@@ -1,48 +1,11 @@
 <?php
-namespace Admin\AplicationBundle\Entity;
+namespace Admin\AplicationBundle\Listener;
 
-use DateTime;
-use Gedmo\Mapping\Annotation as Gedmo;
-use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Event\LifecycleEventArgs,
-    Symfony\Component\DependencyInjection\ContainerInterface;
+use Doctrine\ORM\Event\LifecycleEventArgs;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
-
-/**
- * @ORM\Entity
- * @ORM\Table(name="admin_activity_log")
- */
 class ActivityLog
 {
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    protected $id;
-
-    /**
-     * @ORM\Column(name="entity_id", type="integer", length=11)
-     */
-    protected $entity_id;
-
-    /**
-     * @ORM\Column(name="entity_class", type="text", length=255)
-     */
-    protected $entity_class;
-
-    /**
-     * @ORM\Column(name="user_id", type="integer", length=11)
-     */
-    protected $user;
-
-    /**
-     * @var \DateTime
-     * @Gedmo\Timestampable(on="update")
-     * @ORM\Column(name="date", type="datetime")
-     */
-    protected $date;
-
     /**
      * @var \Symfony\Component\DependencyInjection\ContainerInterface
      */
@@ -54,10 +17,12 @@ class ActivityLog
     private $_em;
 
 
+    private $_action = 'insert';
+
     /**
      * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
      */
-    public function __construct(ContainerInterface $container)
+    public function __construct( ContainerInterface $container  )
     {
         $this->_container = $container;
     }
@@ -101,8 +66,11 @@ class ActivityLog
      * @return array
      */
     private $_validClasses = array(
-        'Acme\DefaultBundle\Entity\Article',
-        'Acme\UserBundle\Entity\User'
+        'Admin\AplicationBundle\Entity\Article',
+        'Admin\NavMenuBundle\Entity\NavMenu',
+        'Admin\PageBundle\Entity\Page',
+        'Admin\ArticleBundle\Entity\Post',
+        'Admin\CategoryBundle\Entity\Category'
     );
 
     /**
@@ -127,8 +95,11 @@ class ActivityLog
      */
     public function postUpdate(LifecycleEventArgs $args)
     {
-        if (!is_null( $this->_getUserId() ))
+        $this->_action = 'update';
+
+        if (!is_null( $this->_getUserId() )) {
             $this->_checkLog($args);
+        }
 
         return true;
     }
@@ -141,8 +112,15 @@ class ActivityLog
      */
     public function preRemove(LifecycleEventArgs $args)
     {
-        if (!is_null( $this->_getUserId() ))
+        $this->_action = 'delete';
+
+        if (!is_null( $this->_getUserId() )){
+
             $this->_container->get('session')->set('entity_remove', $args->getEntity());
+
+            $this->_checkLog($args->getEntity(), array('delete' => true, 'entity' => true));
+
+        }
 
         return true;
     }
@@ -150,10 +128,9 @@ class ActivityLog
     public function postRemove(LifecycleEventArgs $args)
     {
         $entity = $this->_container->get('session')->get('entity_remove');
+
         if (!empty($entity))
         {
-            $this->_checkLog($entity, array('delete' => true, 'entity' => true));
-
             $this->_container->get('session')->remove('entity_remove');
         }
     }
@@ -167,7 +144,7 @@ class ActivityLog
     {
         $entity_class = empty($options['entity']) ? $args->getEntity() : $args;
 
-        if (get_class($entity_class) == 'Acme\DefaultBundle\Entity\ActivityLog')
+        if (get_class($entity_class) == 'Admin\AplicationBundle\Entity\ActivityLog')
             return false;
 
         $class = get_class($entity_class);
@@ -176,27 +153,8 @@ class ActivityLog
         {
             $class = get_class($entity_class);
 
-            $log = $this->_em('AcmeDefaultBundle:ActivityLog')->findOneBy(array(
-                'entity_class' => $class,
-                'entity_id' => $entity_class->getId()
-            ));
+             $this->_addLog($entity_class, $class);
 
-            if (empty($log))
-            {
-                if (empty($options['delete']))
-                    $this->_addLog($entity_class, $class);
-            }
-            else
-            {
-                if (empty($options['delete']))
-                {
-                    $this->_updateLog($log);
-                }
-                else
-                {
-                    $this->_removeLog($log);
-                }
-            }
         }
     }
 
@@ -206,15 +164,36 @@ class ActivityLog
      */
     public function _addLog($entity_class, $class)
     {
-        $entity = new \Acme\DefaultBundle\Entity\ActivityLog;
+        $entity = new \Admin\AplicationBundle\Entity\ActivityLog;
 
         $entity->setEntityClass( $class );
         $entity->setEntityId($entity_class->getId());
         $entity->setUser( $this->_getUserId() );
+        $entity->setAction( $this->_action );
+        $entity->setEntityTitle( $this->_setTitle( $entity_class ) );
 
         $this->_em()->persist($entity);
         $this->_em()->flush();
     }
+
+
+    private function _setTitle( $entity_class ){
+
+        if( method_exists($entity_class,'getTitle') ) {
+            $title = $entity_class->getTitle();
+        }
+        else{
+            if( method_exists($entity_class,'getName') ) {
+                $title = $entity_class->getName();
+            }
+            else{
+                $title = null;
+            }
+        }
+
+        return $title;
+    }
+
 
     /**
      * @param $entity
@@ -241,87 +220,4 @@ class ActivityLog
     }
 
 
-
-    /**
-     * @return mixed
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getEntityId()
-    {
-        return $this->entity_id;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getEntityClass()
-    {
-        return $this->entity_class;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getUser()
-    {
-        return $this->user;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getDate()
-    {
-        return $this->date;
-    }
-
-    /**
-     * @param $entity_id
-     * @return $this
-     */
-    public function setEntityId($entity_id)
-    {
-        $this->entity_id = $entity_id;
-        return $this;
-    }
-
-    /**
-     * @param $entity_class
-     * @return $this
-     */
-    public function setEntityClass($entity_class)
-    {
-        $this->entity_class = $entity_class;
-        return $this;
-    }
-
-    /**
-     * @param $user
-     * @return $this
-     */
-    public function setUser($user)
-    {
-        $this->user = $user;
-        return $this;
-    }
-
-    /**
-     * Set date
-     *
-     * @param \DateTime $date
-     * @return ActivityLog
-     */
-    public function setDate($date)
-    {
-        $this->date = $date;
-
-        return $this;
-    }
 }

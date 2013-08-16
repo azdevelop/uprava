@@ -1,3 +1,8 @@
 aplication_homepage:
     pattern:  /hello/{name}
     defaults: { _controller: AplicationBundle:Default:index }
+
+
+activity_log:
+    pattern:  /{userId}
+    defaults: { _controller: AplicationBundle:ActivityLog:index }

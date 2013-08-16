@@ -1,0 +1,22 @@
+<h3 class="title">User logs:</h3>
+<div>
+<table class="table table-bordered table-hover">
+    <thead>
+    <tr>
+        <th>Date</th>
+        <th>Entity class name</th>
+        <th>Entity title</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for log in logs %}
+        <tr>
+            <th>{{ log.date|date('Y-m-d H:i:s') }}</th>
+            <th>{{ log.entityClass }}</th>
+            <th>{{ log.entityTitle }}</th>
+            <th>{{ log.action }}</th>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

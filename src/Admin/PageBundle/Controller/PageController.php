@@ -57,7 +57,7 @@ class PageController extends Controller
         $pageTree = $tree->createTree( $pages );
 
         if ($form->isValid()) {
-
+            $entity->setUserId( $this->get('security.context')->getToken()->getUser()->getId() );
             $em->persist($entity);
             $em->flush();
 
@@ -79,7 +79,7 @@ class PageController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $entity = new Page();
-        $entity->setUserId('1');
+        $entity->setUserId( $this->get('security.context')->getToken()->getUser()->getId() );
         $categories = $em->getRepository('CategoryBundle:Category')->findAll();
         $browse_path = $this->generateUrl('elfinder');
 
@@ -204,6 +204,7 @@ class PageController extends Controller
         $editForm->submit($request);
 
         if ($editForm->isValid()) {
+            $entity->setUserId( $this->get('security.context')->getToken()->getUser()->getId() );
             $em->persist($entity);
             $em->flush();
 

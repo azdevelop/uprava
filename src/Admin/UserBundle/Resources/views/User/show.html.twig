@@ -1,9 +1,9 @@
 {% extends '::admin.html.twig' %}
 
 {% block content -%}
-    <h1>User</h1>
+    <h2 class="title">User:</h2>
 
-    <table class="record_properties">
+    <table class="table table-bordered ">
         <tbody>
             <tr>
                 <th>Id</th>
@@ -12,10 +12,6 @@
             <tr>
                 <th>Username</th>
                 <td>{{ entity.username }}</td>
-            </tr>
-            <tr>
-                <th>Roles</th>
-                <td>{{ entity.roles }}</td>
             </tr>
             <tr>
                 <th>Isactive</th>
@@ -27,7 +23,7 @@
             </tr>
         </tbody>
     </table>
-
+    {% render url('activity_log',{ 'userId': entity.id }) %}
 <ul class="unstyled inline">
     <li>
         <a href="{{ path('user') }}" class="btn btn-inverse">

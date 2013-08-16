@@ -4,9 +4,14 @@ namespace Admin\UserBundle\Entity;
 
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
- * User
+ * VNN\PressboxBundle\Entity\User
+ *
+ * @ORM\Table(name="user")
+ * @ORM\Entity
+ * @UniqueEntity(fields="email", message="Sorry, this email address is already in use.", groups={"registration"})
+ * @UniqueEntity(fields="username", message="Sorry, this username is already taken.", groups={"registration"})
  */
 class User implements UserInterface
 {
