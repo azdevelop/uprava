@@ -1,12 +1,7 @@
 {% extends 'FrontBundle::layout.html.twig' %}
 
-
 {% block content -%}
-     {% if post %}   
-        <h1 class="page-title">{{ post.title}}</h1>
 
-        {{ post.content|raw }}
-    {%else%}
-        <p>Post not found</p>
-    {%endif%}
+    {% render url('front_partial_post',{ 'post': post, 'locale': app.request.attributes.get('_route_params').locale }) %}
+
 {% endblock %}
