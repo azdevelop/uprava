@@ -118,32 +118,32 @@ swiftmailer:
     password:  %mailer_password%
     spool:     { type: memory }
     
-stfalcon_tinymce:
-        include_jquery: true
-        tinymce_jquery: true
-        selector: ".tinymce"
-        theme:
-            # Simple theme: same as default theme
-            simple: ~
-            # Advanced theme with almost all enabled plugins
-            advanced:
-                 plugins:
-                     - "advlist autolink lists link image charmap print preview hr anchor pagebreak"
-                     - "searchreplace wordcount visualblocks visualchars code fullscreen"
-                     - "insertdatetime media nonbreaking save table contextmenu directionality"
-                     - "emoticons template paste textcolor"
-                 toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
-                 toolbar2: "print preview media | forecolor backcolor emoticons | stfalcon | example"
-                 image_advtab: true
-                 templates:
-                     - {title: 'Test template 1', content: 'Test 1'}
-                     - {title: 'Test template 2', content: 'Test 2'}
-                 file_browser_callback : 'elFinderBrowser'
-            # BBCode tag compatible theme (see http://www.bbcode.org/reference.php)
-            bbcode:
-                 plugins: ["bbcode, code, link, preview"]
-                 menubar: false
-                 toolbar1: "bold,italic,underline,undo,redo,link,unlink,removeformat,cleanup,code,preview"
+#stfalcon_tinymce:
+#        include_jquery: true
+#        tinymce_jquery: true
+#        selector: ".tinymce"
+#        theme:
+#            # Simple theme: same as default theme
+#            simple: ~
+#            # Advanced theme with almost all enabled plugins
+#            advanced:
+#                 plugins:
+#                     - "advlist autolink lists link image charmap print preview hr anchor pagebreak"
+#                     - "searchreplace wordcount visualblocks visualchars code fullscreen"
+#                     - "insertdatetime media nonbreaking save table contextmenu directionality"
+#                     - "emoticons template paste textcolor"
+#                 toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
+#                 toolbar2: "print preview media | forecolor backcolor emoticons | stfalcon | example"
+#                 image_advtab: true
+#                 templates:
+#                     - {title: 'Test template 1', content: 'Test 1'}
+#                     - {title: 'Test template 2', content: 'Test 2'}
+#                 file_browser_callback : 'elFinderBrowser'
+#            # BBCode tag compatible theme (see http://www.bbcode.org/reference.php)
+#            bbcode:
+#                 plugins: ["bbcode, code, link, preview"]
+#                 menubar: false
+#                 toolbar1: "bold,italic,underline,undo,redo,link,unlink,removeformat,cleanup,code,preview"
 
 fm_elfinder:
     locale: %locale%
@@ -189,4 +189,14 @@ services:
           - { name: doctrine.event_listener, event: postUpdate }
           - { name: doctrine.event_listener, event: preRemove }
           - { name: doctrine.event_listener, event: postRemove }
+knp_paginator:
+    page_range: 5                      # default page range used in pagination control
+    default_options:
+        page_name: page                # page query parameter name
+        sort_field_name: sort          # sort field query parameter name
+        sort_direction_name: direction # sort direction query parameter name
+        distinct: true                 # ensure distinct results, useful when ORM queries are using GROUP BY statements
+    template:
+        pagination: ::pagination.html.twig     # sliding pagination controls template
+        sortable: KnpPaginatorBundle:Pagination:sortable_link.html.twig # sort link template
 

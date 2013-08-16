@@ -34,13 +34,13 @@
         "incenteev/composer-parameter-handler": "~2.0",
         "doctrine/doctrine-fixtures-bundle": "dev-master",
         "knplabs/knp-menu": "~2.0, >=2.0.0-beta1",
-        "stfalcon/tinymce-bundle": "dev-master",
         "egeloen/ckeditor-bundle": "2.*",
         "helios-ag/fm-elfinder-bundle": "1.1",
         "twitter/bootstrap": "2.3.*",
         "jquery/jquery": "1.9.*",
         "leafo/lessphp": "dev-master",
-        "stof/doctrine-extensions-bundle": "dev-master"
+        "stof/doctrine-extensions-bundle": "dev-master",
+        "knplabs/knp-paginator-bundle": "dev-master"
 
     },
     "scripts": {

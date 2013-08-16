@@ -22,12 +22,12 @@ class AppKernel extends Kernel
             new Admin\PageBundle\PageBundle(),
             new Admin\ArticleBundle\ArticleBundle(),
             new Admin\AplicationBundle\AplicationBundle(),
-            new Stfalcon\Bundle\TinymceBundle\StfalconTinymceBundle(),
             new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
             new FM\ElfinderBundle\FMElfinderBundle(),
             new Admin\CategoryBundle\CategoryBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new Site\FrontBundle\FrontBundle(),
+            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
