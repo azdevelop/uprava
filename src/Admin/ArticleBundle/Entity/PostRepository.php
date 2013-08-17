@@ -32,6 +32,22 @@ class PostRepository extends EntityRepository
         return $query->getResult();
     }
     
+    public function searchPostsBy( $q = ''){
+       
+        $q = trim($q);
+        $qb = $this->createQueryBuilder('a');
+        $qb->select('a');
+        $qb->where('a.content LIKE :qst');
+        $qb->orWhere('a.title LIKE :qst');
+        $qb->setParameter('qst','%' . $q . '%');
+        
+        $query = $qb->getQuery();
+        //var_dump($query->getSQL());die();
+            return $query->getResult();
+
+
+    }
+    
     public function findByIdJoinedToCategory($cat){
 //    $query = $this->getEntityManager()
 //        ->createQuery('
