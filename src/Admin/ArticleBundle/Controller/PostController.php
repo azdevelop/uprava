@@ -194,4 +194,20 @@ class PostController extends Controller
             ->getForm()
         ;
     }
+
+
+    /**
+     * Deletes a Page entity.
+     *
+     */
+    public function getLatestAction( $num)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entities = $em->getRepository('ArticleBundle:Post')->getLatest( $num );
+
+        return $this->render('ArticleBundle:Post:latest.html.twig', array(
+            'entities'      => $entities,
+        ));
+    }
 }

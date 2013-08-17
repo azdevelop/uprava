@@ -47,5 +47,17 @@ class PostRepository extends EntityRepository
         
     }
 
+    public function getLatest( $num ){
+
+        $qb = $this->createQueryBuilder('p');
+        $qb->select('p')
+            ->setMaxResults( $num )
+            ->orderBy('p.id', 'DESC');
+
+        $query = $qb->getQuery();
+
+        return $query->getResult();
+    }
+
     
 }

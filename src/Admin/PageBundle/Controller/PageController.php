@@ -264,4 +264,20 @@ class PageController extends Controller
             ->getForm()
         ;
     }
+
+
+    /**
+     * Deletes a Page entity.
+     *
+     */
+    public function getLatestPagesAction( $num)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entities = $em->getRepository('PageBundle:Page')->getLatest( $num );
+
+        return $this->render('PageBundle:Page:latestpages.html.twig', array(
+            'entities'      => $entities,
+        ));
+    }
 }

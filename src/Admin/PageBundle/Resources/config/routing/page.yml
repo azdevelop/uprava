@@ -28,3 +28,8 @@ page_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "PageBundle:Page:delete" }
     requirements: { _method: post|delete }
+
+page_latest:
+    pattern:  /latest/{num}
+    defaults: { _controller: "PageBundle:Page:getLatestPages" }
+

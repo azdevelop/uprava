@@ -28,3 +28,7 @@ post_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "ArticleBundle:Post:delete" }
     requirements: { _method: post|delete }
+
+post_latest:
+    pattern:  /latest/{num}
+    defaults: { _controller: "ArticleBundle:Post:getLatest" }
