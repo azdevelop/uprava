@@ -23,5 +23,25 @@ class ArticleController extends Controller
             )
         );
     }
+    
+     public function listAction( $locale, $page )
+    {
+        
+        $em = $this->getDoctrine()->getManager();
+        $posts = $em->getRepository('ArticleBundle:Post')->findAllByLocale($locale);
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+        $posts,
+        $page,
+        5/*limit per page*/
+        );
+      
+        return $this->render(
+             'FrontBundle:Article:list.html.twig',
+             array(
+                 'posts' => $pagination
+                )
+        );
+    }
 
 }

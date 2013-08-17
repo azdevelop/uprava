@@ -1,0 +1,7 @@
+{% extends 'FrontBundle::layout.html.twig' %}
+
+{% block content -%}
+
+    {% render url('front_partial_post_list',{'locale': app.request.attributes.get('_route_params').locale }) %}
+
+{% endblock %}
