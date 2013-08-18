@@ -1,15 +1,20 @@
-{% if posts %}
-    {% for post in posts %}
-        <div class="post">
-            <h3><a href="{{ path('front_post', { 'post': post.id, 'locale': app.request.attributes.get('_route_params').locale }) }}">{{post.title}}</a></h3>
-            <div>{{post.content | raw}}</div>
-        </div>
-    {% endfor %}
-{%else%}
-    <p class="alert-info">
-    Sorry, no more posts yet! Please publish...
-    </p>
-{% endif %}
+ {%block postList%} 
+    {% if posts %}
+        {% for post in posts %}
+            {{ include(
+                'FrontBundle:Article:post-summary.html.twig',
+                { 'post': post }
+            ) }}
+
+        {% endfor %}
+    {%else%}
+        <p class="alert-info">
+        Sorry, no more posts yet! Please publish...
+        </p>
+    {% endif %}
+{% endblock %} 
+{%block postPagination%}  
      <div class="navigation">
         {{ knp_pagination_render(posts, '::frontpagination.html.twig') }}
     </div>
+ {% endblock %} 
