@@ -23,12 +23,12 @@ class NavMenuController extends Controller
      * Lists all NavMenu entities.
      *
      */
-    public function indexAction( $menu  )
+    public function indexAction( $position  )
     {
 
         $em = $this->getDoctrine()->getManager();
         
-        $entities = $em->getRepository('NavMenuBundle:NavMenu')->findBy( array('position' => $menu) );
+        $entities = $em->getRepository('NavMenuBundle:NavMenu')->findBy( array('position' => $position) );
         //echo $url = $this->generateUrl('navmenu_edit', array('id' => 1, 'position'=>'left')); die();
         
         $tree = new AdminNavigationTree( $this );
@@ -36,7 +36,7 @@ class NavMenuController extends Controller
 
         return $this->render('NavMenuBundle:NavMenu:index.html.twig', array(
             'entities' => $entities, 'navTree' => $navTree,
-            'nav_position'  => $menu
+            'nav_position'  => $position
         ));
     }
     
@@ -130,11 +130,13 @@ class NavMenuController extends Controller
      * Displays a form to edit an existing NavMenu entity.
      *
      */
-    public function editAction($id, $position)
+    public function editAction($id, $position, $locale)
     {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('NavMenuBundle:NavMenu')->find($id);
+        $entity->setTranslatableLocale($locale);
+        $em->refresh($entity);
 
         $pages = $em->getRepository('PageBundle:Page')->findAll();
 
@@ -152,7 +154,8 @@ class NavMenuController extends Controller
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-            'pageTree' => $pageTree
+            'pageTree' => $pageTree,
+            'position' => $position
         ));
     }
 
@@ -160,12 +163,12 @@ class NavMenuController extends Controller
      * Edits an existing NavMenu entity.
      *
      */
-    public function updateAction(Request $request, $id)
+    public function updateAction(Request $request, $id, $position, $locale)
     {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('NavMenuBundle:NavMenu')->find($id);
-
+        $entity->setTranslatableLocale($locale);
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find NavMenu entity.');
         }
@@ -181,13 +184,14 @@ class NavMenuController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('navmenu_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('navmenu_edit', array('id' => $id, 'position' => $position, 'locale'=>$locale)));
         }
 
         return $this->render('NavMenuBundle:NavMenu:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'position'    => $position
         ));
     }
     /**
@@ -235,7 +239,7 @@ class NavMenuController extends Controller
 
         $navTree = $request->request->get('nav_tree');
 
-        $tree = new AdminNavigationTree();
+        $tree = new AdminNavigationTree( $this );
 
         $nav = $tree->treeToArray( $navTree );
 

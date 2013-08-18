@@ -2,13 +2,13 @@
 {% block content -%}
     <h1>NavMenu edit</h1>
 
-    <form action="{{ path('navmenu_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+    <form action="{{ path('navmenu_update', { 'id': entity.id, 'position': position, 'locale': app.request.attributes.get('locale')}) }}" method="post" {{ form_enctype(edit_form) }}>
         <input type="hidden" name="_method" value="PUT" />
 
         <dl>
 
-            <dt>Name:</dt>
-            <dd>{{ form_widget(edit_form.name) }}</dd>
+            <dt>Title:</dt>
+            <dd>{{ form_widget(edit_form.title) }}</dd>
             <dt>Chose type:</dt>
             <dd>
                 {{ form_widget(edit_form.type) }}
@@ -42,7 +42,7 @@
     </script>
         <ul class="record_actions">
     <li>
-        <a href="{{ path('navmenu') }}">
+        <a href="{{ path('navmenu', {'position': position} ) }}">
             Back to the list
         </a>
     </li>

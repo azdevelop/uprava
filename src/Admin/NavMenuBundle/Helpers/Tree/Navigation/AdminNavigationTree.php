@@ -34,8 +34,10 @@ class AdminNavigationTree extends TreeAbstract {
             return    "
 
                             <div class=\"dd-handle dd3-handle\">Drag</div><div class=\"dd3-content\">
-                                ".$child->getName()."  <a href=\"".$url."\" class=\"label label-info\">edit</a>
-
+                                ".$child->getName()."
+                                    <a href=\"".$url."\" class=\"label label-info\">edit -en</a>--
+                                    <a href=\"".$url."/sr\" class=\"label label-info\">edit -sr</a>--
+                                    <a href=\"".$url."/cir\" class=\"label label-info\">edit -cir</a>
                             </div>
 
                       ";

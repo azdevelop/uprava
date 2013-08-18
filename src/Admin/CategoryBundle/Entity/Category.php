@@ -37,7 +37,7 @@ class Category
 
 
     /**
-     * Set name
+     * Set parentId
      *
      * @param integer $parentId
      * @return integer

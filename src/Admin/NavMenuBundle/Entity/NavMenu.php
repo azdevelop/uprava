@@ -2,50 +2,72 @@
 
 namespace Admin\NavMenuBundle\Entity;
 
+use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Translatable\Translatable;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+
 
 
 /**
- * NavMenu
+ * @ORM\Table(name="nav_menu")
+ * @ORM\Entity(repositoryClass="Admin\NavMenuBundle\Entity\NavMenuRepository")
  */
 class NavMenu 
 {
     const PATH_SEPARATOR = '/';
 
-    
+
     /**
-     * @var integer
+     * @var integer $id
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
     /**
-     * @var string
+     * @var string $name
+     * @Gedmo\Slug(fields={"title"}, separator="-", unique=true, updatable=false)
+     * @ORM\Column(name="name", type="string", length=255)
+     */
+    private $name;
+
+    /**
+     * @var string $title
+     * @Gedmo\Translatable
+     * @ORM\Column(name="title", type="string", length=255)
+     */
+    private $title;
+
+
+    /**
+     * @var string $url
+     * @ORM\Column(name="url", type="string", length=255, nullable=true)
      */
     private $url = null;
 
     /**
-     * @var integer
+     * @var string $pageId
+     * @ORM\Column(name="page_id", type="string", length=255, nullable=true)
      */
     private $pageId = null;
 
     /**
     * @var string
     */
-    private $children = null;    
-
-    
-    /**
-     * @var string
-     */
-    private $name;
+    private $children = null;
 
     /**
-     * @var integer
+     * @var string $parentId
+     * @ORM\Column(name="parent_id", type="integer", nullable=true)
      */
     private $parentId = null;
 
     /**
-     * @var integer
+     * @var string $userId
+     * @ORM\Column(name="sort", type="integer", nullable=true)
      */
     private $sort = null;
 
@@ -57,17 +79,30 @@ class NavMenu
 
     private $page;
 
-
+    /**
+     * @var string $type
+     * @ORM\Column(name="type", type="string", length=255)
+     */
     private $type;
 
-
+    /**
+     * @var string $position
+     * @ORM\Column(name="position", type="string", length=255)
+     */
     private $position;
 
     /**
-     * @var integer
+     * @var string $userId
+     * @ORM\Column(name="user_id", type="integer")
      */
     private $userId;
 
+    /**
+     * @Gedmo\Locale
+     * Used locale to override Translation listener`s locale
+     * this is not a mapped field of entity metadata, just a simple property
+     */
+    private $locale;
 
     /**
      * Get id
@@ -291,6 +326,35 @@ class NavMenu
     public function getUserId()
     {
         return $this->userId;
+    }
+
+    /**
+     * @param string $title
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+
+
+    /**
+     * Set locale for translation
+     *  @param string
+     *  @return Post
+     */
+    public function setTranslatableLocale($locale)
+    {
+        $this->locale = $locale;
+        return $this;
     }
 
 }
