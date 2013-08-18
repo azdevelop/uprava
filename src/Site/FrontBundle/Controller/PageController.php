@@ -16,9 +16,9 @@ class PageController extends Controller
         $p = $this->get('request')->query->get('page',1);
         $entity = $em->getRepository('PageBundle:Page')->find( $page );
         $entity->setTranslatableLocale( $locale );
-
+        $posts = null;
         $em->refresh($entity);
-        if( $widget = $entity->getWidget()){
+        if( $entity->getPageType() == 'combo' && $widget = $entity->getWidget()){
             $widget = unserialize($widget);
            
             $posts = $em->getRepository('ArticleBundle:Post')->findAll( );

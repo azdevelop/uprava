@@ -1,9 +1,10 @@
 <h1 class="page-title">{{ entity.title}}</h1>
 
 {{ entity.content|raw }}
-
+{% if posts %}
 {{ include(
             'FrontBundle:Article:posts-widget.html.twig',
             { 'posts': posts }
         ) }}
+{%endif%}
 
