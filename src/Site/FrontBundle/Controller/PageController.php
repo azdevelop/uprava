@@ -14,7 +14,8 @@ class PageController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $p = $this->get('request')->query->get('page',1);
-        $entity = $em->getRepository('PageBundle:Page')->find( $page );
+        $entity = $em->getRepository('PageBundle:Page')->findOneBy(array('name' => $page));
+       
         $entity->setTranslatableLocale( $locale );
         $posts = null;
         $em->refresh($entity);

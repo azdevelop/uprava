@@ -1,7 +1,6 @@
 <?php
 
 namespace Admin\NavMenuBundle\Helpers\Tree\Navigation;
-
 use Admin\AplicationBundle\Helpers\Tree\TreeAbstract;
 
 class TopNavTree extends TreeAbstract {
@@ -26,9 +25,11 @@ class TopNavTree extends TreeAbstract {
     }
 
     protected function _childHTML( $child ) {
-       
+      
+            $em = $this->_controller->getDoctrine()->getManager();
+            $page = $em->getRepository('PageBundle:Page')->find( $child->getId() );
             
-            $url = $this->_controller->generateURL('front_page', array('page' => $child->getId(), 'locale'=>$this->_locale));
+            $url = $this->_controller->generateURL('front_page', array('page' => $page->getName(), 'locale'=>$this->_locale));
        
             return    "
                           <a href=\"".$url."\" class=\"label label-info\">".$child->getName()." </a>
