@@ -4,5 +4,9 @@ aplication_homepage:
 
 
 activity_log:
-    pattern:  /{userId}
+    pattern:  /activity_log/{userId}
     defaults: { _controller: AplicationBundle:ActivityLog:index }
+
+settings_update:
+    pattern:  /settings
+    defaults: { _controller: AplicationBundle:Settings:settings }

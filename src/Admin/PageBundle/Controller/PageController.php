@@ -267,7 +267,7 @@ class PageController extends Controller
 
 
     /**
-     * Deletes a Page entity.
+     * Get latest pages.
      *
      */
     public function getLatestPagesAction( $num)

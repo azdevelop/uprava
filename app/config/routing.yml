@@ -1,4 +1,7 @@
-front:
+dashboard:
+    resource: "@DashboardBundle/Resources/config/routing.yml"
+    prefix:   /admin/
+
 front:
     resource: "@FrontBundle/Resources/config/routing.yml"
     prefix:   /
@@ -41,4 +44,4 @@ user_register:
 
 admin_aplication:
     resource: "@AplicationBundle/Resources/config/routing.yml"
-    prefix:   /admin/activity_log
+    prefix:   /admin/aplication

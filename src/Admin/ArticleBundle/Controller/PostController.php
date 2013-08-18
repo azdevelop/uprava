@@ -197,7 +197,7 @@ class PostController extends Controller
 
 
     /**
-     * Deletes a Page entity.
+     * Get latest Posts.
      *
      */
     public function getLatestAction( $num)

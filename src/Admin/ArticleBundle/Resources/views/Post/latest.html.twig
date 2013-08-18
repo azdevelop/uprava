@@ -1,0 +1,25 @@
+<table class="table table-bordered table-hover">
+    <thead>
+    <tr>
+        <th colspan="5">Latest posts</th>
+    </tr>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Title</th>
+        <th>Createddate</th>
+        <th>Modifieddate</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td><a href="{{ path('page_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+            <td><a href="{{ path('page_show', { 'id': entity.id }) }}">{{ entity.name }}</a></td>
+            <td>{{ entity.title }}</td>
+            <td>{% if entity.createdDate %}{{ entity.createdDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+            <td>{% if entity.modifiedDate %}{{ entity.modifiedDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
