@@ -24,7 +24,7 @@ class CategoryController extends Controller
         $em = $this->getDoctrine()->getManager();
         
         $entities = $em->getRepository('CategoryBundle:Category')->findAll();
-
+        
         return $this->render('CategoryBundle:Category:index.html.twig', array(
             'entities' => $entities,
         ));
@@ -84,7 +84,7 @@ class CategoryController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('CategoryBundle:Category')->find($id);
-
+        
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Category entity.');
         }

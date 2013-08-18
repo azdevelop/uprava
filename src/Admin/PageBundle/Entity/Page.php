@@ -78,12 +78,7 @@ class Page implements Translatable
      */
     private $parentId;
 
-    /**
-     * @var string $guid
-     *
-     * @ORM\Column(name="guid", type="string", length=255)
-     */
-    private $guid;
+    
 
     /**
      * @var string $pageType
@@ -300,29 +295,7 @@ class Page implements Translatable
         return $this->parentId;
     }
 
-    /**
-     * Set guid
-     *
-     * @param string $guid
-     * @return Page
-     */
-    public function setGuid($guid)
-    {
-        $this->guid = $guid;
     
-        return $this;
-    }
-
-    /**
-     * Get guid
-     *
-     * @return string 
-     */
-    public function getGuid()
-    {
-        return $this->guid;
-    }
-
     /**
      * Set pageType
      *

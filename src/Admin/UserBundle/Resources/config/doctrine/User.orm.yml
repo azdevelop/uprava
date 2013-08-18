@@ -1,6 +1,6 @@
 Admin\UserBundle\Entity\User:
     type: entity
-    table: null
+    table: user
     repositoryClass: Admin\UserBundle\Entity\UserRepository
     fields:
         id:

@@ -146,16 +146,18 @@ class PageController extends Controller
         $categories = $em->getRepository('CategoryBundle:Category')->findAll();
         $entity->setTranslatableLocale($locale);
         $em->refresh($entity);
-        $page_widget = array('cat'=>0,'posts'=>5,'orderby'=>'asc');
-        $setwidget = $entity->getWidget();
-        if ($setwidget){
-            $setwidget = @unserialize($setwidget);
-            
-        }
-        is_array($setwidget)? $entity->setWidget($setwidget) : $entity->setWidget($page_widget) ;
        
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Page entity.');
+        }
+         if ($entity->getPageType() == 'combo'){
+            $page_widget = array('cat'=>0,'posts'=>5,'orderby'=>'asc');
+            $setwidget = $entity->getWidget();
+            if ($setwidget){
+                $setwidget = @unserialize($setwidget);
+
+        }
+        is_array($setwidget)? $entity->setWidget($setwidget) : $entity->setWidget($page_widget) ;
         }
 
         $pages = $em->getRepository('PageBundle:Page')->findAll();

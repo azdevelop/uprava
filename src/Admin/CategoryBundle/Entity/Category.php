@@ -155,7 +155,17 @@ class Category
      */
     public function getPosts()
     {
-        return $this->items;
+        return $this->posts;
+    }
+    
+     /**
+     * Get posts count
+     *
+     * @return integer
+     */
+    public function getPostsCount()
+    {
+        return count($this->posts);
     }
 
     /**
