@@ -42,7 +42,6 @@ class PostRepository extends EntityRepository
         $qb->setParameter('qst','%' . $q . '%');
         
         $query = $qb->getQuery();
-        //var_dump($query->getSQL());die();
             return $query->getResult();
 
 

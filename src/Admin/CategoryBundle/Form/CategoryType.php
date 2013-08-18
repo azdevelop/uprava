@@ -16,9 +16,8 @@ class CategoryType extends AbstractType
     {
         $cid = $options['data']->getId();
         $builder
-            ->add('name')
+            //->add('name', array('required'=>false))
             ->add('title')
-            ->add('description')
             ->add('parentId', 'hidden');
     }
 

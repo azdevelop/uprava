@@ -100,12 +100,13 @@ class CategoryController extends Controller
      * Displays a form to edit an existing Category entity.
      *
      */
-    public function editAction($id)
+    public function editAction($id, $locale)
     {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('CategoryBundle:Category')->find($id);
-
+        $entity->setTranslatableLocale($locale);
+        $em->refresh($entity);
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Category entity.');
         }
@@ -130,12 +131,12 @@ class CategoryController extends Controller
      * Edits an existing Category entity.
      *
      */
-    public function updateAction(Request $request, $id)
+    public function updateAction(Request $request, $id, $locale)
     {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('CategoryBundle:Category')->find($id);
-
+        $entity->setTranslatableLocale($locale);
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Category entity.');
         }
@@ -148,7 +149,7 @@ class CategoryController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('category_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('category_edit', array('id' => $id, 'locale'=>$locale)));
         }
 
         return $this->render('CategoryBundle:Category:edit.html.twig', array(

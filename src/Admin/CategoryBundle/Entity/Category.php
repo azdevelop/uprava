@@ -1,33 +1,39 @@
 <?php
 
 namespace Admin\CategoryBundle\Entity;
-
+use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Translatable\Translatable;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * Category
+ * @ORM\Table(name="category")
+ * @ORM\Entity(repositoryClass="Admin\CategoryBundle\Entity\CategoryRepository")
  */
 class Category
 {
     /**
-     * @var integer
+     * @var integer $id
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
     /**
-     * @var string
+     * @var string $name
+     * @Gedmo\Slug(fields={"title"}, separator="-", unique=true, updatable=false)
+     * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
 
     /**
-     * @var string
+     * @var string $title
+     * @Gedmo\Translatable
+     * @ORM\Column(name="title", type="string", length=255)
      */
     private $title;
-
-    /**
-     * @var string
-     */
-    private $description;
 
 
     /**
@@ -39,11 +45,23 @@ class Category
     private $parentId;
 
     /**
+     * @ORM\ManyToMany(targetEntity="Admin\ArticleBundle\Entity\Post", mappedBy="categories", cascade={"persist"})
+     */
+    private $posts;
+    
+    /**
+     * @Gedmo\Locale
+     * Used locale to override Translation listener`s locale
+     * this is not a mapped field of entity metadata, just a simple property
+     */
+    private $locale;
+
+    /**
      * Constructor
      */
     public function __construct()
     {
-        
+        $this->posts = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     public function __toString(){
@@ -106,32 +124,6 @@ class Category
     {
         return $this->title;
     }
-
-    /**
-     * Set description
-     *
-     * @param string $description
-     * @return Category
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-    
-        return $this;
-    }
-
-    /**
-     * Get description
-     *
-     * @return string 
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    
-
     
     /**
      * Set parentId
@@ -156,6 +148,25 @@ class Category
         return $this->parentId;
     }
 
+    /**
+     * Get posts
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getPosts()
+    {
+        return $this->items;
+    }
 
+    /**
+     * Set locale for translation
+     *  @param string
+     *  @return Post
+     */
+    public function setTranslatableLocale($locale)
+    {
+        $this->locale = $locale;
+        return $this;
+    }
 
 }
