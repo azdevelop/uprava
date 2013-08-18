@@ -47,13 +47,16 @@ class PageController extends Controller
     {
         $entity  = new Page();
         $form = $this->createForm( new PageType(), $entity );
-        $par = $request->request->get('page-widget');
-        if (is_array($par)){
-            $par = serialize($par);
-       
-        }
         $pagetype = $request->request->get('admin_pagebundle_pagetype');
-        $pagetype['widget'] = $par;
+        $iscombo =  $pagetype['pageType'] == 'combo' ? true : false;
+        $par = $request->request->get('page-widget');
+    
+        if ($iscombo && is_array($par)){
+            $par = serialize($par);
+            $pagetype['widget'] = $par;
+        }
+       
+        
         $request->request->set('admin_pagebundle_pagetype',$pagetype);
    
         $form->submit($request);
@@ -146,18 +149,21 @@ class PageController extends Controller
         $categories = $em->getRepository('CategoryBundle:Category')->findAll();
         $entity->setTranslatableLocale($locale);
         $em->refresh($entity);
+        $page_widget = array('cat'=> 0,'posts'=> 5,'orderby'=>'asc');
        
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Page entity.');
-        }
-         if ($entity->getPageType() == 'combo'){
-            $page_widget = array('cat'=>0,'posts'=>5,'orderby'=>'asc');
+            
             $setwidget = $entity->getWidget();
+          
             if ($setwidget){
                 $setwidget = @unserialize($setwidget);
 
-        }
-        is_array($setwidget)? $entity->setWidget($setwidget) : $entity->setWidget($page_widget) ;
+             }
+        
+       
+        is_array($setwidget)? $entity->setWidget($setwidget) : $entity->setWidget($page_widget);
+        
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Page entity.');
         }
 
         $pages = $em->getRepository('PageBundle:Page')->findAll();
