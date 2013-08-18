@@ -2,3 +2,8 @@
 
 {{ entity.content|raw }}
 
+{{ include(
+            'FrontBundle:Article:posts-widget.html.twig',
+            { 'posts': posts }
+        ) }}
+
