@@ -245,13 +245,15 @@ class PageController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('PageBundle:Page')->find($id);
+            $repositoryPage = $em->getRepository('PageBundle:Page');
+            $entity = $repositoryPage->find($id);
 
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Page entity.');
             }
 
-            $this->_deleteNavMenu( $entity );
+            $this->_checkChildresn( $entity, $repositoryPage )
+                 ->_deleteNavMenu( $entity );
 
             $em->remove($entity);
             $em->flush();
@@ -260,6 +262,24 @@ class PageController extends Controller
         return $this->redirect($this->generateUrl('page'));
     }
 
+
+    private function _checkChildresn( $entity, $repositoryPage ) {
+
+        $pages = $repositoryPage->findBy( array( 'parentId' => $entity->getId() ) );
+
+        $message = "";
+
+        if( $pages ) {
+            $message = "Ne možete obrisati ovu stranu jer ona roditelje drugim stranama. Prvo obrišite strane ili im promenite roditelja:  ";
+            foreach($pages as $p) {
+                $message .= $p->getName() . ', ' ;
+            }
+
+            throw $this->createNotFoundException( $message );
+        }
+
+        return $this;
+    }
 
     private function _deleteNavMenu( $page ) {
 
@@ -270,8 +290,8 @@ class PageController extends Controller
         if( $nav ) {
 
             foreach($nav as $n){
-                if($n->getType() == 'page'){
 
+                if($n->getType() == 'page'){
                     $em->remove($n);
                     $em->flush();
 

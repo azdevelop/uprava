@@ -36,6 +36,10 @@ var listTree = {
             _this.choose(  _this.inputHidden, this );
         });
 
+        $('.removeTreeSeleted').click(function(){
+            _this.removeAllSelected(  _this.inputHidden );
+        });
+
         return this;
     },
 
@@ -43,6 +47,15 @@ var listTree = {
 
         $(".treeList").find("[data-lid='" + id + "']").remove();
 
+        return this;
+
+    },
+
+    removeAllSelected:function( inputHidden ) {
+
+        inputHidden.val('');
+
+        $('.treeList .page').removeClass('active');
     }
 
 }

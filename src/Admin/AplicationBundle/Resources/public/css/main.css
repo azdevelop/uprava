@@ -40,3 +40,7 @@ body{
 .treeList .active{
     color: #0032FF;
 }
+
+.removeTreeSeleted{
+    cursor:pointer;
+}

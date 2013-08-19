@@ -29,7 +29,7 @@ class PageType extends AbstractType
                         'config' => array('filebrowserBrowseUrl'=>$file_browser, 'extraPlugins' => 'slideshow')
                         )
                    )
-            ->add('status')
+            ->add('status','choice', array('choices'=>array('publish'=>'Published', 'draft'=>'Draft')))
             ->add('parentId', 'hidden')
             ->add('pageType','choice', array(
                 'choices'=>array('regular'=>'Regular', 'combo'=>'Combo')))

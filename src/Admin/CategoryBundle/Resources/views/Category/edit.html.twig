@@ -8,6 +8,7 @@
         {{ form_widget(edit_form) }}
         <div class="treeList">
             {{ categoryTree |raw }}
+            <span class="removeTreeSeleted label label-info pull-right">remove</span>
         </div>
         <script>
             listTree.treeSelect( $("#admin_categorybundle_categorytype_parentId")).removeMe({{ entity.id }});
