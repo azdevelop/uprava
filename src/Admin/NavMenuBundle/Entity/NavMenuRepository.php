@@ -16,7 +16,7 @@ class NavMenuRepository extends EntityRepository
     {
         return $this->createQueryBuilder('u')
             ->addOrderBy('u.parentId ')
-            ->addOrderBy('u.sort ')    
+            ->addOrderBy('u.sort ')
             ->getQuery()
             ->getResult()
         ;
@@ -61,6 +61,7 @@ class NavMenuRepository extends EntityRepository
         $qb->select('a')
             ->where('a.position = :position')
             ->setParameter('position', $position)
+            ->orderBy('a.sort ')
         ;
         //->orderBy(...) customize it
 

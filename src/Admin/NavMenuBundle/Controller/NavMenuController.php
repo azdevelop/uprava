@@ -9,7 +9,7 @@ use Admin\NavMenuBundle\Entity\NavMenu;
 use Admin\NavMenuBundle\Form\NavMenuType;
 use Admin\NavMenuBundle\Helpers\Tree\Navigation\AdminNavigationTree;
 use Admin\PageBundle\Helpers\Tree\Page\AdminPageTree;
-
+use Symfony\Component\HttpFoundation\Response;
 /**
  * NavMenu controller.
  *
@@ -28,7 +28,7 @@ class NavMenuController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         
-        $entities = $em->getRepository('NavMenuBundle:NavMenu')->findBy( array('position' => $position) );
+        $entities = $em->getRepository('NavMenuBundle:NavMenu')->findByPosition( $position );
         //echo $url = $this->generateUrl('navmenu_edit', array('id' => 1, 'position'=>'left')); die();
         
         $tree = new AdminNavigationTree( $this );
@@ -234,7 +234,7 @@ class NavMenuController extends Controller
     }
 
 
-    public function arangeAction(Request $request)
+    public function arangeAction(Request $request, $position)
     {
 
         $navTree = $request->request->get('nav_tree');
@@ -259,7 +259,12 @@ class NavMenuController extends Controller
 
         }
 
-        return true;
+        $response = new Response('Hello '.'arange', 200);
+
+        $response = new Response(json_encode(array('status' => true, 'arange' => true)));
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
     }
 
 

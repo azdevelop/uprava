@@ -6,7 +6,7 @@
         <a href="{{ path('navmenu' ) }}/right" class="btn {% if nav_position == 'right' %} active {% endif %}">Right</a>
     </div>
 <h4 class="title">{{ nav_position }} navigation <h4>
-<form id="navArange" action="{{path('navmenu_arange')}}" method="POST" >
+<form id="navArange" action="{{ path('navmenu_arange', {'position': 'top'} ) }}" method="POST" >
 <div class="cf nestable-lists">
     <div class="dd" id="nestable">
            {{ navTree |raw }}

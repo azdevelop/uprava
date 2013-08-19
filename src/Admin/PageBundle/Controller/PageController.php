@@ -251,11 +251,36 @@ class PageController extends Controller
                 throw $this->createNotFoundException('Unable to find Page entity.');
             }
 
+            $this->_deleteNavMenu( $entity );
+
             $em->remove($entity);
             $em->flush();
         }
 
         return $this->redirect($this->generateUrl('page'));
+    }
+
+
+    private function _deleteNavMenu( $page ) {
+
+        $em = $this->getDoctrine()->getManager();
+
+        $nav = $em->getRepository('NavMenuBundle:NavMenu')->findBy( array( 'pageId' => $page->getId() ) );
+
+        if( $nav ) {
+
+            foreach($nav as $n){
+                if($n->getType() == 'page'){
+
+                    $em->remove($n);
+                    $em->flush();
+
+                }
+            }
+
+        }
+
+        return $this;
     }
 
     /**
@@ -288,4 +313,6 @@ class PageController extends Controller
             'entities'      => $entities,
         ));
     }
+
+
 }

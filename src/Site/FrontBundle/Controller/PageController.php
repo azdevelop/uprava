@@ -15,10 +15,15 @@ class PageController extends Controller
         $em = $this->getDoctrine()->getManager();
         $p = $this->get('request')->query->get('page',1);
         $entity = $em->getRepository('PageBundle:Page')->findOneBy(array('name' => $page));
-       
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Event page.');
+        }
+
         $entity->setTranslatableLocale( $locale );
         $posts = null;
         $em->refresh($entity);
+
         if( $entity->getPageType() == 'combo' && $widget = $entity->getWidget()){
             $widget = unserialize($widget);
            
