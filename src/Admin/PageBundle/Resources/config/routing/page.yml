@@ -33,3 +33,8 @@ page_latest:
     pattern:  /latest/{num}
     defaults: { _controller: "PageBundle:Page:getLatestPages" }
 
+pages_tree_select:
+    pattern:  /tree_select/{form}/{input}
+    defaults: { _controller: "PageBundle:Page:getPagesTree" }
+
+

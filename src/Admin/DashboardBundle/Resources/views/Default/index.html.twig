@@ -12,13 +12,14 @@
         </div>
         <div class="span4">
             Home page:
-            <form action="{{ path('settings_update') }}" method="post" class="page-delete">
-                <input type="hidden" name="home_page" value="asdasd" />
+            <form action="{{ path('settings_update') }}" method="post" class="page-delete" id="home_page">
+                <input type="hidden" name="home_page"  value="asdasd" />
                 {{ form_widget(homePageForm) }}
+                {% render url('pages_tree_select', { 'form':'home_page', 'input': 'form_value' } ) %}
                 <button type="submit" class="btn btn-info">{% trans %}Save{% endtrans %}</button>
             </form>
         </div>
-        <div class="span4">.col-xs-6 .col-sm-4 .col-md-4</div>
+        <div class="span4"> </div>
     </div>
     <div class="row">
         <div class="span6">

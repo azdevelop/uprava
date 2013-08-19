@@ -334,5 +334,24 @@ class PageController extends Controller
         ));
     }
 
+    /**
+     * Get latest pages.
+     *
+     */
+    public function getPagesTreeAction( $form, $input )
+    {
+        $em = $this->getDoctrine()->getManager();
+        $pages = $em->getRepository('PageBundle:Page')->findAll();
+
+        $tree = new AdminPageTree();
+        $pageTree = $tree->createTree( $pages );
+
+        return $this->render('PageBundle:Page:pagesTree.html.twig', array(
+            'pageTree'      => $pageTree,
+            'form'          => $form,
+            'input'         => $input
+        ));
+    }
+
 
 }
