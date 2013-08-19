@@ -34,16 +34,16 @@
 
         {{ form_widget(edit_form) }}
         <p>
-            <button type="submit">Edit</button>
+            <button type="submit" class="btn-info">Save</button>
         </p>
 
     </form>
     <script>
         listTree.treeSelect( $("#admin_navmenubundle_navmenutype_pageId")).removeMe({{entity.id}});
     </script>
-        <ul class="record_actions">
+<ul class="unstyled inline">
     <li>
-        <a href="{{ path('navmenu', {'position': position} ) }}">
+        <a href="{{ path('navmenu', {'position': position} ) }}" class="btn btn-inverse">
             Back to the list
         </a>
     </li>
@@ -51,7 +51,7 @@
         <form action="{{ path('navmenu_delete', { 'id': entity.id }) }}" method="post">
             <input type="hidden" name="_method" value="DELETE" />
             {{ form_widget(delete_form) }}
-            <button type="submit">Delete</button>
+            <button type="submit" class=" btn-danger">Delete</button>
         </form>
     </li>
 </ul>

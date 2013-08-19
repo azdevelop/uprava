@@ -49,7 +49,7 @@ class DefaultController extends Controller
                 }
 
                 if( $e->getName() == 'site_name'){
-                    $this->_siteName =  'site_name';
+                    $this->_siteName =  $e->getValue();
                 }
             }
         }
