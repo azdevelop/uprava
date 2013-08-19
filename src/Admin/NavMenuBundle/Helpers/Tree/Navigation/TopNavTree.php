@@ -27,12 +27,18 @@ class TopNavTree extends TreeAbstract {
     protected function _childHTML( $child ) {
       
             $em = $this->_controller->getDoctrine()->getManager();
-            $page = $em->getRepository('PageBundle:Page')->find( $child->getId() );
-            
-            $url = $this->_controller->generateURL('front_page', array('page' => $page->getName(), 'locale'=>$this->_locale));
-       
+
+            if( $child->getType() == 'page' && $child->getPageId() ) {
+                $page = $em->getRepository('PageBundle:Page')->find( $child->getPageId() );
+
+                $url = $this->_controller->generateURL('front_page', array('page' => $page->getName(), 'locale'=>$this->_locale));
+            }
+            else {
+                $url = $child->getUrl();
+            }
+
             return    "
-                          <a href=\"".$url."\" class=\"label label-info\">".$child->getName()." </a>
+                          <a href=\"".$url."\" class=\"label label-info\">".$child->getTitle()." </a>
 
                       ";
 

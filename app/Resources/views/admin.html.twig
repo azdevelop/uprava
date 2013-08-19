@@ -28,6 +28,9 @@
                 <div class="navbar">
 
                         <ul class="nav navbar-nav">
+                            <li {% if app.request.attributes.get('_route') == "dashboard_homepage" %} class="active" {% endif %}>
+                                <a href="{{ path('dashboard_homepage') }}">Dashboard</a>
+                            </li>
                             <li {% if app.request.attributes.get('_route') == "navmenu" %} class="active" {% endif %}>
                                 <a href="{{ path('navmenu') }}">Navigation</a>
                             </li>

@@ -9,10 +9,10 @@ class NavigationController extends Controller
 {
 
     public function navigationAction( $position, $locale ){
-  
+
         $em = $this->getDoctrine()->getManager();
         
-        $nav = $em->getRepository('NavMenuBundle:NavMenu')->findBy( array('position' => $position) );
+        $nav = $em->getRepository('NavMenuBundle:NavMenu')->findByPosition( $position, $locale );
 
         $tree = new TopNavTree($this, $locale);
         $navTree =  $tree->createTree( $nav );

@@ -344,7 +344,19 @@ class NavMenu
         return $this->title;
     }
 
+    public function getLinkUrl() {
 
+        if( $this->getType() == '') {
+
+            return $this->getPageId();
+        }
+
+        else {
+
+            return $this->getUrl();
+
+        }
+    }
 
     /**
      * Set locale for translation

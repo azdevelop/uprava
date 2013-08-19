@@ -13,7 +13,7 @@ navmenu_new:
     defaults: { _controller: "NavMenuBundle:NavMenu:new", position: top }
 
 navmenu_create:
-    pattern:  /create
+    pattern:  /create/navigation
     defaults: { _controller: "NavMenuBundle:NavMenu:create" }
     requirements: { _method: post }
 

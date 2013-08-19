@@ -55,6 +55,32 @@ class NavMenuRepository extends EntityRepository
     }
 
 
+    public function findByPosition($position, $locale = 'en'){
+
+        $qb = $this->createQueryBuilder('a');
+        $qb->select('a')
+            ->where('a.position = :position')
+            ->setParameter('position', $position)
+        ;
+        //->orderBy(...) customize it
+
+        // Use Translation Walker
+        $query = $qb->getQuery();
+        $query->setHint(
+            \Doctrine\ORM\Query::HINT_CUSTOM_OUTPUT_WALKER,
+            'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker'
+        );
+        // Force the locale
+        $query->setHint(
+            \Gedmo\Translatable\TranslatableListener::HINT_TRANSLATABLE_LOCALE,
+            $locale
+        );
+        return $query->getResult();
+    }
+
+
+
+
     public function getTree( array $elements ) {
       
         return $this->_buildTree($elements);
