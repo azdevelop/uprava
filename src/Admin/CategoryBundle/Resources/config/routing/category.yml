@@ -1,5 +1,5 @@
 category:
-    pattern:  /
+    pattern:  /list
     defaults: { _controller: "CategoryBundle:Category:index" }
 
 category_show:

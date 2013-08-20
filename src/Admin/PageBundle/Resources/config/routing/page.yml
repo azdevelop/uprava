@@ -1,5 +1,5 @@
 page:
-    pattern:  /
+    pattern:  /list
     defaults: { _controller: "PageBundle:Page:index" }
 
 page_show:

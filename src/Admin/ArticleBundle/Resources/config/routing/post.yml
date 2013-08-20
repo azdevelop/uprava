@@ -1,5 +1,5 @@
 post:
-    pattern:  /
+    pattern:  /list
     defaults: { _controller: "ArticleBundle:Post:index" }
 
 post_show:

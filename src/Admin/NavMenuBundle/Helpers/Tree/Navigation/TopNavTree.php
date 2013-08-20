@@ -26,8 +26,18 @@ class TopNavTree extends TreeAbstract {
 
     protected function _childHTML( $child ) {
       
+                    $url = $this->_generateUrl($child);
+
+            return    "
+                          <a href=\"".$url."\" class=\"label label-info\">".$child->getTitle()." </a>
+
+                      ";
+
+    }
+    
+    private function _generateUrl($child){
             $em = $this->_controller->getDoctrine()->getManager();
-//todo - refactor
+
             $url = '';
 
             if( $child->getType() == 'page' && $child->getPageId() ) {
@@ -43,12 +53,7 @@ class TopNavTree extends TreeAbstract {
             else {
                 $url = $child->getUrl();
             }
-
-            return    "
-                          <a href=\"".$url."\" class=\"label label-info\">".$child->getTitle()." </a>
-
-                      ";
-
+            return $url;
+        
     }
-
 }

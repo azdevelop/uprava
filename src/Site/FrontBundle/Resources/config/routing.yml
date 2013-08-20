@@ -15,6 +15,7 @@ front_post:
 front_category:
     pattern:  /category/{category}/{locale}
     defaults: { _controller: FrontBundle:Category:index, locale: %locale% }
+    
 
 front_navigation:
     pattern:  /navigation/{position}/{locale}

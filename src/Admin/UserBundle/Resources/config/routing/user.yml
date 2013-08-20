@@ -1,5 +1,5 @@
 user:
-    pattern:  /
+    pattern:  /list
     defaults: { _controller: "UserBundle:User:index" }
 
 user_show:
