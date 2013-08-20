@@ -22,35 +22,78 @@
 {% endblock %}
 
 {% block body %}
-    {% block navigation %}
-        <div class="header">
-            <div class=" container">
-                <div class="navbar">
 
-                        <ul class="nav navbar-nav">
-                            <li {% if app.request.attributes.get('_route') == "dashboard_homepage" %} class="active" {% endif %}>
-                                <a href="{{ path('dashboard_homepage') }}">Dashboard</a>
+<header id="header">
+
+    <h1 class="site_title"><a href="{{ path('dashboard_homepage') }}">Website Admin</a></h1>
+
+</header>
+
+<div class="row">
+            <div class="span2" style="width:250px">
+                {% block navigation %}
+                <div class="sideAdminMenu clearfix">
+                            <h5>
+                                 <a href="{{ path('dashboard_homepage') }}" {% if app.request.attributes.get('_route') == "dashboard_homepage" %} class="active" {% endif %}>Dashboard</a>
+                            </h5>
+
+                            <h5>
+                               Posts
+                            </h5>
+                            <ul>
+                                <li>
+                                    <a href="{{ path('post_new') }}">Create post</a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('post') }}" {% if app.request.attributes.get('_route') == "post" %} class="active" {% endif %}>All posts</a>
+                                </li>
+                            </ul>
+
+                            <h5>
+                               Pages
+                            </h5>
+                            <ul>
+                                <li>
+                                    <a href="{{ path('page_new') }}" {% if app.request.attributes.get('_route') == "page_new" %} class="active" {% endif %}>Create page</a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('page') }}" {% if app.request.attributes.get('_route') == "page" %} class="active" {% endif %}>All Pages</a>
+                                </li>
+                            </ul>
+                            <h5>
+                                <a href="{{ path('navmenu') }}" {% if app.request.attributes.get('_route') == "navmenu" %} class="active" {% endif %}>Navigation</a>
+                            </h5>
+
+
+                            <h5>
+                                Category
+                            </h5>
+                            <ul>
+                            <li>
+                                <a href="{{ path('category_new') }}" {% if app.request.attributes.get('_route') == "category_new" %} class="active" {% endif %}>Create Categorie</a>
                             </li>
-                            <li {% if app.request.attributes.get('_route') == "navmenu" %} class="active" {% endif %}>
-                                <a href="{{ path('navmenu') }}">Navigation</a>
-                            </li>
-                            <li  {% if app.request.attributes.get('_route') == "category" %} class="active" {% endif %}>
-                                <a href="{{ path('category') }}">Category</a>
-                            </li>
-                            <li  {% if app.request.attributes.get('_route') == "page" %} class="active" {% endif %} >
-                                <a href="{{ path('page') }}">Pages</a>
-                            </li>
-                            <li  {% if app.request.attributes.get('_route') == "post" %} class="active" {% endif %}>
-                                <a href="{{ path('post') }}">Posts</a>
-                            </li>
-                            <li  {% if app.request.attributes.get('_route') == "user" %} class="active" {% endif %}>
-                                <a href="{{ path('user') }}">Users</a>
+                            <li>
+                                <a href="{{ path('category') }}" {% if app.request.attributes.get('_route') == "category" %} class="active" {% endif %}>All Categories</a>
                             </li>
                         </ul>
-
+                        <h5>Admin</h5>
+                        <ul>
+                            <li>
+                                <a href="{{ path('user') }}" {% if app.request.attributes.get('_route') == "user" %} class="active" {% endif %}>Users</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('logout') }}">Logout</a>
+                            </li>
+                        </ul>
+                </div>
+                {% endblock %}
+             </div>
+            <div class="span10">
+                <div class="container-fluid admin_content">
+                    {% block content %}{% endblock %}
                 </div>
             </div>
-        </div>
-    {% endblock %}
-    <div class="container admin_content">{% block content %}{% endblock %}</div>
+            <div class="span1">
+            </div>
+</div>
 {% endblock %}

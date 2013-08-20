@@ -1,19 +1,56 @@
 body{
     background-color: #ccc;
 }
-.header {
-    border-top: 2px solid;
+
+.clearfix:after {
+    content: ".";
+    display: block;
+    clear: both;
+    visibility: hidden;
+    line-height: 0;
+    height: 0;
 }
 
-.header .container{
+.clearfix {
+    display: inline-block;
+}
+
+html[xmlns] .clearfix {
+    display: block;
+}
+
+* html .clearfix {
+    height: 1%;
+}
+
+
+.sideAdminMenu {
+    background-color: #e3e3e3;
+    width: 215px;
+    padding: 0px 16px;
+
+}
+
+.sideAdminMenu .container{
     background-color: #fff;
     padding: 0px 15px;
     margin-bottom: 2px;
 }
 
+.sideAdminMenu h5{
+    margin: 0px;
+    font-weight: normal;
+}
+
+.sideAdminMenu ul{
+    margin: 0px 15px;
+    margin-bottom: 10px;
+    list-style: none;
+}
+
 .admin_content{
     background-color: #fff;
-    padding: 0px 15px;
+    padding: 5px 15px;
     border-bottom: 1px dotted #C0ADAD;
 }
 
@@ -43,4 +80,55 @@ body{
 
 .removeTreeSeleted{
     cursor:pointer;
+}
+
+.admin_content .row{ margin-left: 0px;}
+
+#header {
+    height: 55px;
+    width: 100%;
+    background-color: #34194D;
+}
+
+
+#header h1.site_title, header#header h2.section_title {
+    float: left;
+    margin: 0;
+    font-size: 22px;
+    display: block;
+    width: 23%;
+    height: 55px;
+    font-weight: normal;
+    text-align: left;
+    text-indent: 1.5%;
+    line-height: 55px;
+    color: #fff;
+    text-shadow: 0 -1px 0 #000;
+}
+
+#header h2.section_title {
+    float: left;
+    margin: 0;
+    font-size: 22px;
+    display: block;
+    width: 23%;
+    height: 55px;
+    font-weight: normal;
+    text-align: left;
+    text-indent: 1.8%;
+    line-height: 55px;
+    color: #fff;
+    text-shadow: 0 -1px 0 #000;
+}
+
+.span10 {
+    margin-left:0px;
+}
+
+#header a {
+    color:#fff;
+}
+
+#header a:hover{
+    color:#fff;
 }

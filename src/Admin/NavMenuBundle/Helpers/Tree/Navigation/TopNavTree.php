@@ -27,7 +27,7 @@ class TopNavTree extends TreeAbstract {
     protected function _childHTML( $child ) {
       
             $em = $this->_controller->getDoctrine()->getManager();
-
+//todo - refactor
             $url = '';
 
             if( $child->getType() == 'page' && $child->getPageId() ) {
