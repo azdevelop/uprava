@@ -11,7 +11,10 @@ front_page:
 front_post:
     pattern:  /post/{post}/{locale}
     defaults: { _controller: FrontBundle:Default:post, locale: %locale% }
-    
+
+front_category:
+    pattern:  /category/{category}/{locale}
+    defaults: { _controller: FrontBundle:Category:index, locale: %locale% }
 
 front_navigation:
     pattern:  /navigation/{position}/{locale}
@@ -33,3 +36,4 @@ front_partial_post_list:
 front_search_results:
     pattern:  /search/results/
     defaults: { _controller: FrontBundle:Search:results, locale: %locale% }
+

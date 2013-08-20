@@ -14,7 +14,8 @@ class ArticleController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('ArticleBundle:Post')->find( $post );
+        $entity = $em->getRepository('ArticleBundle:Post')->findOneBy(array('name' => $post));
+        
         $entity->setTranslatableLocale($locale);
         $em->refresh($entity);
         return $this->render('FrontBundle:Article:post.html.twig',
