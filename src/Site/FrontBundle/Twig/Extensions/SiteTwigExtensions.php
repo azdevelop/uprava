@@ -15,9 +15,12 @@ class SiteTwigExtensions extends \Twig_Extension
 	}
 	public function wordsExcerpt($content, $wordsNumber)
 	{
-		$words = explode(' ', strip_tags($content));
-                
-		if (is_array($words) && (count($words) > $wordsNumber)) 
+		
+                $content = preg_replace("/<img[^>]+\>/i", "", $content); 
+                $content = preg_replace("@<script[^>]*?>.*?</script>@si", "", $content); 
+                $words = explode(' ', strip_tags($content));
+               
+		if (is_array($words)) 
 		{
 			$words = array_slice($words, 0, $wordsNumber);  
 
