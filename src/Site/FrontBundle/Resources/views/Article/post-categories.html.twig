@@ -1,0 +1,13 @@
+<div class="post-categories">
+   
+    {% if categories is not empty %}
+    <p>Published in:</p>
+    <ul class="inline">
+        {% for category in categories %}
+        <li>
+            <a href="{{ path('front_category', { 'category': category.name, 'locale': app.request.attributes.get('_route_params').locale }) }}">{{category.title}}</a>
+        </li>
+        {% endfor %}
+   </ul>
+    {% endif %}
+</div>

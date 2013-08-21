@@ -17,7 +17,7 @@ class CategoryController extends Controller
         $category = $em->getRepository('CategoryBundle:Category')->findOneBy(array('name' => $category));
         $category->setTranslatableLocale($locale);
         $em->refresh($category);
-        $posts = $category->getPosts();
+        $posts = $em->getRepository('ArticleBundle:Post')->findAllByLocale( $locale, $category->getId() );
     
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(

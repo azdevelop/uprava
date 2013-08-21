@@ -5,3 +5,7 @@
 {%else%}
     <p>Post not found</p>
 {%endif%}
+    {{ include(
+                'FrontBundle:Article:post-categories.html.twig',
+                { 'categories':post.categories }
+            ) }}

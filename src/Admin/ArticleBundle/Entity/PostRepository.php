@@ -12,11 +12,19 @@ use Doctrine\ORM\EntityRepository;
  */
 class PostRepository extends EntityRepository
 {
-    public function findAllByLocale($locale = 'en'){
+    public function findAllByLocale($locale = 'en', $category = null){
         //Make a Select query
-        $qb = $this->createQueryBuilder('a');
-        $qb->select('a');
-        //->orderBy(...) customize it        
+        $qb = $this->createQueryBuilder('p');
+        $qb->select('p');
+        
+        // filter by category
+        if ( $category ){
+            
+            $qb->innerJoin('p.categories', 'c')
+            ->where('c.id = :category')
+            ->setParameter('category', $category);
+        }
+            
 
         // Use Translation Walker
         $query = $qb->getQuery();

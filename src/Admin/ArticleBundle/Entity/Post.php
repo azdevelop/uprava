@@ -79,11 +79,11 @@ class Post implements Translatable
     private $postType;
 
     /**
-     * @var \Doctrine\Common\Collections\ArrayCollection $categories
-     * @ORM\ManyToMany(targetEntity="\Admin\CategoryBundle\Entity\Category", cascade={"persist", "detach"})
+     * 
+     * @ORM\ManyToMany(targetEntity="\Admin\CategoryBundle\Entity\Category", inversedBy="posts" , cascade={"persist", "detach"})
      * @ORM\JoinTable(
-     *       joinColumns={@ORM\JoinColumn(name="post_id", referencedColumnName="id")},
-     *       inverseJoinColumns={@ORM\JoinColumn(name="category_id", referencedColumnName="id")}
+     *          joinColumns={@ORM\JoinColumn(onDelete="CASCADE")},
+     *          inverseJoinColumns={@ORM\JoinColumn(onDelete="CASCADE")}
      * )
      */
     protected $categories;
@@ -96,7 +96,7 @@ class Post implements Translatable
     private $locale;
     
     public function __construct(){
-        $this->categories = new ArrayCollection();
+        $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     
@@ -327,28 +327,12 @@ class Post implements Translatable
         $this->categories->removeElement($category);
     }
 
-    /**
-     * Add categories
-     *
-     * @param \Admin\CategoryBundle\Entity\Category $categories
-     * @return Post
-     */
-    public function addCategorie(\Admin\CategoryBundle\Entity\Category $categories)
+    public function hasCategory(\Admin\CategoryBundle\Entity\Category $category)
     {
-        $this->categories[] = $categories;
-    
-        return $this;
+        return $this->getCategories()->contains( $category );
     }
 
-    /**
-     * Remove categories
-     *
-     * @param \Admin\CategoryBundle\Entity\Category $categories
-     */
-    public function removeCategorie(\Admin\CategoryBundle\Entity\Category $categories)
-    {
-        $this->categories->removeElement($categories);
-    }
+   
     
      /**
      * Set locale for translation
@@ -360,4 +344,7 @@ class Post implements Translatable
         $this->locale = $locale;
         return $this;
     }
+    
+    
+
 }

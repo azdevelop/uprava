@@ -13,11 +13,15 @@ class ArticleController extends Controller
     public function postAction($post, $locale)
     {
         $em = $this->getDoctrine()->getManager();
-
+       
         $entity = $em->getRepository('ArticleBundle:Post')->findOneBy(array('name' => $post));
         
         $entity->setTranslatableLocale($locale);
         $em->refresh($entity);
+        $categories = $entity->getCategories();
+//        echo '<pre>';
+//        \Doctrine\Common\Util\Debug::dump($ca);
+//        echo '</pre>';
         return $this->render('FrontBundle:Article:post.html.twig',
             array(
                 'post' => $entity
@@ -29,7 +33,8 @@ class ArticleController extends Controller
     {
         
         $em = $this->getDoctrine()->getManager();
-        $posts = $em->getRepository('ArticleBundle:Post')->findAllByLocale($locale);
+        $posts = $em->getRepository('ArticleBundle:Post')->findAllByLocale( $locale );
+       
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
         $posts,
