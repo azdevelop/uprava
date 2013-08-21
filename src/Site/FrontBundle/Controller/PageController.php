@@ -16,9 +16,11 @@ class PageController extends Controller
         $p = $this->get('request')->query->get('page',1);
         $entity = $em->getRepository('PageBundle:Page')->findOneBy(array('name' => $page));
 
+
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Event page.');
         }
+
 
         $entity->setTranslatableLocale( $locale );
         $posts = null;

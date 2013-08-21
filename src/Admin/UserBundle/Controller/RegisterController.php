@@ -15,31 +15,28 @@ class RegisterController extends Controller
      */
     public function registerAction( Request $request ){
 
-         $form = $this->createFormBuilder()
-        ->add('username', 'text')
-        ->add('email', 'email')
-            ->add('password', 'repeated', array(
-                'type' => 'password',
-            ))
-            ->getForm()
-        ;
-         
+        $defaultUser = new User();
+        $defaultUser->setUsername('Foo');
+
+        $form = $this->createForm(new RegisterFormType(), $defaultUser);
 
         if ($request->isMethod('POST')) {
             $form->bind($request);
 
             if ($form->isValid()) {
-                $data = $form->getData();
 
-                $user = new User();
-                $user->setUsername($data['username']);
-                $user->setEmail($data['email']);
-                $user->setRoles(array('ROLE_USER'));
-                $user->setPassword($this->encodePassword($user, $data['password']));
+                $user = $form->getData();
+
+                $user->setPassword($this->encodePassword($user, $user->getPlainPassword()));
 
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($user);
                 $em->flush();
+
+                $request->getSession()
+                    ->getFlashBag()
+                    ->add('success', 'Registration went super smooth!')
+                ;
 
                 // we'll redirect the user next...
             }
