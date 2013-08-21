@@ -12,7 +12,7 @@ use Doctrine\ORM\EntityRepository;
  */
 class PostRepository extends EntityRepository
 {
-    public function findAllByLocale($locale = 'en', $category = null){
+    public function findAllByLocale($locale = 'en', $category = null, $limit = null , $order = null){
         //Make a Select query
         $qb = $this->createQueryBuilder('p');
         $qb->select('p');
@@ -23,6 +23,13 @@ class PostRepository extends EntityRepository
             $qb->innerJoin('p.categories', 'c')
             ->where('c.id = :category')
             ->setParameter('category', $category);
+        }
+        if( $limit ){
+             $qb->setMaxResults( $limit );
+        }
+        
+        if( $order ){
+            $qb->add('orderBy', 'p.id '.$order);
         }
             
 

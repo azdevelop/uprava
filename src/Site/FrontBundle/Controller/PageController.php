@@ -28,8 +28,9 @@ class PageController extends Controller
 
         if( $entity->getPageType() == 'combo' && $widget = $entity->getWidget()){
             $widget = unserialize($widget);
-           
-            $posts = $em->getRepository('ArticleBundle:Post')->findAll( );
+           // var_dump($widget); die();
+            $posts = $em->getRepository('ArticleBundle:Post')
+                    ->findAllByLocale( $locale,$widget['cat'],$widget['posts'], $widget['orderby'] );
             
         }
 
