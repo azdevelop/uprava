@@ -38,6 +38,16 @@ class User implements AdvancedUserInterface, Serializable
     private $username;
 
     /**
+     * @Assert\NotBlank
+     * @Assert\Regex(
+     *      pattern="/^(?=.*\d)(?=.*[a-z]).*$/",
+     *      message="Morate koristiti slova i brojeve"
+     * )
+     */
+    private $plainPassword;
+
+
+    /**
      * @var string $password
      *
      * @ORM\Column(name="password", type="string", length=255)
@@ -267,5 +277,17 @@ class User implements AdvancedUserInterface, Serializable
 
         $this->id = $data['id'];
     }
+
+
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword($plainPassword)
+    {
+        $this->plainPassword = $plainPassword;
+    }
+
 
 }

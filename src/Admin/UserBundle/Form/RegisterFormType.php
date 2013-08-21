@@ -24,7 +24,7 @@ class RegisterFormType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Yoda\UserBundle\Entity\User',
+            'data_class' => 'Admin\UserBundle\Entity\User',
         ));
     }
 

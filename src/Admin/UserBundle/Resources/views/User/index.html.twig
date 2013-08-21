@@ -2,7 +2,13 @@
 
 {% block content -%}
     <h1>User list</h1>
-
+    {% if app.session.flashBag.has('success') %}
+        <div class="alert-message success">
+            {% for msg in app.session.flashBag.get('success') %}
+                {{ msg }}
+            {% endfor %}
+        </div>
+    {% endif %}
     <table class="table table-bordered table-hover">
         <thead>
             <tr>

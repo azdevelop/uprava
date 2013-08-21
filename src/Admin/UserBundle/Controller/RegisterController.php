@@ -7,6 +7,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Admin\UserBundle\Entity\User;
+use Admin\UserBundle\Form\RegisterFormType;
+
 class RegisterController extends Controller
 {
     /**
@@ -16,7 +18,6 @@ class RegisterController extends Controller
     public function registerAction( Request $request ){
 
         $defaultUser = new User();
-        $defaultUser->setUsername('Foo');
 
         $form = $this->createForm(new RegisterFormType(), $defaultUser);
 
@@ -35,10 +36,13 @@ class RegisterController extends Controller
 
                 $request->getSession()
                     ->getFlashBag()
-                    ->add('success', 'Registration went super smooth!')
+                    ->add('success', 'Uspešno ste kreirali korisnika')
                 ;
 
-                // we'll redirect the user next...
+                $url = $this->generateUrl('user');
+
+                return $this->redirect($url);
+
             }
         }
          
