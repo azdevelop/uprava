@@ -2,51 +2,85 @@
 
 namespace Admin\UserBundle\Entity;
 
-use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
+use Serializable;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
+
 /**
- * VNN\PressboxBundle\Entity\User
+ *  Admin\UserBundle\Entity
  *
  * @ORM\Table(name="user")
- * @ORM\Entity
- * @UniqueEntity(fields="email", message="Sorry, this email address is already in use.", groups={"registration"})
- * @UniqueEntity(fields="username", message="Sorry, this username is already taken.", groups={"registration"})
+ * @ORM\Entity(repositoryClass="Admin\UserBundle\Entity\UserRepository")
+ * @UniqueEntity(fields="username", message="That username is taken!")
+ * @UniqueEntity(fields="email", message="That email is taken!")
  */
-class User implements UserInterface
+class User implements AdvancedUserInterface, Serializable
 {
     /**
-     * @var integer
+     * @var integer $id
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
     /**
-     * @var string
+     * @var string $username
+     *
+     * @ORM\Column(name="username", type="string", length=255, unique=true)
+     * @Assert\NotBlank(message="Put in a username of course!")
+     * @Assert\Length(min=2, minMessage="[0,+Inf] Enter something longer!")
      */
     private $username;
 
     /**
-     * @var string
+     * @Assert\NotBlank
+     * @Assert\Regex(
+     *      pattern="/^(?=.*\d)(?=.*[a-z]).*$/",
+     *      message="Morate koristiti slova i brojeve"
+     * )
+     */
+    private $plainPassword;
+
+
+    /**
+     * @var string $password
+     *
+     * @ORM\Column(name="password", type="string", length=255)
      */
     private $password;
 
     /**
-     * @var string
+     * @var string $salt
+     *
+     * @ORM\Column(name="salt", type="string", length=255)
      */
     private $salt;
 
     /**
      * @var array
+     *
+     * @ORM\Column(type="array")
      */
-    private $roles;
+    private $roles = array();
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(type="boolean")
+     */
+    private $isActive = true;
 
     /**
      * @var string
-     */
-    private $isActive;
-
-    /**
-     * @var string
+     *
+     * @ORM\Column(type="string", length=255, unique=true)
+     * @Assert\NotBlank
+     * @Assert\Email
      */
     private $email;
     
@@ -209,4 +243,51 @@ class User implements UserInterface
     {
         // blank for now
     }
+
+    public function isAccountNonExpired()
+    {
+        return true;
+    }
+
+    public function isAccountNonLocked()
+    {
+        return true;
+    }
+
+    public function isCredentialsNonExpired()
+    {
+        return true;
+    }
+
+    public function isEnabled()
+    {
+        return true;
+    }
+
+    public function serialize()
+    {
+        return serialize(array(
+            'id' => $this->getId(),
+        ));
+    }
+
+    public function unserialize($serialized)
+    {
+        $data = unserialize($serialized);
+
+        $this->id = $data['id'];
+    }
+
+
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword($plainPassword)
+    {
+        $this->plainPassword = $plainPassword;
+    }
+
+
 }

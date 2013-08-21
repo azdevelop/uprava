@@ -7,6 +7,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Admin\UserBundle\Entity\User;
+use Admin\UserBundle\Form\RegisterFormType;
+
 class RegisterController extends Controller
 {
     /**
@@ -15,33 +17,32 @@ class RegisterController extends Controller
      */
     public function registerAction( Request $request ){
 
-         $form = $this->createFormBuilder()
-        ->add('username', 'text')
-        ->add('email', 'email')
-            ->add('password', 'repeated', array(
-                'type' => 'password',
-            ))
-            ->getForm()
-        ;
-         
+        $defaultUser = new User();
+
+        $form = $this->createForm(new RegisterFormType(), $defaultUser);
 
         if ($request->isMethod('POST')) {
             $form->bind($request);
 
             if ($form->isValid()) {
-                $data = $form->getData();
 
-                $user = new User();
-                $user->setUsername($data['username']);
-                $user->setEmail($data['email']);
-                $user->setRoles(array('ROLE_USER'));
-                $user->setPassword($this->encodePassword($user, $data['password']));
+                $user = $form->getData();
+
+                $user->setPassword($this->encodePassword($user, $user->getPlainPassword()));
 
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($user);
                 $em->flush();
 
-                // we'll redirect the user next...
+                $request->getSession()
+                    ->getFlashBag()
+                    ->add('success', 'Uspešno ste kreirali korisnika')
+                ;
+
+                $url = $this->generateUrl('user');
+
+                return $this->redirect($url);
+
             }
         }
          

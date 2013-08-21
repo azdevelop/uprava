@@ -14,16 +14,16 @@
                 {{ form_row(form.username) }}
                 {{ form_row(form.email) }}
 
-                {{ form_row(form.password.first, {
-                    'label': 'Password'
+                {{ form_row(form.plainPassword.first, {
+                'label': 'Password'
                 }) }}
-                {{ form_row(form.password.second, {
-                    'label': 'Repeat Password'
+                {{ form_row(form.plainPassword.second, {
+                'label': 'Repeat Password'
                 }) }}
 
                 {{ form_rest(form) }}
 
-                <input type="submit" value="Save" />
+                <input type="submit" value="Register!" />
             </form>
 
         </section>

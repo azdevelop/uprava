@@ -14,7 +14,7 @@ class LoginController extends Controller
      * @Template()
      */
     public function loginAction()
-    {   
+    {
          $manager = $this->getDoctrine()->getManager();
         $user = new User();
         $user->setUsername('user');
